@@ -73,6 +73,8 @@
 <body>
 
     <canvas id="particle-canvas"></canvas>
+ 
+    <iframe src="loading.html" id="loader-frame"></iframe>
 
     <div class="content" id="main-site">
         <div class="glass-card">
@@ -83,6 +85,17 @@
     </div>
 
     <script>
+        // --- 1. LOADER LOGIC ---
+        window.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                const loader = document.getElementById('loader-frame');
+                const content = document.getElementById('main-site');
+                loader.classList.add('fade-out');
+                content.classList.add('visible');
+                setTimeout(() => loader.remove(), 1000);
+            }, 5000); 
+        });
+
         // --- 2. PARTICLE SYSTEM ---
         const canvas = document.getElementById('particle-canvas');
         const ctx = canvas.getContext('2d');
