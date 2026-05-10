@@ -1,205 +1,323 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Butter Dog Games</title>
-    <style>
-        body, html {
-            margin: 0; padding: 0; width: 100%; height: 100%;
-            background-color: #0a0a0a; color: white;
-            font-family: 'Segoe UI', sans-serif;
-            overflow-x: hidden;
-            scroll-behavior: smooth; /* Enables smooth scrolling */
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Butter Dog Games</title>
 
-        /* Particle Canvas */
-        #particle-canvas {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            z-index: 1;
-        }
+<style>
+html, body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+  background: #0a0a0a;
+  color: white;
+  font-family: Arial, sans-serif;
+  overflow-x: hidden;
+}
 
-        /* Loading Iframe */
-        #loader-frame {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            border: none; z-index: 9999;
-            transition: opacity 1s ease-out;
-        }
+#particle-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+}
 
-        /* Navbar */
-        .navbar {
-            z-index: 100;
-            padding: 15px 0;
-            text-align: center;
-            
-        }
-        .navbar a {
-            color: white;
-            text-decoration: none;
-            margin: 20px;
-            font-weight: bold;
-            font-size: 1.1rem;
-        }
+body {
+  position: relative;
+}
 
-        /* Sections */
-        .section {
-            position: relative; z-index: 10;
-            min-height: 100vh;
-            display: flex; flex-direction: column;
-            align-items: center; justify-content: center;
-            text-align: center;
-            opacity: 0; transition: opacity 1.5s ease-in-out;
-        }
-        .section.visible { opacity: 1; }
+header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: rgba(0,0,0,.65);
+  backdrop-filter: blur(10px);
+  padding: 15px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
-        .glass-card {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            padding: 40px; border-radius: 20px;
-            border: 1px solid rgba(255,255,255,0.1);
-            width: 80%;
-            height: 50vh;
-        }
+.logo {
+  font-size: 26px;
+  font-weight: bold;
+}
 
-        h1 { font-size: 3rem; text-shadow: 0 0 20px rgba(255,255,255,0.3); }
-        .fade-out { opacity: 0; pointer-events: none; }
-    </style>
+nav a {
+  color: white;
+  text-decoration: none;
+  margin-left: 20px;
+  font-weight: bold;
+}
+
+section {
+  position: relative;
+  z-index: 10;
+  padding: 70px 25px;
+  text-align: center;
+}
+
+.hero {
+  min-height: 75vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+h1 {
+  font-size: 55px;
+  margin-bottom: 10px;
+}
+
+p {
+  color: #ddd;
+  font-size: 18px;
+}
+
+.game-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 25px;
+  max-width: 1000px;
+  margin: 40px auto;
+}
+
+.game-card {
+  background: rgba(255,255,255,.08);
+  border: 1px solid rgba(255,255,255,.15);
+  border-radius: 18px;
+  padding: 25px;
+  backdrop-filter: blur(8px);
+  transition: .25s;
+}
+
+.game-card:hover {
+  transform: translateY(-8px);
+  background: rgba(255,255,255,.14);
+}
+
+.game-icon {
+  font-size: 55px;
+}
+
+button {
+  margin-top: 15px;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 999px;
+  background: white;
+  color: black;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #ffd966;
+}
+
+footer {
+  position: relative;
+  z-index: 10;
+  text-align: center;
+  padding: 30px;
+  color: #aaa;
+}
+</style>
 </head>
+
 <body>
-    <canvas id="particle-canvas"></canvas>
-    <iframe src="https://coder5003.github.io/loading" id="loader-frame"></iframe>
-    
-    <div id="main-content" style="opacity: 0; transition: opacity 1s;">
-        <section id="home" class="section">
-            <div class="glass-card">
-                <h1>WELCOME TO BUTTER DOG GAMES</h1>
-                <nav class="navbar">
-        <a href="#home">Home</a>
-        <a href="#games">Games</a>
-        <a href="#partners">Partners</a>
-        <a href="#analytics">Analytics</a>
-    </nav>
-                <p>Indie game development at its finest.</p>
-            </div>
-        </section>
-        <section id="games" class="section">
-            <div class="glass-card">
-                <h1>DA GAMES</h1>
-                <p>Explore our creations.</p>
-            </div>
-        </section>
-        <section id="partners" class="section">
-            <div class="glass-card">
-                <h1>PARTNERS</h1>
-                <p>Collaborators and friends.</p>
-            </div>
-        </section>
-        <section id="analytics" class="section">
-            <div class="glass-card">
-                <h1>ANALYTICS</h1>
-                <p>Data-driven insights.</p>
-            </div>
-        </section>
+
+<canvas id="particle-canvas"></canvas>
+
+<header>
+  <div class="logo">🧈🐶 Butter Dog Games</div>
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#games">Games</a>
+    <a href="#partners">Partners</a>
+  </nav>
+</header>
+
+<section id="home" class="hero">
+  <h1>Butter Dog Games</h1>
+  <p>Play simple browser games in one clean game hub.</p>
+</section>
+
+<section id="games">
+  <h1>Games</h1>
+
+  <div class="game-grid">
+
+    <div class="game-card">
+      <div class="game-icon">🐍</div>
+      <h2>Snake</h2>
+      <p>Classic snake game.</p>
+      <button onclick="openGame('https://playsnake.org/')">Play</button>
     </div>
 
-    <script>
-        // --- 1. LOADER LOGIC ---
-        window.addEventListener('DOMContentLoaded', () => {
-            setTimeout(() => {
-                const loader = document.getElementById('loader-frame');
-                const content = document.getElementById('main-content');
-                loader.classList.add('fade-out');
-                content.style.opacity = '1';
-                document.querySelectorAll('.section').forEach(s => s.classList.add('visible'));
-                setTimeout(() => loader.remove(), 1000);
-            }, 8000); // Reduced time for testing
-        });
+    <div class="game-card">
+      <div class="game-icon">🦖</div>
+      <h2>Dino Game</h2>
+      <p>Jump and survive.</p>
+      <button onclick="openGame('https://chromedino.com/')">Play</button>
+    </div>
 
-        // --- 2. PARTICLE SYSTEM ---
-        const canvas = document.getElementById('particle-canvas');
-        const ctx = canvas.getContext('2d');
-        let particles = [];
-        const mouse = { x: null, y: null, radius: 100 };
+    <div class="game-card">
+      <div class="game-icon">⭕</div>
+      <h2>Tic Tac Toe</h2>
+      <p>Simple strategy game.</p>
+      <button onclick="openGame('https://playtictactoe.org/')">Play</button>
+    </div>
 
-        window.addEventListener('mousemove', (e) => {
-            mouse.x = e.x;
-            mouse.y = e.y;
-        });
+    <div class="game-card">
+      <div class="game-icon">🧩</div>
+      <h2>2048</h2>
+      <p>Slide tiles and reach 2048.</p>
+      <button onclick="openGame('https://play2048.co/')">Play</button>
+    </div>
 
-        function resize() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-        window.addEventListener('resize', resize);
-        resize();
+  </div>
+</section>
 
-        class Particle {
-            constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 2 + 1;
-                this.speedX = (Math.random() * 1) - 0.5;
-                this.speedY = (Math.random() * 1) - 0.5;
-            }
-            draw() {
-                ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.closePath();
-                ctx.fill();
-            }
-            update() {
-                let dx = mouse.x - this.x;
-                let dy = mouse.y - this.y;
-                let distance = Math.sqrt(dx*dx + dy*dy);
-                if (distance < mouse.radius) {
-                    const force = (mouse.radius - distance) / mouse.radius;
-                    this.x -= (dx / distance) * force * 5;
-                    this.y -= (dy / distance) * force * 5;
-                } else {
-                    this.x += this.speedX;
-                    this.y += this.speedY;
-                    if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
-                    if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
-                }
-                this.draw();
-            }
+<section id="partners">
+  <h1>Partners</h1>
+  <p>Add your friends, clans, servers, or links here.</p>
+</section>
+
+<footer>
+  Butter Dog Games © 2026
+</footer>
+
+<script>
+function openGame(url) {
+  const tab = window.open("about:blank", "_blank");
+
+  if (!tab) {
+    alert("Popup blocked. Allow popups for this site.");
+    return;
+  }
+
+  tab.document.write(`
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <title>Butter Dog Games</title>
+      <style>
+        html, body {
+          margin: 0;
+          height: 100%;
+          overflow: hidden;
+          font-family: Arial, sans-serif;
+          background: #111;
         }
 
-        function init() {
-            particles = [];
-            const numberOfParticles = (canvas.width * canvas.height) / 3000;
-            for (let i = 0; i < numberOfParticles; i++) {
-                particles.push(new Particle());
-            }
+        .topbar {
+          height: 60px;
+          background: #111;
+          color: white;
+          display: flex;
+          align-items: center;
+          padding: 0 18px;
+          gap: 15px;
         }
 
-        function connect() {
-            for (let a = 0; a < particles.length; a++) {
-                for (let b = a; b < particles.length; b++) {
-                    let dx = particles[a].x - particles[b].x;
-                    let dy = particles[a].y - particles[b].y;
-                    let distance = Math.sqrt(dx*dx + dy*dy);
-                    if (distance < 100) {
-                        ctx.strokeStyle = `rgba(255, 255, 255, ${1 - distance/100})`;
-                        ctx.lineWidth = 1;
-                        ctx.beginPath();
-                        ctx.moveTo(particles[a].x, particles[a].y);
-                        ctx.lineTo(particles[b].x, particles[b].y);
-                        ctx.stroke();
-                    }
-                }
-            }
+        .logo {
+          font-weight: bold;
+          font-size: 22px;
+          cursor: pointer;
         }
 
-        function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            particles.forEach(p => p.update());
-            connect();
-            requestAnimationFrame(animate);
+        button {
+          padding: 8px 14px;
+          border: none;
+          border-radius: 8px;
+          cursor: pointer;
+          font-weight: bold;
         }
-        init();
-        animate();
-    </script>
+
+        iframe {
+          width: 100%;
+          height: calc(100vh - 60px);
+          border: none;
+          background: white;
+        }
+      </style>
+    </head>
+
+    <body>
+      <div class="topbar">
+        <div class="logo" onclick="location.href='${location.href}'">🧈🐶 Butter Dog Games</div>
+        <button onclick="document.querySelector('iframe').contentWindow.location.reload()">Reload</button>
+        <button onclick="document.documentElement.requestFullscreen()">Fullscreen</button>
+      </div>
+
+      <iframe src="${url}"></iframe>
+    </body>
+    </html>
+  `);
+
+  tab.document.close();
+}
+
+// particles
+const canvas = document.getElementById("particle-canvas");
+const ctx = canvas.getContext("2d");
+
+let particles = [];
+
+function resize() {
+  canvas.width = innerWidth;
+  canvas.height = innerHeight;
+}
+resize();
+addEventListener("resize", resize);
+
+class Particle {
+  constructor() {
+    this.x = Math.random() * canvas.width;
+    this.y = Math.random() * canvas.height;
+    this.vx = Math.random() - .5;
+    this.vy = Math.random() - .5;
+    this.size = Math.random() * 2 + 1;
+  }
+
+  update() {
+    this.x += this.vx;
+    this.y += this.vy;
+
+    if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+    if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+  }
+
+  draw() {
+    ctx.fillStyle = "white";
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+    ctx.fill();
+  }
+}
+
+function init() {
+  particles = [];
+  for (let i = 0; i < 120; i++) {
+    particles.push(new Particle());
+  }
+}
+
+function animate() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  particles.forEach(p => {
+    p.update();
+    p.draw();
+  });
+
+  requestAnimationFrame(animate);
+}
+
+init();
+animate();
+</script>
+
 </body>
 </html>
