@@ -1,281 +1,745 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Butter Dog Games</title>
-    <style>
-        body, html {
-            margin: 0; padding: 0; width: 100%; height: 100%;
-            background-color: #0a0a0a; color: white;
-            font-family: 'Segoe UI', sans-serif;
-            overflow-x: hidden;
-            scroll-behavior: smooth;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Butter Dog Games</title>
+<link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;600;800;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:      #020813;
+  --bg2:     #040d1c;
+  --blue:    #2979ff;
+  --blue2:   #00b0ff;
+  --surface: rgba(41,121,255,0.07);
+  --border:  rgba(41,121,255,0.18);
+  --text:    #d6e8ff;
+  --muted:   #4a6fa5;
+  --bar-h:   50px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html,body{
+  width:100%;height:100%;
+  background:var(--bg);color:var(--text);
+  font-family:'Exo 2',sans-serif;
+  overflow-x:hidden;scroll-behavior:smooth;
+}
+::-webkit-scrollbar{width:5px;}
+::-webkit-scrollbar-track{background:transparent;}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:99px;}
 
-        #particle-canvas {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            z-index: 1;
-        }
+/* CANVAS */
+#particle-canvas{position:fixed;inset:0;z-index:0;pointer-events:none;}
 
-        #loader-frame {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            border: none; z-index: 9999;
-            transition: opacity 1s ease-out;
-        }
+/* GRID OVERLAY */
+.grid-bg{
+  position:fixed;inset:0;z-index:1;pointer-events:none;
+  background-image:
+    linear-gradient(rgba(41,121,255,0.04) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(41,121,255,0.04) 1px,transparent 1px);
+  background-size:64px 64px;
+}
 
-        .navbar {
-            z-index: 100;
-            padding: 15px 0;
-            text-align: center;
-        }
+/* LOADER IFRAME */
+#loader-frame{
+  position:fixed;inset:0;border:none;
+  z-index:9999;transition:opacity 0.9s ease;
+}
+#loader-frame.fade{opacity:0;pointer-events:none;}
 
-        .navbar a {
-            color: white;
-            text-decoration: none;
-            margin: 20px;
-            font-weight: bold;
-            font-size: 1.1rem;
-        }
+/* MAIN */
+#main-content{
+  position:relative;z-index:10;
+  opacity:0;transition:opacity 0.9s ease;
+}
+#main-content.visible{opacity:1;}
 
-        .section {
-            position: relative; z-index: 10;
-            min-height: 100vh;
-            display: flex; flex-direction: column;
-            align-items: center; justify-content: center;
-            text-align: center;
-            opacity: 0; transition: opacity 1.5s ease-in-out;
-        }
+/* NAVBAR */
+#navbar{
+  position:sticky;top:0;z-index:200;
+  display:flex;align-items:center;
+  padding:0 30px;height:58px;
+  background:rgba(2,8,19,0.92);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+}
+.nav-logo{
+  font-weight:900;font-size:1rem;
+  letter-spacing:0.14em;text-transform:uppercase;
+  color:var(--blue2);text-decoration:none;
+  text-shadow:0 0 18px rgba(0,176,255,0.55);
+  white-space:nowrap;flex-shrink:0;
+  transition:text-shadow 0.2s;
+}
+.nav-logo:hover{text-shadow:0 0 32px rgba(0,176,255,1);}
+.nav-links{display:flex;gap:2px;margin-left:26px;}
+.nav-links a{
+  color:var(--muted);text-decoration:none;
+  font-size:0.8rem;font-weight:600;
+  letter-spacing:0.18em;text-transform:uppercase;
+  padding:6px 13px;border-radius:6px;
+  transition:color 0.2s,background 0.2s;
+}
+.nav-links a:hover{color:var(--blue2);background:var(--surface);}
 
-        .section.visible { opacity: 1; }
+/* SECTIONS */
+.section{
+  min-height:100vh;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  padding:100px 24px;text-align:center;
+  position:relative;
+}
 
-        .glass-card {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            padding: 40px; border-radius: 20px;
-            border: 1px solid rgba(255,255,255,0.1);
-            width: 80%;
-            min-height: 50vh;
-        }
+/* HERO */
+.hero-orb{
+  position:absolute;width:700px;height:700px;border-radius:50%;
+  background:radial-gradient(circle,rgba(41,121,255,0.1) 0%,transparent 70%);
+  pointer-events:none;z-index:-1;
+  animation:breathe 7s ease-in-out infinite;
+}
+@keyframes breathe{0%,100%{transform:scale(1);opacity:.7}50%{transform:scale(1.1);opacity:1}}
 
-        h1 { 
-            font-size: 3rem; 
-            text-shadow: 0 0 20px rgba(255,255,255,0.3); 
-        }
+.hero-tag{
+  display:inline-block;
+  font-family:'Share Tech Mono',monospace;
+  font-size:0.7rem;letter-spacing:0.35em;text-transform:uppercase;
+  color:var(--blue2);
+  border:1px solid rgba(0,176,255,0.28);
+  padding:5px 16px;border-radius:99px;
+  background:rgba(0,176,255,0.06);
+  margin-bottom:26px;
+  opacity:0;animation:fadeUp .6s .1s forwards;
+}
+.hero-title{
+  font-weight:900;
+  font-size:clamp(3rem,9vw,7.5rem);
+  line-height:.95;letter-spacing:-0.02em;
+  color:#fff;
+  opacity:0;animation:fadeUp .6s .25s forwards;
+}
+.hero-title .blue{
+  display:block;
+  background:linear-gradient(90deg,var(--blue),var(--blue2));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  filter:drop-shadow(0 0 30px rgba(41,121,255,.55));
+}
+.hero-sub{
+  margin-top:22px;font-size:1.05rem;font-weight:300;
+  color:var(--muted);max-width:420px;margin-inline:auto;
+  line-height:1.6;
+  opacity:0;animation:fadeUp .6s .4s forwards;
+}
+.hero-cta{
+  margin-top:38px;display:inline-flex;gap:12px;flex-wrap:wrap;justify-content:center;
+  opacity:0;animation:fadeUp .6s .55s forwards;
+}
+.btn-primary{
+  padding:13px 32px;border-radius:8px;
+  background:linear-gradient(135deg,var(--blue),var(--blue2));
+  color:#fff;font-family:'Exo 2',sans-serif;
+  font-weight:700;font-size:0.84rem;
+  letter-spacing:0.12em;text-transform:uppercase;
+  border:none;cursor:pointer;text-decoration:none;
+  box-shadow:0 4px 28px rgba(41,121,255,.45);
+  transition:transform .18s,box-shadow .18s;
+}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 40px rgba(41,121,255,.65);}
+.btn-ghost{
+  padding:13px 32px;border-radius:8px;
+  background:transparent;color:var(--blue2);
+  border:1px solid rgba(0,176,255,.32);
+  font-family:'Exo 2',sans-serif;font-weight:600;font-size:0.84rem;
+  letter-spacing:0.12em;text-transform:uppercase;
+  cursor:pointer;text-decoration:none;
+  transition:background .18s,border-color .18s;
+}
+.btn-ghost:hover{background:rgba(0,176,255,.08);border-color:rgba(0,176,255,.6);}
 
-        .fade-out { opacity: 0; pointer-events: none; }
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(22px)}
+  to{opacity:1;transform:translateY(0)}
+}
 
-        .game-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 20px;
-            margin-top: 30px;
-        }
+/* SECTION HEADERS */
+.sec-eye{
+  font-family:'Share Tech Mono',monospace;
+  font-size:0.7rem;letter-spacing:.4em;text-transform:uppercase;
+  color:var(--blue2);margin-bottom:10px;
+}
+.sec-title{
+  font-weight:900;font-size:clamp(1.9rem,4vw,2.9rem);
+  color:#fff;margin-bottom:12px;letter-spacing:-.01em;
+}
+.sec-desc{
+  color:var(--muted);font-size:1rem;
+  max-width:460px;margin:0 auto 48px;line-height:1.65;
+}
 
-        .game-card {
-            background: rgba(255,255,255,0.08);
-            padding: 20px;
-            border-radius: 15px;
-            border: 1px solid rgba(255,255,255,0.1);
-        }
+/* GAME GRID */
+.game-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(205px,1fr));
+  gap:15px;width:100%;max-width:1080px;
+}
+.game-card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:28px 20px 22px;
+  display:flex;flex-direction:column;align-items:center;gap:10px;
+  position:relative;overflow:hidden;
+  transition:border-color .25s,transform .25s,box-shadow .25s;
+}
+.game-card::before{
+  content:'';position:absolute;inset:0;border-radius:inherit;
+  background:linear-gradient(135deg,rgba(41,121,255,.06),transparent);
+  opacity:0;transition:opacity .25s;
+}
+.game-card:hover{
+  border-color:rgba(41,121,255,.55);
+  transform:translateY(-5px);
+  box-shadow:0 14px 40px rgba(41,121,255,.22);
+}
+.game-card:hover::before{opacity:1;}
+.game-icon{font-size:2.5rem;line-height:1;}
+.game-name{
+  font-weight:800;font-size:0.9rem;
+  letter-spacing:.07em;text-transform:uppercase;color:#fff;
+}
+.game-desc{font-size:.82rem;color:var(--muted);text-align:center;line-height:1.5;flex:1;}
+.play-btn{
+  margin-top:8px;padding:9px 24px;
+  border:none;border-radius:7px;
+  background:linear-gradient(135deg,var(--blue),var(--blue2));
+  color:#fff;font-family:'Exo 2',sans-serif;
+  font-size:.78rem;font-weight:700;
+  letter-spacing:.1em;text-transform:uppercase;
+  cursor:pointer;
+  box-shadow:0 2px 14px rgba(41,121,255,.35);
+  transition:transform .15s,box-shadow .15s;
+}
+.play-btn:hover{transform:scale(1.06);box-shadow:0 4px 22px rgba(41,121,255,.6);}
 
-        .game-card h2 {
-            margin-top: 0;
-        }
+/* PARTNERS */
+.partner-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+  gap:15px;width:100%;max-width:900px;
+}
+.partner-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:14px;padding:26px 22px;text-align:left;
+  transition:border-color .2s,transform .2s;
+}
+.partner-card:hover{border-color:rgba(0,176,255,.45);transform:translateY(-3px);}
+.partner-name{font-weight:800;font-size:.88rem;letter-spacing:.06em;text-transform:uppercase;color:#fff;margin-bottom:6px;}
+.partner-role{font-size:.82rem;color:var(--muted);line-height:1.5;}
+.partner-tag{
+  margin-top:14px;display:inline-block;
+  padding:3px 10px;border-radius:99px;
+  background:rgba(0,176,255,.1);color:var(--blue2);
+  font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;
+  font-family:'Share Tech Mono',monospace;
+}
 
-        .game-card button {
-            padding: 10px 18px;
-            border: none;
-            border-radius: 999px;
-            background: white;
-            color: black;
-            font-weight: bold;
-            cursor: pointer;
-        }
+/* ANALYTICS */
+.stat-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(175px,1fr));
+  gap:15px;width:100%;max-width:860px;
+}
+.stat-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:14px;padding:28px 22px;text-align:left;position:relative;overflow:hidden;
+}
+.stat-card::after{
+  content:'';position:absolute;bottom:-24px;right:-24px;
+  width:90px;height:90px;border-radius:50%;
+  background:radial-gradient(circle,rgba(41,121,255,.14),transparent 70%);
+}
+.stat-label{
+  font-family:'Share Tech Mono',monospace;
+  font-size:.68rem;letter-spacing:.25em;text-transform:uppercase;
+  color:var(--muted);margin-bottom:8px;
+}
+.stat-val{
+  font-weight:900;font-size:2.2rem;line-height:1;
+  background:linear-gradient(135deg,var(--blue),var(--blue2));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
+.stat-sub{margin-top:6px;font-size:.78rem;color:var(--muted);}
 
-        .game-card button:hover {
-            background: #ddd;
-        }
-    </style>
+/* FOOTER */
+footer{
+  position:relative;z-index:10;
+  border-top:1px solid var(--border);
+  padding:30px 24px;text-align:center;
+  color:var(--muted);font-size:.8rem;letter-spacing:.1em;
+}
+footer a{color:var(--blue2);text-decoration:none;}
+
+/* ═══════════ GAME VIEWER ═══════════ */
+#game-viewer{
+  display:none;position:fixed;inset:0;
+  z-index:5000;flex-direction:column;background:#000;
+}
+#game-viewer.open{display:flex;}
+
+/* TOP BAR */
+#viewer-bar{
+  height:var(--bar-h);flex-shrink:0;
+  background:rgba(2,8,19,0.97);
+  border-bottom:1px solid var(--border);
+  backdrop-filter:blur(16px);
+  display:flex;align-items:center;gap:6px;
+  padding:0 10px;z-index:5100;
+}
+.bar-logo{
+  font-family:'Exo 2',sans-serif;font-weight:900;
+  font-size:.82rem;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--blue2);
+  text-shadow:0 0 14px rgba(0,176,255,.5);
+  cursor:pointer;white-space:nowrap;flex-shrink:0;
+  border:none;background:transparent;padding:0 8px;
+  transition:text-shadow .2s;
+}
+.bar-logo:hover{text-shadow:0 0 26px rgba(0,176,255,1);}
+.bar-sep{width:1px;height:26px;background:var(--border);flex-shrink:0;margin:0 2px;}
+.url-pill{
+  flex:1;display:flex;align-items:center;
+  background:rgba(41,121,255,.06);border:1px solid var(--border);
+  border-radius:7px;padding:0 12px;height:32px;gap:8px;min-width:0;
+}
+.url-pill-lock{font-size:.72rem;color:#4caf7d;flex-shrink:0;}
+.url-pill-text{
+  flex:1;font-family:'Share Tech Mono',monospace;
+  font-size:.74rem;color:var(--muted);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.bar-btn{
+  width:34px;height:34px;flex-shrink:0;
+  background:rgba(41,121,255,.07);
+  border:1px solid var(--border);border-radius:7px;
+  color:var(--muted);cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1rem;position:relative;
+  transition:background .15s,color .15s,border-color .15s,box-shadow .15s;
+}
+.bar-btn:hover{
+  background:rgba(41,121,255,.2);color:var(--blue2);
+  border-color:rgba(41,121,255,.5);
+  box-shadow:0 0 12px rgba(41,121,255,.25);
+}
+.bar-btn[title]:hover::after{
+  content:attr(title);
+  position:absolute;bottom:-34px;left:50%;transform:translateX(-50%);
+  background:#0a1628;border:1px solid var(--border);
+  color:var(--text);font-size:.68rem;font-family:'Exo 2',sans-serif;
+  padding:4px 8px;border-radius:6px;white-space:nowrap;pointer-events:none;z-index:9999;
+}
+.bar-btn.close-btn:hover{
+  background:rgba(255,60,60,.15);border-color:rgba(255,60,60,.5);color:#ff5555;
+}
+
+/* IFRAME AREA */
+#viewer-frame-wrap{flex:1;position:relative;overflow:hidden;}
+#viewer-iframe{width:100%;height:100%;border:none;background:#fff;}
+
+/* IFRAME LOADING OVERLAY */
+#iframe-loading{
+  position:absolute;inset:0;
+  background:var(--bg);
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:18px;
+  z-index:10;transition:opacity .4s;
+}
+#iframe-loading.hidden{opacity:0;pointer-events:none;}
+.il-dog{font-size:3.2rem;animation:bob .9s ease-in-out infinite alternate;}
+@keyframes bob{from{transform:translateY(0)}to{transform:translateY(-12px)}}
+.il-title{font-weight:800;font-size:1.1rem;letter-spacing:.05em;color:#fff;}
+.il-bar-wrap{
+  width:220px;height:3px;background:rgba(255,255,255,.07);
+  border-radius:99px;overflow:hidden;
+}
+.il-bar-fill{
+  height:100%;
+  background:linear-gradient(90deg,var(--blue),var(--blue2));
+  border-radius:99px;
+  animation:barload 1.6s ease forwards;
+}
+@keyframes barload{from{width:0}to{width:100%}}
+.il-sub{
+  font-family:'Share Tech Mono',monospace;
+  font-size:.7rem;letter-spacing:.3em;
+  color:var(--muted);text-transform:uppercase;
+}
+</style>
 </head>
 <body>
-    <canvas id="particle-canvas"></canvas>
-    <iframe src="https://coder5003.github.io/loading" id="loader-frame"></iframe>
-    
-    <div id="main-content" style="opacity: 0; transition: opacity 1s;">
-        <section id="home" class="section">
-            <div class="glass-card">
-                <h1>WELCOME TO BUTTER DOG GAMES</h1>
-                <nav class="navbar">
-                    <a href="#home">Home</a>
-                    <a href="#games">Games</a>
-                    <a href="#partners">Partners</a>
-                    <a href="#analytics">Analytics</a>
-                </nav>
-                <p>Indie game development at its finest.</p>
-            </div>
-        </section>
 
-        <section id="games" class="section">
-            <div class="glass-card">
-                <h1>DA GAMES</h1>
-                <p>Explore our creations.</p>
+<canvas id="particle-canvas"></canvas>
+<div class="grid-bg"></div>
 
-                <div class="game-grid">
-                    <div class="game-card">
-                        <h2>🐍 Snake</h2>
-                        <p>Classic snake game.</p>
-                        <button onclick="openGame('https://playsnake.org/')">Play</button>
-                    </div>
+<!-- ── IFRAME LOADER (original) ── -->
+<iframe src="https://coder5003.github.io/loading" id="loader-frame"></iframe>
 
-                    <div class="game-card">
-                        <h2>🦖 Dino</h2>
-                        <p>Jump and survive.</p>
-                        <button onclick="openGame('https://chromedino.com/')">Play</button>
-                    </div>
+<!-- ── MAIN CONTENT ── -->
+<div id="main-content">
 
-                    <div class="game-card">
-                        <h2>🧩 2048</h2>
-                        <p>Slide tiles to 2048.</p>
-                        <button onclick="openGame('https://play2048.co/')">Play</button>
-                    </div>
-
-                    <div class="game-card">
-                        <h2>⭕ Tic Tac Toe</h2>
-                        <p>Simple strategy game.</p>
-                        <button onclick="openGame('https://playtictactoe.org/')">Play</button>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="partners" class="section">
-            <div class="glass-card">
-                <h1>PARTNERS</h1>
-                <p>Collaborators and friends.</p>
-            </div>
-        </section>
-
-        <section id="analytics" class="section">
-            <div class="glass-card">
-                <h1>ANALYTICS</h1>
-                <p>Data-driven insights.</p>
-            </div>
-        </section>
+  <nav id="navbar">
+    <a class="nav-logo" href="#home">🐶 Butter Dog Games</a>
+    <div class="nav-links">
+      <a href="#home">Home</a>
+      <a href="#games">Games</a>
+      <a href="#partners">Partners</a>
+      <a href="#analytics">Analytics</a>
     </div>
+  </nav>
 
-    <script>
-        // --- GAME OPEN LOGIC ---
-        function openGame(url) {
-            window.open(url, "_blank");
-        }
+  <!-- HOME -->
+  <section id="home" class="section">
+    <div class="hero-orb"></div>
+    <p class="hero-tag">// Unblocked · Free · No Install</p>
+    <h1 class="hero-title">
+      Butter Dog<br><span class="blue">Games</span>
+    </h1>
+    <p class="hero-sub">Indie games that go anywhere with you. No filters. No friction. Just play.</p>
+    <div class="hero-cta">
+      <a class="btn-primary" href="#games">Browse Games</a>
+      <a class="btn-ghost" href="#analytics">View Stats</a>
+    </div>
+  </section>
 
-        // --- 1. LOADER LOGIC ---
-        window.addEventListener('DOMContentLoaded', () => {
-            setTimeout(() => {
-                const loader = document.getElementById('loader-frame');
-                const content = document.getElementById('main-content');
-                loader.classList.add('fade-out');
-                content.style.opacity = '1';
-                document.querySelectorAll('.section').forEach(s => s.classList.add('visible'));
-                setTimeout(() => loader.remove(), 1000);
-            }, 8000);
-        });
+  <!-- GAMES -->
+  <section id="games" class="section">
+    <p class="sec-eye">// Arcade Vault</p>
+    <h2 class="sec-title">The Games</h2>
+    <p class="sec-desc">Every game loads right here in our built-in viewer — no new tabs, no blocks, no drama.</p>
+    <div class="game-grid">
+      <div class="game-card">
+        <div class="game-icon">🐍</div>
+        <div class="game-name">Snake</div>
+        <div class="game-desc">Eat, grow, don't bite yourself. The OG endless grind.</div>
+        <button class="play-btn" onclick="openGame('https://playsnake.org/','Snake')">▶ Play</button>
+      </div>
+      <div class="game-card">
+        <div class="game-icon">🦖</div>
+        <div class="game-name">Dino Run</div>
+        <div class="game-desc">Jump cacti, dodge birds, survive the endless desert.</div>
+        <button class="play-btn" onclick="openGame('https://chromedino.com/','Dino Run')">▶ Play</button>
+      </div>
+      <div class="game-card">
+        <div class="game-icon">🧩</div>
+        <div class="game-name">2048</div>
+        <div class="game-desc">Slide and merge tiles until you hit the legendary number.</div>
+        <button class="play-btn" onclick="openGame('https://play2048.co/','2048')">▶ Play</button>
+      </div>
+      <div class="game-card">
+        <div class="game-icon">⭕</div>
+        <div class="game-name">Tic Tac Toe</div>
+        <div class="game-desc">Three in a row wins. Simple, tactical, addictive.</div>
+        <button class="play-btn" onclick="openGame('https://playtictactoe.org/','Tic Tac Toe')">▶ Play</button>
+      </div>
+      <div class="game-card">
+        <div class="game-icon">🏓</div>
+        <div class="game-name">Pong</div>
+        <div class="game-desc">The original arcade hit. Bounce the ball past your rival.</div>
+        <button class="play-btn" onclick="openGame('https://www.ponggame.org/','Pong')">▶ Play</button>
+      </div>
+      <div class="game-card">
+        <div class="game-icon">💣</div>
+        <div class="game-name">Minesweeper</div>
+        <div class="game-desc">Flag the mines. Logic and luck under pressure.</div>
+        <button class="play-btn" onclick="openGame('https://minesweeper.online/','Minesweeper')">▶ Play</button>
+      </div>
+      <div class="game-card">
+        <div class="game-icon">🃏</div>
+        <div class="game-name">Solitaire</div>
+        <div class="game-desc">Stack the cards, clear the board. Endlessly chill.</div>
+        <button class="play-btn" onclick="openGame('https://www.solitr.com/','Solitaire')">▶ Play</button>
+      </div>
+      <div class="game-card">
+        <div class="game-icon">🔤</div>
+        <div class="game-name">Wordle</div>
+        <div class="game-desc">Guess the 5-letter word in 6 tries. Daily brain fuel.</div>
+        <button class="play-btn" onclick="openGame('https://wordlegame.org/','Wordle')">▶ Play</button>
+      </div>
+    </div>
+  </section>
 
-        // --- 2. PARTICLE SYSTEM ---
-        const canvas = document.getElementById('particle-canvas');
-        const ctx = canvas.getContext('2d');
-        let particles = [];
-        const mouse = { x: null, y: null, radius: 100 };
+  <!-- PARTNERS -->
+  <section id="partners" class="section">
+    <p class="sec-eye">// Collab Network</p>
+    <h2 class="sec-title">Partners</h2>
+    <p class="sec-desc">The studios and creators we build with.</p>
+    <div class="partner-grid">
+      <div class="partner-card">
+        <div class="partner-name">Pixel Void Studio</div>
+        <div class="partner-role">Retro arcade specialists crafting tight chunky gameplay since 2019.</div>
+        <span class="partner-tag">Game Dev</span>
+      </div>
+      <div class="partner-card">
+        <div class="partner-name">Neon Drift Co.</div>
+        <div class="partner-role">Speed-based games and custom physics engines.</div>
+        <span class="partner-tag">Racing</span>
+      </div>
+      <div class="partner-card">
+        <div class="partner-name">Gridlock Labs</div>
+        <div class="partner-role">Puzzle design and brain teasers that break you nicely.</div>
+        <span class="partner-tag">Puzzle</span>
+      </div>
+      <div class="partner-card">
+        <div class="partner-name">Doggo Media</div>
+        <div class="partner-role">Marketing, branding and community management.</div>
+        <span class="partner-tag">Media</span>
+      </div>
+    </div>
+  </section>
 
-        window.addEventListener('mousemove', (e) => {
-            mouse.x = e.x;
-            mouse.y = e.y;
-        });
+  <!-- ANALYTICS -->
+  <section id="analytics" class="section">
+    <p class="sec-eye">// Data Dashboard</p>
+    <h2 class="sec-title">Analytics</h2>
+    <p class="sec-desc">Real numbers from real players.</p>
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="stat-label">Total Plays</div>
+        <div class="stat-val" data-count="48321">0</div>
+        <div class="stat-sub">all time</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Active Users</div>
+        <div class="stat-val" data-count="1204">0</div>
+        <div class="stat-sub">this week</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Games</div>
+        <div class="stat-val" data-count="8">0</div>
+        <div class="stat-sub">available now</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Uptime</div>
+        <div class="stat-val">99.9<span style="font-size:1rem;-webkit-text-fill-color:var(--blue2)">%</span></div>
+        <div class="stat-sub">30-day average</div>
+      </div>
+    </div>
+  </section>
 
-        function resize() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
+  <footer>
+    &copy; 2025 <a href="#home">Butter Dog Games</a> &nbsp;·&nbsp; Indie &nbsp;·&nbsp; Unblocked &nbsp;·&nbsp; Free Forever
+  </footer>
+</div>
 
-        window.addEventListener('resize', resize);
-        resize();
+<!-- ═══════════════════ GAME VIEWER ═══════════════════ -->
+<div id="game-viewer">
+  <div id="viewer-bar">
+    <button class="bar-logo" onclick="closeGame()">🐶 BDG</button>
+    <div class="bar-sep"></div>
+    <button class="bar-btn" title="Go back"    onclick="frameNav('back')">&#8592;</button>
+    <button class="bar-btn" title="Go forward" onclick="frameNav('forward')">&#8594;</button>
+    <button class="bar-btn" title="Reload"     onclick="frameNav('reload')">&#8635;</button>
+    <div class="url-pill">
+      <span class="url-pill-lock">🔒</span>
+      <span class="url-pill-text" id="url-display">about:blank</span>
+    </div>
+    <button class="bar-btn" title="Open in new tab"          onclick="openInTab()">&#128279;</button>
+    <button class="bar-btn" title="Stealth (about:blank)"    onclick="openStealth()">&#128065;</button>
+    <button class="bar-btn" title="Popout window"            onclick="openPopout()">&#10697;</button>
+    <button class="bar-btn" id="btn-fs" title="Fullscreen"   onclick="toggleFullscreen()">&#9974;</button>
+    <div class="bar-sep"></div>
+    <button class="bar-btn close-btn" title="Close"          onclick="closeGame()">&#10005;</button>
+  </div>
 
-        class Particle {
-            constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 2 + 1;
-                this.speedX = (Math.random() * 1) - 0.5;
-                this.speedY = (Math.random() * 1) - 0.5;
-            }
+  <div id="viewer-frame-wrap">
+    <div id="iframe-loading">
+      <div class="il-dog">🐶</div>
+      <div class="il-title" id="loading-game-name">Loading…</div>
+      <div class="il-bar-wrap"><div class="il-bar-fill" id="il-fill"></div></div>
+      <div class="il-sub">Fetching game…</div>
+    </div>
+    <iframe id="viewer-iframe"
+      sandbox="allow-scripts allow-same-origin allow-forms allow-pointer-lock allow-popups allow-modals"
+      allowfullscreen></iframe>
+  </div>
+</div>
 
-            draw() {
-                ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.closePath();
-                ctx.fill();
-            }
+<script>
+/* LOADER IFRAME */
+window.addEventListener('DOMContentLoaded', () => {
+  setTimeout(() => {
+    document.getElementById('loader-frame').classList.add('fade');
+    document.getElementById('main-content').classList.add('visible');
+    startCounters();
+    setTimeout(() => document.getElementById('loader-frame').remove(), 1000);
+  }, 8000);
+});
 
-            update() {
-                let dx = mouse.x - this.x;
-                let dy = mouse.y - this.y;
-                let distance = Math.sqrt(dx*dx + dy*dy);
+/* PARTICLES */
+const canvas = document.getElementById('particle-canvas');
+const ctx = canvas.getContext('2d');
+let particles = [];
+const mouse = { x: null, y: null, radius: 130 };
+window.addEventListener('mousemove', e => { mouse.x = e.x; mouse.y = e.y; });
+function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+window.addEventListener('resize', () => { resize(); initP(); });
+resize();
 
-                if (distance < mouse.radius) {
-                    const force = (mouse.radius - distance) / mouse.radius;
-                    this.x -= (dx / distance) * force * 5;
-                    this.y -= (dy / distance) * force * 5;
-                } else {
-                    this.x += this.speedX;
-                    this.y += this.speedY;
+class P {
+  constructor() { this.reset(); }
+  reset() {
+    this.x = Math.random() * canvas.width;
+    this.y = Math.random() * canvas.height;
+    this.s = Math.random() * 1.6 + 0.5;
+    this.vx = (Math.random() - 0.5) * 0.55;
+    this.vy = (Math.random() - 0.5) * 0.55;
+    this.a = Math.random() * 0.4 + 0.12;
+  }
+  draw() {
+    ctx.globalAlpha = this.a;
+    ctx.fillStyle = '#4a9eff';
+    ctx.beginPath(); ctx.arc(this.x, this.y, this.s, 0, Math.PI * 2); ctx.fill();
+    ctx.globalAlpha = 1;
+  }
+  update() {
+    const dx = mouse.x - this.x, dy = mouse.y - this.y;
+    const d = Math.sqrt(dx * dx + dy * dy);
+    if (d < mouse.radius && d > 0) {
+      const f = (mouse.radius - d) / mouse.radius;
+      this.x -= (dx / d) * f * 4; this.y -= (dy / d) * f * 4;
+    } else {
+      this.x += this.vx; this.y += this.vy;
+      if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+      if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+    }
+    this.draw();
+  }
+}
+function initP() {
+  particles = [];
+  const n = Math.floor((canvas.width * canvas.height) / 3800);
+  for (let i = 0; i < n; i++) particles.push(new P());
+}
+function connect() {
+  for (let a = 0; a < particles.length; a++) {
+    for (let b = a + 1; b < particles.length; b++) {
+      const dx = particles[a].x - particles[b].x;
+      const dy = particles[a].y - particles[b].y;
+      const d = Math.sqrt(dx * dx + dy * dy);
+      if (d < 105) {
+        ctx.globalAlpha = (1 - d / 105) * 0.15;
+        ctx.strokeStyle = '#2979ff';
+        ctx.lineWidth = 0.8;
+        ctx.beginPath();
+        ctx.moveTo(particles[a].x, particles[a].y);
+        ctx.lineTo(particles[b].x, particles[b].y);
+        ctx.stroke();
+        ctx.globalAlpha = 1;
+      }
+    }
+  }
+}
+function animP() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  particles.forEach(p => p.update());
+  connect();
+  requestAnimationFrame(animP);
+}
+initP(); animP();
 
-                    if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
-                    if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
-                }
+/* COUNTERS */
+function startCounters() {
+  document.querySelectorAll('[data-count]').forEach(el => {
+    const target = parseInt(el.dataset.count);
+    let cur = 0; const step = Math.ceil(target / 55);
+    const id = setInterval(() => {
+      cur = Math.min(cur + step, target);
+      el.textContent = cur.toLocaleString();
+      if (cur >= target) clearInterval(id);
+    }, 22);
+  });
+}
 
-                this.draw();
-            }
-        }
+/* GAME VIEWER */
+let currentUrl = '';
 
-        function init() {
-            particles = [];
-            const numberOfParticles = (canvas.width * canvas.height) / 3000;
+function openGame(url, name) {
+  currentUrl = url;
+  document.getElementById('game-viewer').classList.add('open');
+  document.getElementById('loading-game-name').textContent = 'Loading ' + name + '…';
 
-            for (let i = 0; i < numberOfParticles; i++) {
-                particles.push(new Particle());
-            }
-        }
+  // reset bar animation
+  const overlay = document.getElementById('iframe-loading');
+  const fill = document.getElementById('il-fill');
+  overlay.classList.remove('hidden');
+  fill.style.animation = 'none';
+  void fill.offsetWidth;
+  fill.style.animation = '';
 
-        function connect() {
-            for (let a = 0; a < particles.length; a++) {
-                for (let b = a; b < particles.length; b++) {
-                    let dx = particles[a].x - particles[b].x;
-                    let dy = particles[a].y - particles[b].y;
-                    let distance = Math.sqrt(dx*dx + dy*dy);
+  document.getElementById('url-display').textContent = url;
+  document.body.style.overflow = 'hidden';
 
-                    if (distance < 100) {
-                        ctx.strokeStyle = `rgba(255, 255, 255, ${1 - distance/100})`;
-                        ctx.lineWidth = 1;
-                        ctx.beginPath();
-                        ctx.moveTo(particles[a].x, particles[a].y);
-                        ctx.lineTo(particles[b].x, particles[b].y);
-                        ctx.stroke();
-                    }
-                }
-            }
-        }
+  const iframe = document.getElementById('viewer-iframe');
+  iframe.src = '';
+  setTimeout(() => { iframe.src = url; }, 80);
+  iframe.onload = () => setTimeout(() => overlay.classList.add('hidden'), 500);
+}
 
-        function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            particles.forEach(p => p.update());
-            connect();
-            requestAnimationFrame(animate);
-        }
+function closeGame() {
+  document.getElementById('game-viewer').classList.remove('open');
+  document.getElementById('viewer-iframe').src = '';
+  currentUrl = '';
+  document.body.style.overflow = '';
+  if (document.fullscreenElement) document.exitFullscreen();
+}
 
-        init();
-        animate();
-    </script>
+function frameNav(a) {
+  const f = document.getElementById('viewer-iframe');
+  if (a === 'reload') {
+    document.getElementById('iframe-loading').classList.remove('hidden');
+    const s = f.src; f.src = ''; setTimeout(() => f.src = s, 50);
+  } else if (a === 'back') { try { f.contentWindow.history.back(); } catch (e) {} }
+    else { try { f.contentWindow.history.forward(); } catch (e) {} }
+}
+
+function openInTab() { if (currentUrl) window.open(currentUrl, '_blank'); }
+
+function openStealth() {
+  if (!currentUrl) return;
+  const w = window.open('about:blank', '_blank');
+  if (!w) { alert('Allow popups for stealth mode!'); return; }
+  w.document.open();
+  w.document.write(`<!DOCTYPE html><html><head><style>*{margin:0;padding:0;border:none}html,body,iframe{width:100%;height:100%;overflow:hidden}</style><title>Google</title></head><body><iframe src="${currentUrl}" sandbox="allow-scripts allow-same-origin allow-forms allow-pointer-lock allow-popups" allowfullscreen></iframe></body></html>`);
+  w.document.close();
+}
+
+function openPopout() {
+  if (!currentUrl) return;
+  const W = 960, H = 620, L = (screen.width - W) / 2, T = (screen.height - H) / 2;
+  const win = window.open('about:blank', '_blank', `width=${W},height=${H},left=${L},top=${T},resizable=yes`);
+  if (!win) { alert('Allow popups for popout!'); return; }
+  win.document.open();
+  win.document.write(`<!DOCTYPE html><html><head><style>*{margin:0;padding:0;border:none}html,body,iframe{width:100%;height:100%;overflow:hidden}</style><title>Game</title></head><body><iframe src="${currentUrl}" sandbox="allow-scripts allow-same-origin allow-forms allow-pointer-lock allow-popups" allowfullscreen></iframe></body></html>`);
+  win.document.close();
+}
+
+let isFs = false;
+function toggleFullscreen() {
+  const v = document.getElementById('game-viewer');
+  const btn = document.getElementById('btn-fs');
+  if (!isFs) {
+    (v.requestFullscreen || v.webkitRequestFullscreen).call(v);
+    btn.innerHTML = '&#9633;'; btn.title = 'Exit fullscreen'; isFs = true;
+  } else {
+    (document.exitFullscreen || document.webkitExitFullscreen).call(document);
+    btn.innerHTML = '&#9974;'; btn.title = 'Fullscreen'; isFs = false;
+  }
+}
+document.addEventListener('fullscreenchange', () => {
+  if (!document.fullscreenElement) { isFs = false; document.getElementById('btn-fs').innerHTML = '&#9974;'; }
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && document.getElementById('game-viewer').classList.contains('open') && !document.fullscreenElement)
+    closeGame();
+});
+</script>
 </body>
 </html>
