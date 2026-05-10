@@ -3,92 +3,100 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Butter Dog Games |  Home</title>
+    <title>Butter Dog Games | Home</title>
     <style>
         body, html {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
-            background-color: #0a0a0a;
-            color: white;
+            margin: 0; padding: 0; width: 100%; height: 100%;
+            background-color: #0a0a0a; color: white;
             font-family: 'Segoe UI', sans-serif;
-            overflow: hidden;
+            overflow-x: hidden;
+            scroll-behavior: smooth; /* Enables smooth scrolling */
         }
 
         /* Particle Canvas */
         #particle-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1; /* Behind everything */
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 1;
         }
 
         /* Loading Iframe */
         #loader-frame {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: none;
-            z-index: 9999;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            border: none; z-index: 9999;
             transition: opacity 1s ease-out;
         }
 
-        /* Main Content Overlay */
-        .content {
-            position: relative;
-            z-index: 10; /* Above particles */
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 50vh;
+        /* Navbar */
+        .navbar {
+            position: fixed; top: 0; left: 0; width: 100%;
+            background: rgba(0, 0, 0, 0.5); backdrop-filter: blur(10px);
+            z-index: 100; padding: 15px 0; text-align: center;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .navbar a {
+            color: white; text-decoration: none; margin: 0 20px;
+            font-weight: bold; font-size: 1.1rem;
+        }
+
+        /* Sections */
+        .section {
+            position: relative; z-index: 10;
+            min-height: 100vh;
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
             text-align: center;
-            opacity: 0;
-            pointer-events: none; /* Disable clicks until visible */
-            transition: opacity 1.5s ease-in-out;
+            opacity: 0; transition: opacity 1.5s ease-in-out;
         }
+        .section.visible { opacity: 1; }
 
-        .content.visible {
-            opacity: 1;
-            pointer-events: all;
-        }
-
-        h1 { 
-            font-size: 3rem;
-            text-shadow: 0 0 20px rgba(255,255,255,0.3); 
-        }
         .glass-card {
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(10px);
-            padding: 40px;
-            border-radius: 20px;
+            padding: 40px; border-radius: 20px;
             border: 1px solid rgba(255,255,255,0.1);
+            max-width: 80%;
         }
 
+        h1 { font-size: 3rem; text-shadow: 0 0 20px rgba(255,255,255,0.3); }
         .fade-out { opacity: 0; pointer-events: none; }
     </style>
 </head>
 <body>
-
     <canvas id="particle-canvas"></canvas>
- 
     <iframe src="https://coder5003.github.io/loading" id="loader-frame"></iframe>
 
-    <div class="content" id="main-site">
-        <div class="glass-card">
-            <h1>WELCOME TO BUTTER DOG GAMES</h1>
-            <button style="margin-top:5px; padding: 10px 20px; cursor: pointer;">Games</button>
-            <button style="margin-top:5px; padding: 10px 20px; cursor: pointer;">Partners</button>
-            <button style="margin-top:5px; padding: 10px 20px; cursor: pointer;">Analytics</button>
-        </div>
-        <div class="glass-card">
-            <h1>DA GAMES</h1>
+    <nav class="navbar">
+        <a href="#home">Home</a>
+        <a href="#games">Games</a>
+        <a href="#partners">Partners</a>
+        <a href="#analytics">Analytics</a>
+    </nav>
+
+    <div id="main-content" style="opacity: 0; transition: opacity 1s;">
+        <section id="home" class="section">
+            <div class="glass-card">
+                <h1>WELCOME TO BUTTER DOG GAMES</h1>
+                <p>Indie game development at its finest.</p>
             </div>
+        </section>
+        <section id="games" class="section">
+            <div class="glass-card">
+                <h1>DA GAMES</h1>
+                <p>Explore our creations.</p>
+            </div>
+        </section>
+        <section id="partners" class="section">
+            <div class="glass-card">
+                <h1>PARTNERS</h1>
+                <p>Collaborators and friends.</p>
+            </div>
+        </section>
+        <section id="analytics" class="section">
+            <div class="glass-card">
+                <h1>ANALYTICS</h1>
+                <p>Data-driven insights.</p>
+            </div>
+        </section>
     </div>
 
     <script>
@@ -96,11 +104,12 @@
         window.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => {
                 const loader = document.getElementById('loader-frame');
-                const content = document.getElementById('main-site');
+                const content = document.getElementById('main-content');
                 loader.classList.add('fade-out');
-                content.classList.add('visible');
+                content.style.opacity = '1';
+                document.querySelectorAll('.section').forEach(s => s.classList.add('visible'));
                 setTimeout(() => loader.remove(), 1000);
-            }, 8000); 
+            }, 3000); // Reduced time for testing
         });
 
         // --- 2. PARTICLE SYSTEM ---
@@ -126,13 +135,9 @@
                 this.x = Math.random() * canvas.width;
                 this.y = Math.random() * canvas.height;
                 this.size = Math.random() * 2 + 1;
-                this.baseX = this.x;
-                this.baseY = this.y;
-                this.density = (Math.random() * 30) + 1;
                 this.speedX = (Math.random() * 1) - 0.5;
                 this.speedY = (Math.random() * 1) - 0.5;
             }
-
             draw() {
                 ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
                 ctx.beginPath();
@@ -140,25 +145,17 @@
                 ctx.closePath();
                 ctx.fill();
             }
-
             update() {
-                // Mouse Interaction (Push particles away)
                 let dx = mouse.x - this.x;
                 let dy = mouse.y - this.y;
                 let distance = Math.sqrt(dx*dx + dy*dy);
-                
                 if (distance < mouse.radius) {
                     const force = (mouse.radius - distance) / mouse.radius;
-                    const directionX = dx / distance;
-                    const directionY = dy / distance;
-                    this.x -= directionX * force * 5;
-                    this.y -= directionY * force * 5;
+                    this.x -= (dx / distance) * force * 5;
+                    this.y -= (dy / distance) * force * 5;
                 } else {
-                    // Normal floating movement
                     this.x += this.speedX;
                     this.y += this.speedY;
-                    
-                    // Bounce off edges
                     if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
                     if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
                 }
@@ -168,7 +165,7 @@
 
         function init() {
             particles = [];
-            const numberOfParticles = (canvas.width * canvas.height) / 3000;
+            const numberOfParticles = (canvas.width * canvas.height) / 15000;
             for (let i = 0; i < numberOfParticles; i++) {
                 particles.push(new Particle());
             }
@@ -180,7 +177,6 @@
                     let dx = particles[a].x - particles[b].x;
                     let dy = particles[a].y - particles[b].y;
                     let distance = Math.sqrt(dx*dx + dy*dy);
-
                     if (distance < 100) {
                         ctx.strokeStyle = `rgba(255, 255, 255, ${1 - distance/100})`;
                         ctx.lineWidth = 1;
@@ -195,13 +191,10 @@
 
         function animate() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            for (let i = 0; i < particles.length; i++) {
-                particles[i].update();
-            }
+            particles.forEach(p => p.update());
             connect();
             requestAnimationFrame(animate);
         }
-
         init();
         animate();
     </script>
