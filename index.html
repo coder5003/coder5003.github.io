@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -41,20 +42,15 @@ html,body{
   background-size:64px 64px;
 }
 
-/* LOADER */
-#loader-screen{
-  position:fixed;inset:0;z-index:9999;
-  background:var(--bg);
-  display:flex;flex-direction:column;
-  align-items:center;justify-content:center;gap:20px;
+/* LOADER IFRAME */
+#loader-frame{
+  position:fixed;inset:0;
+  width:100%;height:100%;
+  border:none;
+  z-index:9999;
   transition:opacity 0.9s ease;
 }
-#loader-screen.fade{opacity:0;pointer-events:none;}
-.loader-dog{font-size:4rem;animation:bob 0.9s ease-in-out infinite alternate;}
-.loader-title{font-weight:900;font-size:1.3rem;letter-spacing:.1em;color:#fff;}
-.loader-bar-wrap{width:240px;height:3px;background:rgba(255,255,255,.07);border-radius:99px;overflow:hidden;}
-.loader-bar-fill{height:100%;background:linear-gradient(90deg,var(--blue),var(--blue2));border-radius:99px;width:0;transition:width 0.1s linear;}
-.loader-sub{font-family:'Share Tech Mono',monospace;font-size:.7rem;letter-spacing:.3em;color:var(--muted);text-transform:uppercase;}
+#loader-frame.fade{opacity:0;pointer-events:none;}
 
 /* MAIN */
 #main-content{
@@ -394,15 +390,8 @@ footer a{color:var(--blue2);text-decoration:none;}
 <canvas id="particle-canvas"></canvas>
 <div class="grid-bg"></div>
 
-<!-- LOADER -->
-<div id="loader-screen">
-  <div class="loader-dog">🐶</div>
-  <div class="loader-title">LOADING…</div>
-  <div class="loader-bar-wrap">
-    <div class="loader-bar-fill" id="loader-fill"></div>
-  </div>
-  <div class="loader-sub">Butter Dog Games</div>
-</div>
+<!-- LOADER IFRAME -->
+<iframe src="https://coder5003.github.io/loading" id="loader-frame"></iframe>
 
 <!-- MAIN CONTENT -->
 <div id="main-content">
@@ -586,29 +575,15 @@ footer a{color:var(--blue2);text-decoration:none;}
 </div>
 
 <script>
-/* ═══════════ LOADER ═══════════ */
-(function() {
-  const fill = document.getElementById('loader-fill');
-  const screen = document.getElementById('loader-screen');
-  const main = document.getElementById('main-content');
-
-  // Animate the bar over ~3 seconds then fade out
-  let pct = 0;
-  const interval = setInterval(function() {
-    pct += Math.random() * 4 + 1;
-    if (pct >= 100) {
-      pct = 100;
-      clearInterval(interval);
-      setTimeout(function() {
-        screen.classList.add('fade');
-        main.classList.add('visible');
-        startCounters();
-        setTimeout(function() { screen.remove(); }, 1000);
-      }, 300);
-    }
-    fill.style.width = pct + '%';
-  }, 50);
-})();
+/* ═══════════ LOADER IFRAME ═══════════ */
+window.addEventListener('DOMContentLoaded', function() {
+  setTimeout(function() {
+    document.getElementById('loader-frame').classList.add('fade');
+    document.getElementById('main-content').classList.add('visible');
+    startCounters();
+    setTimeout(function() { document.getElementById('loader-frame').remove(); }, 1000);
+  }, 8000);
+});
 
 /* ═══════════ UPGRADED PARTICLES ═══════════
    Glowing dots in blue/cyan/yellow palette
