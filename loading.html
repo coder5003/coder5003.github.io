@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
 body, html {
   margin: 0;
@@ -30,62 +30,47 @@ body, html {
 .display-card {
   position: relative;
   z-index: 10;
-  text-align: center; /* Centers inline children like h1 and img */
+  text-align: center;
   background: rgba(42, 42, 42, 0.8);
   backdrop-filter: blur(5px);
-  padding: 40px;
+  padding: clamp(20px, 6vw, 40px);
   border-radius: 20px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.5);
   border: 1px solid rgba(255,255,255,0.1);
   display: flex;
   flex-direction: column;
-  align-items: center; /* Ensures flex children are centered */
+  align-items: center;
+  width: min(90vw, 400px);
 }
 
 h1 {
   margin-top: 0;
   font-weight: 300;
   letter-spacing: 2px;
-  display: flex; /* Helps align the dots */
+  font-size: clamp(1.1rem, 5vw, 1.6rem);
+  display: flex;
 }
 
 img {
-  width: 300px;
+  width: min(260px, 60vw);
   border-radius: 8px;
   display: block;
 }
-
-/* --- DOT ANIMATION --- */
 
 .dots span {
   animation: blink 1.4s infinite both;
   font-weight: bold;
 }
-
-.dots span:nth-child(2) {
-  animation-delay: 0.2s;
-}
-
-.dots span:nth-child(3) {
-  animation-delay: 0.4s;
-}
+.dots span:nth-child(2) { animation-delay: 0.2s; }
+.dots span:nth-child(3) { animation-delay: 0.4s; }
 
 @keyframes blink {
-  0% {
-    opacity: 0.2;
-  }
-
-  20% {
-    opacity: 1;
-  }
-
-  100% {
-    opacity: 0.2;
-  }
+  0%   { opacity: 0.2; }
+  20%  { opacity: 1;   }
+  100% { opacity: 0.2; }
 }
 </style>
 </head>
-
 <body>
 
 <canvas id="particle-canvas"></canvas>
@@ -94,34 +79,26 @@ img {
   <b><b>
   <h1>LOADING<span class="dots"><span>.</span><span>.</span><span>.</span></span></h1>
   </b></b>
-
   <img src="butter-dog.gif" alt="Butter Dog">
 </div>
 
 <script>
 const canvas = document.getElementById('particle-canvas');
 const ctx = canvas.getContext('2d');
-
 let particles = [];
+const mouse = { x: null, y: null, radius: 100 };
 
-const mouse = {
-  x: null,
-  y: null,
-  radius: 100
-};
-
-window.addEventListener('mousemove', (e) => {
-  mouse.x = e.x;
-  mouse.y = e.y;
-});
+window.addEventListener('mousemove', (e) => { mouse.x = e.x; mouse.y = e.y; });
+window.addEventListener('touchmove', (e) => {
+  mouse.x = e.touches[0].clientX;
+  mouse.y = e.touches[0].clientY;
+}, { passive: true });
 
 function resize() {
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
 }
-
 window.addEventListener('resize', resize);
-
 resize();
 
 class Particle {
@@ -132,62 +109,46 @@ class Particle {
     this.speedX = (Math.random() * 1) - 0.5;
     this.speedY = (Math.random() * 1) - 0.5;
   }
-
   draw() {
     ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
-
     ctx.beginPath();
     ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
     ctx.fill();
   }
-
   update() {
     let dx = mouse.x - this.x;
     let dy = mouse.y - this.y;
-
     let distance = Math.sqrt(dx * dx + dy * dy);
-
     if (distance < mouse.radius) {
       const force = (mouse.radius - distance) / mouse.radius;
-
       this.x -= (dx / distance) * force * 5;
       this.y -= (dy / distance) * force * 5;
     } else {
       this.x += this.speedX;
       this.y += this.speedY;
-
       if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
       if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
     }
-
     this.draw();
   }
 }
 
 function init() {
   particles = [];
-
   const count = (canvas.width * canvas.height) / 3000;
-
-  for (let i = 0; i < count; i++) {
-    particles.push(new Particle());
-  }
+  for (let i = 0; i < count; i++) particles.push(new Particle());
 }
 
 function connect() {
   for (let a = 0; a < particles.length; a++) {
     for (let b = a; b < particles.length; b++) {
-
       let distance = Math.sqrt(
         (particles[a].x - particles[b].x) ** 2 +
         (particles[a].y - particles[b].y) ** 2
       );
-
       if (distance < 100) {
         ctx.strokeStyle = `rgba(255, 255, 255, ${1 - distance / 100})`;
-
         ctx.lineWidth = 1;
-
         ctx.beginPath();
         ctx.moveTo(particles[a].x, particles[a].y);
         ctx.lineTo(particles[b].x, particles[b].y);
@@ -199,17 +160,13 @@ function connect() {
 
 function animate() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-
   particles.forEach(p => p.update());
-
   connect();
-
   requestAnimationFrame(animate);
 }
 
 init();
 animate();
 </script>
-
 </body>
 </html>
