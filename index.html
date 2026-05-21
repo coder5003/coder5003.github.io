@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-RGJ5NV8W30"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RGJ5NV8W30"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -12,468 +12,203 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Butter Dog Games</title>
 <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;600;800;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+
+<!-- GAME VIEWER SCRIPT — defined first, before any HTML, so it's always available -->
+<script>
+function openGame(url, name) {
+  var viewer  = document.getElementById('game-viewer');
+  var iframe  = document.getElementById('viewer-iframe');
+  var urlDisp = document.getElementById('url-display');
+
+  urlDisp.textContent = url;
+  iframe.src = url;
+  viewer.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+}
+
+function closeViewer() {
+  var viewer = document.getElementById('game-viewer');
+  var iframe = document.getElementById('viewer-iframe');
+  viewer.style.display = 'none';
+  iframe.src = '';
+  document.body.style.overflow = '';
+}
+
+function openInTab() {
+  var url = document.getElementById('url-display').textContent;
+  if (url && url !== 'about:blank') window.open(url, '_blank');
+}
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeViewer();
+});
+</script>
+
 <style>
 :root {
   --bg: #0a0a0a;
-  --bg2: #111111;
   --blue: #aaaaaa;
   --blue2: #dddddd;
-  --yellow: #ffd740;
   --surface: rgba(255,255,255,0.04);
   --border: rgba(255,255,255,0.12);
   --text: #cccccc;
   --muted: #666666;
-  --bar-h: 50px;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-html,body{
-  width:100%;height:100%;
-  background:var(--bg);color:var(--text);
-  font-family:'Exo 2',sans-serif;
-  overflow-x:hidden;scroll-behavior:smooth;
-}
+html,body{width:100%;height:100%;background:var(--bg);color:var(--text);font-family:'Exo 2',sans-serif;overflow-x:hidden;scroll-behavior:smooth;}
 ::-webkit-scrollbar{width:5px;}
-::-webkit-scrollbar-track{background:transparent;}
 ::-webkit-scrollbar-thumb{background:var(--border);border-radius:99px;}
 
 #particle-canvas{position:fixed;inset:0;z-index:0;pointer-events:none;}
-
 .grid-bg{
   position:fixed;inset:0;z-index:1;pointer-events:none;
-  background-image:
-    linear-gradient(rgba(255,255,255,0.03) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(255,255,255,0.03) 1px,transparent 1px);
+  background-image:linear-gradient(rgba(255,255,255,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.03) 1px,transparent 1px);
   background-size:64px 64px;
 }
 
-#loader-frame{
-  position:fixed;inset:0;
-  width:100%;height:100%;
-  border:none;
-  z-index:9999;
-  transition:opacity 0.9s ease;
-}
-#loader-frame.fade{opacity:0;pointer-events:none;}
+/* loader — pointer-events:none so it NEVER blocks clicks */
+#loader-frame{position:fixed;inset:0;width:100%;height:100%;border:none;z-index:50;pointer-events:none;transition:opacity 0.9s ease;}
+#loader-frame.fade{opacity:0;}
 
-#main-content{
-  position:relative;z-index:10;
-  opacity:0;transition:opacity 0.9s ease;
-}
-#main-content.visible{opacity:1;}
+#main-content{position:relative;z-index:10;}
 
-/* ── NAVBAR ── */
-#navbar{
-  position:sticky;top:0;z-index:200;
-  display:flex;align-items:center;
-  padding:0 16px;height:52px;
-  background:rgba(10,10,10,0.95);
-  backdrop-filter:blur(20px);
-  border-bottom:1px solid var(--border);
-  gap:8px;
-}
-.nav-logo{
-  font-weight:900;font-size:.85rem;
-  letter-spacing:0.1em;text-transform:uppercase;
-  color:var(--blue2);text-decoration:none;
-  text-shadow:0 0 18px rgba(255,255,255,0.2);
-  white-space:nowrap;flex-shrink:0;
-  transition:text-shadow 0.2s;
-}
-.nav-logo:hover{text-shadow:0 0 32px rgba(255,255,255,0.6);}
-.nav-links{
-  display:flex;gap:0;margin-left:auto;
-  overflow-x:auto;-webkit-overflow-scrolling:touch;
-  scrollbar-width:none;
-}
+/* NAVBAR */
+#navbar{position:sticky;top:0;z-index:200;display:flex;align-items:center;padding:0 16px;height:52px;background:rgba(10,10,10,0.95);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);gap:8px;}
+.nav-logo{font-weight:900;font-size:.85rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--blue2);text-decoration:none;white-space:nowrap;}
+.nav-links{display:flex;gap:0;margin-left:auto;overflow-x:auto;scrollbar-width:none;}
 .nav-links::-webkit-scrollbar{display:none;}
-.nav-links a{
-  color:var(--muted);text-decoration:none;
-  font-size:0.72rem;font-weight:600;
-  letter-spacing:0.12em;text-transform:uppercase;
-  padding:5px 10px;border-radius:6px;
-  white-space:nowrap;
-  transition:color 0.2s,background 0.2s;
-}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:0.72rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;padding:5px 10px;border-radius:6px;white-space:nowrap;transition:color 0.2s,background 0.2s;}
 .nav-links a:hover{color:var(--blue2);background:var(--surface);}
 
-/* ── SECTIONS ── */
-.section{
-  min-height:100vh;
-  display:flex;flex-direction:column;
-  align-items:center;justify-content:center;
-  padding:80px 16px;text-align:center;
-  position:relative;
-}
+/* SECTIONS */
+.section{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:80px 16px;text-align:center;position:relative;}
 
-/* ── HERO ── */
-.hero-orb{
-  position:absolute;width:min(700px,100vw);height:min(700px,100vw);border-radius:50%;
-  background:radial-gradient(circle,rgba(255,255,255,0.04) 0%,transparent 70%);
-  pointer-events:none;z-index:-1;
-  animation:breathe 7s ease-in-out infinite;
-}
+/* HERO */
+.hero-orb{position:absolute;width:min(700px,100vw);height:min(700px,100vw);border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,0.04) 0%,transparent 70%);pointer-events:none;z-index:-1;animation:breathe 7s ease-in-out infinite;}
 @keyframes breathe{0%,100%{transform:scale(1);opacity:.7}50%{transform:scale(1.1);opacity:1}}
-.hero-title{
-  font-weight:900;
-  font-size:clamp(2.4rem,12vw,7.5rem);
-  line-height:.95;letter-spacing:-0.02em;
-  color:#fff;
-  opacity:0;animation:fadeUp .6s .25s forwards;
-}
-.hero-title .blue{
-  display:block;
-  background:linear-gradient(90deg,var(--blue),var(--blue2));
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-}
-.hero-sub{
-  margin-top:18px;font-size:.95rem;font-weight:300;
-  color:var(--muted);max-width:340px;margin-inline:auto;
-  line-height:1.6;
-  opacity:0;animation:fadeUp .6s .4s forwards;
-}
-.hero-cta{
-  margin-top:30px;display:inline-flex;gap:10px;flex-wrap:wrap;justify-content:center;
-  opacity:0;animation:fadeUp .6s .55s forwards;
-}
-.btn-primary{
-  padding:12px 26px;border-radius:8px;
-  background:linear-gradient(135deg,#555,#999);
-  color:#fff;font-family:'Exo 2',sans-serif;
-  font-weight:700;font-size:0.8rem;
-  letter-spacing:0.12em;text-transform:uppercase;
-  border:none;cursor:pointer;text-decoration:none;
-  box-shadow:0 4px 28px rgba(255,255,255,.1);
-  transition:transform .18s,box-shadow .18s;
-}
-.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 40px rgba(255,255,255,.2);}
-.btn-ghost{
-  padding:12px 26px;border-radius:8px;
-  background:transparent;color:var(--blue2);
-  border:1px solid rgba(255,255,255,.22);
-  font-family:'Exo 2',sans-serif;font-weight:600;font-size:0.8rem;
-  letter-spacing:0.12em;text-transform:uppercase;
-  cursor:pointer;text-decoration:none;
-  transition:background .18s,border-color .18s;
-}
-.btn-ghost:hover{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.5);}
-@keyframes fadeUp{
-  from{opacity:0;transform:translateY(22px)}
-  to{opacity:1;transform:translateY(0)}
-}
+.hero-title{font-weight:900;font-size:clamp(2.4rem,12vw,7.5rem);line-height:.95;letter-spacing:-0.02em;color:#fff;opacity:0;animation:fadeUp .6s .25s forwards;}
+.hero-title .blue{display:block;background:linear-gradient(90deg,var(--blue),var(--blue2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.hero-cta{margin-top:30px;display:inline-flex;gap:10px;flex-wrap:wrap;justify-content:center;opacity:0;animation:fadeUp .6s .55s forwards;}
+.btn-primary{padding:12px 26px;border-radius:8px;background:linear-gradient(135deg,#555,#999);color:#fff;font-family:'Exo 2',sans-serif;font-weight:700;font-size:0.8rem;letter-spacing:0.12em;text-transform:uppercase;border:none;cursor:pointer;text-decoration:none;transition:transform .18s,box-shadow .18s;}
+.btn-primary:hover{transform:translateY(-2px);}
+.btn-ghost{padding:12px 26px;border-radius:8px;background:transparent;color:var(--blue2);border:1px solid rgba(255,255,255,.22);font-family:'Exo 2',sans-serif;font-weight:600;font-size:0.8rem;letter-spacing:0.12em;text-transform:uppercase;cursor:pointer;text-decoration:none;transition:background .18s;}
+.btn-ghost:hover{background:rgba(255,255,255,.06);}
+@keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
 
-.sec-eye{
-  font-family:'Share Tech Mono',monospace;
-  font-size:0.65rem;letter-spacing:.4em;text-transform:uppercase;
-  color:var(--blue2);margin-bottom:10px;
-}
-.sec-title{font-weight:900;font-size:clamp(1.6rem,6vw,2.9rem);color:#fff;margin-bottom:12px;letter-spacing:-.01em;}
-.sec-desc{color:var(--muted);font-size:.92rem;max-width:420px;margin:0 auto 36px;line-height:1.65;}
+.sec-title{font-weight:900;font-size:clamp(1.6rem,6vw,2.9rem);color:#fff;margin-bottom:36px;letter-spacing:-.01em;}
 
-/* ── GAME GRID ── */
-.game-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(150px,1fr));
-  gap:12px;width:100%;max-width:1080px;
-}
-@media(min-width:480px){
-  .game-grid{grid-template-columns:repeat(auto-fill,minmax(175px,1fr));}
-}
-@media(min-width:768px){
-  .game-grid{grid-template-columns:repeat(auto-fill,minmax(205px,1fr));gap:15px;}
-}
-.game-card{
-  background:var(--surface);
-  border:1px solid var(--border);
-  border-radius:14px;
-  padding:22px 14px 18px;
-  display:flex;flex-direction:column;align-items:center;gap:8px;
-  position:relative;overflow:hidden;
-  transition:border-color .25s,transform .25s,box-shadow .25s;
-}
-.game-card::before{
-  content:'';position:absolute;inset:0;border-radius:inherit;
-  background:linear-gradient(135deg,rgba(255,255,255,.04),transparent);
-  opacity:0;transition:opacity .25s;
-}
-.game-card:hover{
-  border-color:rgba(255,255,255,.35);
-  transform:translateY(-5px);
-  box-shadow:0 14px 40px rgba(255,255,255,.07);
-}
-.game-card:hover::before{opacity:1;}
-.game-img{
-  width:100%;
-  max-width:150px;
-  aspect-ratio:1/1;
-  object-fit:cover;
-  border-radius:25px;
-  border:1px solid var(--border);
-  background:#111;
-  box-shadow:0 8px 22px rgba(0,0,0,.35);
-  transition:transform .22s,box-shadow .22s;
-}
-
-.game-card:hover .game-img{
-  transform:scale(1.04);
-  box-shadow:0 12px 32px rgba(255,255,255,.08);
-}
+/* GAME GRID */
+.game-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;width:100%;max-width:1080px;}
+@media(min-width:480px){.game-grid{grid-template-columns:repeat(auto-fill,minmax(175px,1fr));}}
+@media(min-width:768px){.game-grid{grid-template-columns:repeat(auto-fill,minmax(205px,1fr));gap:15px;}}
+.game-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:22px 14px 18px;display:flex;flex-direction:column;align-items:center;gap:8px;transition:border-color .25s,transform .25s;}
+.game-card:hover{border-color:rgba(255,255,255,.35);transform:translateY(-5px);}
+.game-img{width:100%;max-width:150px;aspect-ratio:1/1;object-fit:cover;border-radius:25px;border:1px solid var(--border);background:#111;}
 .game-name{font-weight:800;font-size:0.8rem;letter-spacing:.07em;text-transform:uppercase;color:#fff;}
-.game-desc{font-size:.76rem;color:var(--muted);text-align:center;line-height:1.5;flex:1;}
-.play-btn{
-  margin-top:6px;padding:8px 18px;
-  border:none;border-radius:7px;
-  background:linear-gradient(135deg,#444,#888);
-  color:#fff;font-family:'Exo 2',sans-serif;
-  font-size:.72rem;font-weight:700;
-  letter-spacing:.1em;text-transform:uppercase;
-  cursor:pointer;
-  box-shadow:0 2px 14px rgba(255,255,255,.08);
-  transition:transform .15s,box-shadow .15s;
-  /* tap-friendly */
-  min-height:36px;
-}
-.play-btn:hover{transform:scale(1.06);box-shadow:0 4px 22px rgba(255,255,255,.18);}
+.play-btn{margin-top:6px;padding:8px 18px;border:none;border-radius:7px;background:linear-gradient(135deg,#444,#888);color:#fff;font-family:'Exo 2',sans-serif;font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;min-height:36px;transition:transform .15s;}
+.play-btn:hover{transform:scale(1.06);}
 
-/* ── PARTNERS ── */
-.partner-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:12px;width:100%;max-width:900px;
-}
-@media(min-width:600px){
-  .partner-grid{grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:15px;}
-}
-.partner-card{
-  background:var(--surface);border:1px solid var(--border);
-  border-radius:14px;padding:20px 16px;text-align:left;
-  transition:border-color .2s,transform .2s;
-}
+/* PARTNERS */
+.partner-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;width:100%;max-width:900px;}
+@media(min-width:600px){.partner-grid{grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:15px;}}
+.partner-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:20px 16px;text-align:left;transition:border-color .2s,transform .2s;}
 .partner-card:hover{border-color:rgba(255,255,255,.35);transform:translateY(-3px);}
 .partner-name{font-weight:800;font-size:.82rem;letter-spacing:.06em;text-transform:uppercase;color:#fff;margin-bottom:6px;}
 .partner-role{font-size:.78rem;color:var(--muted);line-height:1.5;}
-.partner-tag{
-  margin-top:12px;display:inline-block;
-  padding:3px 10px;border-radius:99px;
-  background:rgba(255,255,255,.07);color:var(--blue2);
-  font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;
-  font-family:'Share Tech Mono',monospace;
-}
+.partner-tag{margin-top:12px;display:inline-block;padding:3px 10px;border-radius:99px;background:rgba(255,255,255,.07);color:var(--blue2);font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;font-family:'Share Tech Mono',monospace;}
 
-/* ── ANALYTICS ── */
-.stat-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:12px;width:100%;max-width:860px;
-}
-@media(min-width:600px){
-  .stat-grid{grid-template-columns:repeat(auto-fill,minmax(175px,1fr));gap:15px;}
-}
-.stat-card{
-  background:var(--surface);border:1px solid var(--border);
-  border-radius:14px;padding:22px 18px;text-align:left;position:relative;overflow:hidden;
-}
-.stat-card::after{
-  content:'';position:absolute;bottom:-24px;right:-24px;
-  width:90px;height:90px;border-radius:50%;
-  background:radial-gradient(circle,rgba(255,255,255,.05),transparent 70%);
-}
-.stat-label{
-  font-family:'Share Tech Mono',monospace;
-  font-size:.62rem;letter-spacing:.25em;text-transform:uppercase;
-  color:var(--muted);margin-bottom:8px;
-}
-.stat-val{
-  font-weight:900;font-size:clamp(1.6rem,5vw,2.2rem);line-height:1;
-  background:linear-gradient(135deg,var(--blue),var(--blue2));
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-}
+/* ANALYTICS */
+.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;width:100%;max-width:860px;}
+@media(min-width:600px){.stat-grid{grid-template-columns:repeat(auto-fill,minmax(175px,1fr));gap:15px;}}
+.stat-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:22px 18px;text-align:left;}
+.stat-label{font-family:'Share Tech Mono',monospace;font-size:.62rem;letter-spacing:.25em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;}
+.stat-val{font-weight:900;font-size:clamp(1.6rem,5vw,2.2rem);line-height:1;background:linear-gradient(135deg,var(--blue),var(--blue2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
 .stat-sub{margin-top:6px;font-size:.72rem;color:var(--muted);}
 
-/* ── FOOTER ── */
-footer{
-  position:relative;z-index:10;
-  border-top:1px solid var(--border);
-  padding:24px 16px;text-align:center;
-  color:var(--muted);font-size:.75rem;letter-spacing:.1em;
-}
-footer a{color:var(--blue2);text-decoration:none;}
+footer{position:relative;z-index:10;border-top:1px solid var(--border);padding:24px 16px;text-align:center;color:var(--muted);font-size:.75rem;letter-spacing:.1em;}
 
 /* ── GAME VIEWER ── */
 #game-viewer{
   display:none;
-  position:fixed;inset:0;
-  z-index:5000;
+  position:fixed;
+  inset:0;
+  z-index:9999;
   flex-direction:column;
   background:#000;
   height:100dvh;
+  width:100vw;
 }
-#game-viewer.open{display:flex;}
-
 #viewer-bar{
-  height:var(--bar-h);
+  height:48px;
   flex-shrink:0;
-  background:rgba(10,10,10,0.97);
+  background:#0d0d0d;
   border-bottom:1px solid var(--border);
-  backdrop-filter:blur(16px);
-  display:flex;align-items:center;gap:4px;
-  padding:0 6px;z-index:5100;
-  overflow:hidden;
+  display:flex;
+  align-items:center;
+  gap:6px;
+  padding:0 10px;
 }
-.bar-logo{
-  font-family:'Exo 2',sans-serif;font-weight:900;
-  font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;
-  color:var(--blue2);
-  text-shadow:0 0 14px rgba(255,255,255,.2);
-  cursor:pointer;white-space:nowrap;flex-shrink:0;
-  border:none;background:transparent;padding:0 6px;
-  transition:text-shadow .2s;
-}
-.bar-logo:hover{text-shadow:0 0 26px rgba(255,255,255,.6);}
-.bar-sep{width:1px;height:26px;background:var(--border);flex-shrink:0;margin:0 1px;}
-
-/* Hide back/forward on mobile to save space */
-.bar-btn.nav-btn{display:none;}
-@media(min-width:500px){.bar-btn.nav-btn{display:flex;}}
-
-.url-pill{
-  flex:1;display:flex;align-items:center;
-  background:rgba(255,255,255,.04);border:1px solid var(--border);
-  border-radius:7px;padding:0 8px;height:32px;gap:6px;min-width:0;
-}
-.url-pill-lock{font-size:.7rem;color:#4caf7d;flex-shrink:0;}
-.url-pill-text{
-  flex:1;font-family:'Share Tech Mono',monospace;
-  font-size:.68rem;color:var(--muted);
-  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
-}
-.bar-btn{
-  width:34px;height:34px;flex-shrink:0;
+#viewer-bar button{
+  height:32px;
+  border:1px solid var(--border);
+  border-radius:7px;
   background:rgba(255,255,255,.05);
-  border:1px solid var(--border);border-radius:7px;
-  color:var(--muted);cursor:pointer;
-  display:flex;align-items:center;justify-content:center;
-  font-size:1rem;position:relative;
-  transition:background .15s,color .15s,border-color .15s,box-shadow .15s;
-  /* tap target */
-  min-width:34px;
+  color:var(--text);
+  cursor:pointer;
+  font-family:'Exo 2',sans-serif;
+  font-size:.75rem;
+  padding:0 12px;
+  white-space:nowrap;
+  transition:background .15s,color .15s;
 }
-.bar-btn:hover{
-  background:rgba(255,255,255,.12);color:var(--blue2);
-  border-color:rgba(255,255,255,.35);
-  box-shadow:0 0 12px rgba(255,255,255,.1);
-}
-.bar-btn[title]:hover::after{
-  content:attr(title);
-  position:absolute;bottom:-34px;left:50%;transform:translateX(-50%);
-  background:#111;border:1px solid var(--border);
-  color:var(--text);font-size:.68rem;font-family:'Exo 2',sans-serif;
-  padding:4px 8px;border-radius:6px;white-space:nowrap;pointer-events:none;z-index:9999;
-}
-.bar-btn.close-btn:hover{
-  background:rgba(255,60,60,.15);border-color:rgba(255,60,60,.5);color:#ff5555;
-}
-
-/* Hide less-used buttons on very small screens */
-.bar-btn.optional{display:none;}
-@media(min-width:420px){.bar-btn.optional{display:flex;}}
-
-#viewer-frame-wrap{
-  flex:1;
-  position:relative;
-  overflow:hidden;
-  min-height:0;
-}
-#viewer-iframe{
-  position:absolute;
-  inset:0;
-  width:100%;
-  height:100%;
-  border:none;
-  background:#fff;
-  display:block;
-}
-
-#iframe-loading{
-  position:absolute;inset:0;
-  background:var(--bg);
-  display:flex;flex-direction:column;
-  align-items:center;justify-content:center;gap:18px;
-  z-index:10;transition:opacity .4s;
-}
-#iframe-loading.hidden{opacity:0;pointer-events:none;}
-.il-dog{font-size:3.2rem;animation:bob .9s ease-in-out infinite alternate;}
-@keyframes bob{from{transform:translateY(0)}to{transform:translateY(-12px)}}
-.il-title{font-weight:800;font-size:1.1rem;letter-spacing:.05em;color:#fff;}
-.il-bar-wrap{width:200px;height:3px;background:rgba(255,255,255,.07);border-radius:99px;overflow:hidden;}
-.il-bar-fill{
-  height:100%;
-  background:linear-gradient(90deg,#555,#aaa);
-  border-radius:99px;
-  animation:barload 1.6s ease forwards;
-}
-@keyframes barload{from{width:0}to{width:100%}}
-.il-sub{
-  font-family:'Share Tech Mono',monospace;
-  font-size:.7rem;letter-spacing:.3em;
-  color:var(--muted);text-transform:uppercase;
-}
+#viewer-bar button:hover{background:rgba(255,255,255,.15);color:#fff;}
+#viewer-bar .close-btn:hover{background:rgba(255,50,50,.2);border-color:rgba(255,50,50,.5);color:#f55;}
+#url-display{flex:1;font-family:'Share Tech Mono',monospace;font-size:.68rem;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding:0 8px;}
+#viewer-iframe{flex:1;border:none;width:100%;display:block;min-height:0;}
 </style>
 </head>
 <body>
 
 <canvas id="particle-canvas"></canvas>
 <div class="grid-bg"></div>
-
-<!-- LOADER IFRAME -->
 <iframe src="https://coder5003.github.io/loading" id="loader-frame"></iframe>
 
-<!-- MAIN CONTENT -->
 <div id="main-content">
 
-  <!-- HOME -->
   <section id="home" class="section">
     <div class="hero-orb"></div>
-    <h1 class="hero-title">
-      Butter Dog<br>
-      <span class="blue">Games</span>
-    </h1>
+    <h1 class="hero-title">Butter Dog<br><span class="blue">Games</span></h1>
     <div class="hero-cta">
       <a class="btn-primary" href="#games">Browse Games</a>
       <a class="btn-ghost" href="#analytics">View Stats</a>
     </div>
   </section>
 
-  <!-- GAMES -->
   <section id="games" class="section">
     <h2 class="sec-title">The Games</h2>
     <div class="game-grid">
-      
-  <div class="game-card">
-  <img class="game-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmLObGiAAgCMDxSvt9Zr8IlUYvyI9Kwwdrjg&s" alt="Subway Surfers">
-  <div class="game-name">Subway Surfers</div>
-  <button class="play-btn"
-onclick="openGame('https://rawcdn.githack.com/bandruf-games/lioxryt-assets/0cf7d107ddb99c99ea20387522aa29b8ee382049/other/subwaysurfers/index.html','Subway Surfers')">
-▶ Play
-</button>
-</div>
 
-  <div class="game-card">
-  <img class="game-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSuxqLfXqm07uXPH0qyPu_6MofiU9nlUoq9w&s" alt="Subway Surfers">
-  <div class="game-name">2048</div>
-  <button class="play-btn" onclick="openGame('https://rileyjshaw.com/2048','Home')">▶ Play</button>
-</div>
+      <div class="game-card">
+        <img class="game-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmLObGiAAgCMDxSvt9Zr8IlUYvyI9Kwwdrjg&s" alt="Subway Surfers">
+        <div class="game-name">Subway Surfers</div>
+        <button class="play-btn" onclick="openGame('https://rawcdn.githack.com/bandruf-games/lioxryt-assets/0cf7d107ddb99c99ea20387522aa29b8ee382049/other/subwaysurfers/index.html','Subway Surfers')">▶ Play</button>
+      </div>
 
-  <div class="game-card">
-  <img class="game-img" src="https://1games.io/data/image/game/basket-random/banner/basket-random.png" alt="Subway Surfers">
-  <div class="game-name">Basket Random</div>
-  <button class="play-btn" onclick="openGame('https://rnv3.pages.dev/G/basket-random/','Home')">▶ Play</button>
-</div>
-      
+      <div class="game-card">
+        <img class="game-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSuxqLfXqm07uXPH0qyPu_6MofiU9nlUoq9w&s" alt="2048">
+        <div class="game-name">2048</div>
+        <button class="play-btn" onclick="openGame('https://play2048.co/','2048')">▶ Play</button>
+      </div>
+
+      <div class="game-card">
+        <img class="game-img" src="https://1games.io/data/image/game/basket-random/banner/basket-random.png" alt="Basket Random">
+        <div class="game-name">Basket Random</div>
+        <button class="play-btn" onclick="openGame('https://rnv3.pages.dev/G/basket-random/','Basket Random')">▶ Play</button>
+      </div>
+
     </div>
   </section>
 
-  <!-- PARTNERS -->
   <section id="partners" class="section">
     <h2 class="sec-title">Partners</h2>
     <div class="partner-grid">
@@ -500,7 +235,6 @@ onclick="openGame('https://rawcdn.githack.com/bandruf-games/lioxryt-assets/0cf7d
     </div>
   </section>
 
-  <!-- ANALYTICS -->
   <section id="analytics" class="section">
     <h2 class="sec-title">Analytics</h2>
     <div class="stat-grid">
@@ -516,7 +250,7 @@ onclick="openGame('https://rawcdn.githack.com/bandruf-games/lioxryt-assets/0cf7d
       </div>
       <div class="stat-card">
         <div class="stat-label">Games</div>
-        <div class="stat-val" data-count="8">0</div>
+        <div class="stat-val" data-count="3">0</div>
         <div class="stat-sub">available now</div>
       </div>
       <div class="stat-card">
@@ -532,231 +266,66 @@ onclick="openGame('https://rawcdn.githack.com/bandruf-games/lioxryt-assets/0cf7d
 <!-- GAME VIEWER -->
 <div id="game-viewer">
   <div id="viewer-bar">
-    <button class="bar-logo" onclick="closeGame()">🐶 BDG</button>
-    <div class="bar-sep"></div>
-    <button class="bar-btn nav-btn" title="Go back" onclick="frameNav('back')">&#8592;</button>
-    <button class="bar-btn nav-btn" title="Go forward" onclick="frameNav('forward')">&#8594;</button>
-    <button class="bar-btn nav-btn" title="Reload" onclick="frameNav('reload')">&#8635;</button>
-    <div class="url-pill">
-      <span class="url-pill-lock">🔒</span>
-      <span class="url-pill-text" id="url-display">about:blank</span>
-    </div>
-    <button class="bar-btn optional" title="Open in new tab" onclick="openInTab()">&#128279;</button>
-    <button class="bar-btn optional" title="Stealth (about:blank)" onclick="openStealth()">&#128065;</button>
-    <button class="bar-btn optional" title="Popout window" onclick="openPopout()">&#10697;</button>
-    <button class="bar-btn" id="btn-fs" title="Fullscreen" onclick="toggleFullscreen()">&#9974;</button>
-    <div class="bar-sep"></div>
-    <button class="bar-btn close-btn" title="Close" onclick="closeGame()">&#10005;</button>
+    <button onclick="closeViewer()">🐶 BDG</button>
+    <span id="url-display">about:blank</span>
+    <button onclick="openInTab()">↗ New Tab</button>
+    <button class="close-btn" onclick="closeViewer()">✕ Close</button>
   </div>
-  <div id="viewer-frame-wrap">
-    <div id="iframe-loading">
-      <div class="il-dog">🐶</div>
-      <div class="il-title" id="loading-game-name">Loading…</div>
-      <div class="il-bar-wrap"><div class="il-bar-fill" id="il-fill"></div></div>
-      <div class="il-sub">Fetching game…</div>
-    </div>
-    <iframe
-      id="viewer-iframe"
-      sandbox="allow-scripts allow-same-origin allow-forms allow-pointer-lock allow-popups allow-modals"
-      allowfullscreen
-    ></iframe>
-  </div>
+  <iframe
+    id="viewer-iframe"
+    sandbox="allow-scripts allow-same-origin allow-forms allow-pointer-lock allow-popups allow-modals"
+    allowfullscreen
+  ></iframe>
 </div>
 
 <script>
 /* LOADER */
 window.addEventListener('DOMContentLoaded', function() {
   setTimeout(function() {
-    document.getElementById('loader-frame').classList.add('fade');
-    document.getElementById('main-content').classList.add('visible');
+    var lf = document.getElementById('loader-frame');
+    lf.classList.add('fade');
     startCounters();
-    setTimeout(function() { document.getElementById('loader-frame').remove(); }, 1000);
+    setTimeout(function(){ if (lf.parentNode) lf.remove(); }, 1000);
   }, 8000);
 });
 
 /* PARTICLES */
-const canvas = document.getElementById('particle-canvas');
-const ctx = canvas.getContext('2d');
-let particles = [];
-const mouse = { x: null, y: null, radius: 100 };
-window.addEventListener('mousemove', (e) => { mouse.x = e.x; mouse.y = e.y; });
-window.addEventListener('touchmove', (e) => {
-  mouse.x = e.touches[0].clientX;
-  mouse.y = e.touches[0].clientY;
-}, { passive: true });
-function resize() {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-}
-window.addEventListener('resize', resize);
-resize();
-class Particle {
-  constructor() {
-    this.x = Math.random() * canvas.width;
-    this.y = Math.random() * canvas.height;
-    this.size = Math.random() * 2 + 1;
-    this.speedX = (Math.random() * 1) - 0.5;
-    this.speedY = (Math.random() * 1) - 0.5;
-  }
-  draw() {
-    ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
-    ctx.beginPath();
-    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-    ctx.fill();
-  }
-  update() {
-    let dx = mouse.x - this.x;
-    let dy = mouse.y - this.y;
-    let distance = Math.sqrt(dx * dx + dy * dy);
-    if (distance < mouse.radius) {
-      const force = (mouse.radius - distance) / mouse.radius;
-      this.x -= (dx / distance) * force * 5;
-      this.y -= (dy / distance) * force * 5;
-    } else {
-      this.x += this.speedX;
-      this.y += this.speedY;
-      if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
-      if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
-    }
-    this.draw();
-  }
-}
-function init() {
-  particles = [];
-  const count = (canvas.width * canvas.height) / 3000;
-  for (let i = 0; i < count; i++) particles.push(new Particle());
-}
-function connect() {
-  for (let a = 0; a < particles.length; a++) {
-    for (let b = a; b < particles.length; b++) {
-      let distance = Math.sqrt(
-        (particles[a].x - particles[b].x) ** 2 +
-        (particles[a].y - particles[b].y) ** 2
-      );
-      if (distance < 100) {
-        ctx.strokeStyle = `rgba(255, 255, 255, ${1 - distance / 100})`;
-        ctx.lineWidth = 1;
-        ctx.beginPath();
-        ctx.moveTo(particles[a].x, particles[a].y);
-        ctx.lineTo(particles[b].x, particles[b].y);
-        ctx.stroke();
+(function() {
+  var c = document.getElementById('particle-canvas');
+  var ctx = c.getContext('2d');
+  var pts = [];
+  var mx = null, my = null;
+  window.addEventListener('mousemove', function(e){ mx=e.clientX; my=e.clientY; });
+  window.addEventListener('touchmove', function(e){ mx=e.touches[0].clientX; my=e.touches[0].clientY; }, {passive:true});
+  function resize(){ c.width=innerWidth; c.height=innerHeight; }
+  window.addEventListener('resize', resize); resize();
+  function mkPt(){ return {x:Math.random()*c.width, y:Math.random()*c.height, sx:(Math.random()-.5), sy:(Math.random()-.5), r:Math.random()*2+1}; }
+  function init(){ pts=[]; var n=(c.width*c.height)/3000; for(var i=0;i<n;i++) pts.push(mkPt()); }
+  function frame(){
+    ctx.clearRect(0,0,c.width,c.height);
+    for(var i=0;i<pts.length;i++){
+      var p=pts[i];
+      if(mx!=null){ var dx=mx-p.x,dy=my-p.y,d=Math.sqrt(dx*dx+dy*dy); if(d<100){var f=(100-d)/100; p.x-=(dx/d)*f*5; p.y-=(dy/d)*f*5;} else{p.x+=p.sx;p.y+=p.sy;} }
+      else{p.x+=p.sx;p.y+=p.sy;}
+      if(p.x<0||p.x>c.width)p.sx*=-1; if(p.y<0||p.y>c.height)p.sy*=-1;
+      ctx.fillStyle='rgba(255,255,255,.5)'; ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2); ctx.fill();
+      for(var j=i+1;j<pts.length;j++){
+        var q=pts[j],d2=Math.sqrt(Math.pow(p.x-q.x,2)+Math.pow(p.y-q.y,2));
+        if(d2<100){ctx.strokeStyle='rgba(255,255,255,'+(1-d2/100)+')';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(q.x,q.y);ctx.stroke();}
       }
     }
+    requestAnimationFrame(frame);
   }
-}
-function animate() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  particles.forEach(p => p.update());
-  connect();
-  requestAnimationFrame(animate);
-}
-init();
-animate();
+  init(); frame();
+})();
 
 /* COUNTERS */
 function startCounters() {
   document.querySelectorAll('[data-count]').forEach(function(el) {
-    var target = parseInt(el.dataset.count);
-    var cur = 0;
-    var step = Math.ceil(target / 55);
-    var id = setInterval(function() {
-      cur = Math.min(cur + step, target);
-      el.textContent = cur.toLocaleString();
-      if (cur >= target) clearInterval(id);
-    }, 22);
+    var target = parseInt(el.dataset.count), cur = 0, step = Math.ceil(target/55);
+    var id = setInterval(function(){ cur=Math.min(cur+step,target); el.textContent=cur.toLocaleString(); if(cur>=target)clearInterval(id); }, 22);
   });
 }
-
-/* GAME VIEWER */
-var currentUrl = '';
-function openGame(url, name) {
-  currentUrl = url;
-  document.getElementById('game-viewer').classList.add('open');
-  document.getElementById('loading-game-name').textContent = 'Loading ' + name + '…';
-  var overlay = document.getElementById('iframe-loading');
-  var fill = document.getElementById('il-fill');
-  overlay.classList.remove('hidden');
-  fill.style.animation = 'none';
-  void fill.offsetWidth;
-  fill.style.animation = '';
-  document.getElementById('url-display').textContent = url;
-  document.body.style.overflow = 'hidden';
-  var iframe = document.getElementById('viewer-iframe');
-  iframe.src = '';
-  setTimeout(function() { iframe.src = url; }, 80);
-  iframe.onload = function() {
-    setTimeout(function() { overlay.classList.add('hidden'); }, 500);
-  };
-}
-function closeGame() {
-  document.getElementById('game-viewer').classList.remove('open');
-  document.getElementById('viewer-iframe').src = '';
-  currentUrl = '';
-  document.body.style.overflow = '';
-  if (document.fullscreenElement) document.exitFullscreen();
-}
-function frameNav(a) {
-  var f = document.getElementById('viewer-iframe');
-  if (a === 'reload') {
-    document.getElementById('iframe-loading').classList.remove('hidden');
-    var s = f.src; f.src = '';
-    setTimeout(function() { f.src = s; }, 50);
-  } else if (a === 'back') {
-    try { f.contentWindow.history.back(); } catch(e) {}
-  } else {
-    try { f.contentWindow.history.forward(); } catch(e) {}
-  }
-}
-function openInTab() { if (currentUrl) window.open(currentUrl, '_blank'); }
-function openStealth() {
-  if (!currentUrl) return;
-  var w = window.open('about:blank', '_blank');
-  if (!w) { alert('Allow popups for stealth mode!'); return; }
-  var html = '<!DOCTYPE html><html><head>'
-    + '<style>*{margin:0;padding:0;border:none}html,body,iframe{width:100%;height:100%;overflow:hidden}</style>'
-    + '<title>Google</title></head><body>'
-    + '<iframe src="' + currentUrl + '" sandbox="allow-scripts allow-same-origin allow-forms allow-pointer-lock allow-popups" allowfullscreen></iframe>'
-    + '</body></html>';
-  w.document.open(); w.document.write(html); w.document.close();
-}
-function openPopout() {
-  if (!currentUrl) return;
-  var W = 960, H = 620;
-  var L = Math.round((screen.width - W) / 2);
-  var T = Math.round((screen.height - H) / 2);
-  var win = window.open('about:blank', '_blank',
-    'width=' + W + ',height=' + H + ',left=' + L + ',top=' + T + ',resizable=yes');
-  if (!win) { alert('Allow popups for popout!'); return; }
-  var html = '<!DOCTYPE html><html><head>'
-    + '<style>*{margin:0;padding:0;border:none}html,body,iframe{width:100%;height:100%;overflow:hidden}</style>'
-    + '<title>Game</title></head><body>'
-    + '<iframe src="' + currentUrl + '" sandbox="allow-scripts allow-same-origin allow-forms allow-pointer-lock allow-popups" allowfullscreen></iframe>'
-    + '</body></html>';
-  win.document.open(); win.document.write(html); win.document.close();
-}
-var isFs = false;
-function toggleFullscreen() {
-  var v = document.getElementById('game-viewer');
-  var btn = document.getElementById('btn-fs');
-  if (!isFs) {
-    (v.requestFullscreen || v.webkitRequestFullscreen).call(v);
-    btn.innerHTML = '&#9633;'; btn.title = 'Exit fullscreen'; isFs = true;
-  } else {
-    (document.exitFullscreen || document.webkitExitFullscreen).call(document);
-    btn.innerHTML = '&#9974;'; btn.title = 'Fullscreen'; isFs = false;
-  }
-}
-document.addEventListener('fullscreenchange', function() {
-  if (!document.fullscreenElement) {
-    isFs = false;
-    document.getElementById('btn-fs').innerHTML = '&#9974;';
-  }
-});
-document.addEventListener('keydown', function(e) {
-  if (e.key === 'Escape'
-      && document.getElementById('game-viewer').classList.contains('open')
-      && !document.fullscreenElement) closeGame();
-});
 </script>
 </body>
 </html>
