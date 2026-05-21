@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link href="data:image/x-icon;base64,AAABAAEAEBAAAAEACABoBQAAFgAAACgAAAAQAAAAIAAAAAEACAAAAAAAAAEAAAAAAAAAAAAAAAEAAAAAAAAAAAAAYqMdAAC8/wBanhIAAbT0AGSkIQBfoRkAWZ4RAP///wAJt/QAZKQgAF+hGAATuvUAFLr1AFyfFQAVuvUAY6QfAGGiHABbnxQAZqUjAAa29AAHtvQACLb0AGGiGwAQufUAErn1AFufEwBlpSIAYKIaAF2gFwBeoBcA9/f3AAK19AADtfQABLX0AAW19AAMuPUAYqMeAA249QAOuPUAXaAWAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAICCSMjFhUVIyMjIyMgAgICIyMjIyMjIyMjIyMjIwQCAiQGBwgICAgICAgIBwMgAiYCFwcICAgICAgICAcaIQInAhEHBwgfHx8fCAcHEiECAgIBBwcHBwcHBwcHBxIiAgIYJSUBBwcICAcHBygOIwICGRAQBwcICAgIBwcHDiMCAgwKChAlCB8fCAYeHSgUAgINGwUKEAcICAcGCx4oFAICDxMbBwcHBwcHHAseHRQCAiMjIyMjIyMjIyMjIyMUAgIjIyMjIyMjIyMjIyMjIwIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP//AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//8AAP//AAA=" rel="icon" type="image/x-icon">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-RGJ5NV8W30"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -9,37 +10,61 @@
   gtag('config', 'G-RGJ5NV8W30');
 </script>
 <meta charset="UTF-8">
-<meta n</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Home</title>
 <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;600;800;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
 
 <!-- GAME VIEWER SCRIPT — defined first, before any HTML, so it's always available -->
 <script>
-function openGame(url, name) {
-  var viewer  = document.getElementById('game-viewer');
-  var iframe  = document.getElementById('viewer-iframe');
-  var urlDisp = document.getElementById('url-display');
+var _currentUrl = '';
+var _isFs = false;
 
-  urlDisp.textContent = url;
-  iframe.src = url;
-  viewer.style.display = 'flex';
+function openGame(url, name) {
+  _currentUrl = url;
+  document.getElementById('viewer-iframe').src = url;
+  document.getElementById('bar-game-name').textContent = name;
+  document.getElementById('game-viewer').style.display = 'flex';
   document.body.style.overflow = 'hidden';
 }
 
 function closeViewer() {
-  var viewer = document.getElementById('game-viewer');
-  var iframe = document.getElementById('viewer-iframe');
-  viewer.style.display = 'none';
-  iframe.src = '';
+  document.getElementById('game-viewer').style.display = 'none';
+  document.getElementById('viewer-iframe').src = '';
+  document.getElementById('bar-game-name').textContent = '—';
   document.body.style.overflow = '';
+  if (document.fullscreenElement) document.exitFullscreen();
+  _isFs = false;
+  var btn = document.getElementById('btn-fs');
+  if (btn) { btn.innerHTML = '&#9974;'; btn.setAttribute('data-tip','Fullscreen'); }
 }
 
-function openInTab() {
-  var url = document.getElementById('url-display').textContent;
-  if (url && url !== 'about:blank') window.open(url, '_blank');
+function reloadGame() {
+  var f = document.getElementById('viewer-iframe');
+  var s = f.src; f.src = ''; f.src = s;
 }
+
+function toggleFs() {
+  var v = document.getElementById('game-viewer');
+  var btn = document.getElementById('btn-fs');
+  if (!_isFs) {
+    (v.requestFullscreen || v.webkitRequestFullscreen).call(v);
+    btn.innerHTML = '&#9633;'; btn.setAttribute('data-tip','Exit Fullscreen'); _isFs = true;
+  } else {
+    (document.exitFullscreen || document.webkitExitFullscreen).call(document);
+    btn.innerHTML = '&#9974;'; btn.setAttribute('data-tip','Fullscreen'); _isFs = false;
+  }
+}
+
+document.addEventListener('fullscreenchange', function() {
+  if (!document.fullscreenElement) {
+    _isFs = false;
+    var btn = document.getElementById('btn-fs');
+    if (btn) { btn.innerHTML = '&#9974;'; btn.setAttribute('data-tip','Fullscreen'); }
+  }
+});
 
 document.addEventListener('keydown', function(e) {
-  if (e.key === 'Escape') closeViewer();
+  if (e.key === 'Escape' && !document.fullscreenElement) closeViewer();
 });
 </script>
 
@@ -138,31 +163,76 @@ footer{position:relative;z-index:10;border-top:1px solid var(--border);padding:2
   width:100vw;
 }
 #viewer-bar{
-  height:48px;
+  height:52px;
   flex-shrink:0;
-  background:#0d0d0d;
-  border-bottom:1px solid var(--border);
   display:flex;
   align-items:center;
-  gap:6px;
-  padding:0 10px;
-}
-#viewer-bar button{
-  height:32px;
-  border:1px solid var(--border);
-  border-radius:7px;
-  background:rgba(255,255,255,.05);
-  color:var(--text);
-  cursor:pointer;
-  font-family:'Exo 2',sans-serif;
-  font-size:.75rem;
+  gap:8px;
   padding:0 12px;
-  white-space:nowrap;
-  transition:background .15s,color .15s;
+  /* Themed: dark with subtle gradient + glowing bottom border */
+  background:linear-gradient(180deg,#111 0%,#0a0a0a 100%);
+  border-bottom:1px solid rgba(255,255,255,0.18);
+  box-shadow:0 1px 0 rgba(255,255,255,0.04), 0 4px 24px rgba(0,0,0,0.6);
+  position:relative;
 }
-#viewer-bar button:hover{background:rgba(255,255,255,.15);color:#fff;}
-#viewer-bar .close-btn:hover{background:rgba(255,50,50,.2);border-color:rgba(255,50,50,.5);color:#f55;}
-#url-display{flex:1;font-family:'Share Tech Mono',monospace;font-size:.68rem;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding:0 8px;}
+/* glowing accent line at very top of bar */
+#viewer-bar::before{
+  content:'';
+  position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent 0%,rgba(255,255,255,0.25) 30%,rgba(255,255,255,0.5) 50%,rgba(255,255,255,0.25) 70%,transparent 100%);
+}
+/* logo */
+#bar-logo{
+  display:flex;align-items:center;gap:7px;
+  font-family:'Exo 2',sans-serif;font-weight:900;font-size:.78rem;
+  letter-spacing:0.12em;text-transform:uppercase;
+  color:#fff;
+  text-shadow:0 0 16px rgba(255,255,255,0.35);
+  white-space:nowrap;flex-shrink:0;
+  border:none;background:transparent;cursor:pointer;padding:0 4px;
+  transition:text-shadow .2s;
+}
+#bar-logo:hover{text-shadow:0 0 28px rgba(255,255,255,0.7);}
+#bar-logo .dog-icon{font-size:1.2rem;filter:drop-shadow(0 0 6px rgba(255,255,255,0.4));}
+#bar-logo .bar-brand{color:var(--blue2);}
+/* game name label */
+#bar-game-name{
+  font-family:'Share Tech Mono',monospace;
+  font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--muted);
+  flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+  padding:0 4px;
+}
+/* bar separator */
+.bar-sep{width:1px;height:22px;background:rgba(255,255,255,0.1);flex-shrink:0;}
+/* icon buttons */
+.vbar-btn{
+  width:36px;height:36px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  border:1px solid rgba(255,255,255,0.1);border-radius:8px;
+  background:rgba(255,255,255,0.04);
+  color:var(--muted);cursor:pointer;font-size:1rem;
+  transition:background .15s,color .15s,border-color .15s,box-shadow .15s;
+  position:relative;
+}
+.vbar-btn:hover{
+  background:rgba(255,255,255,0.1);color:#fff;
+  border-color:rgba(255,255,255,0.3);
+  box-shadow:0 0 10px rgba(255,255,255,0.08);
+}
+.vbar-btn.danger:hover{
+  background:rgba(220,50,50,0.15);color:#ff6060;
+  border-color:rgba(220,50,50,0.4);
+  box-shadow:0 0 10px rgba(220,50,50,0.15);
+}
+/* tooltips */
+.vbar-btn[data-tip]:hover::after{
+  content:attr(data-tip);
+  position:absolute;bottom:-30px;left:50%;transform:translateX(-50%);
+  background:#1a1a1a;border:1px solid rgba(255,255,255,0.12);
+  color:var(--text);font-size:.62rem;font-family:'Exo 2',sans-serif;letter-spacing:.05em;
+  padding:3px 8px;border-radius:5px;white-space:nowrap;pointer-events:none;z-index:99999;
+}
 #viewer-iframe{flex:1;border:none;width:100%;display:block;min-height:0;}
 </style>
 </head>
@@ -265,16 +335,18 @@ footer{position:relative;z-index:10;border-top:1px solid var(--border);padding:2
 <!-- GAME VIEWER -->
 <div id="game-viewer">
   <div id="viewer-bar">
-    <button onclick="closeViewer()">🐶 BDG</button>
-    <span id="url-display">about:blank</span>
-    <button onclick="openInTab()">↗ New Tab</button>
-    <button class="close-btn" onclick="closeViewer()">✕ Close</button>
+    <button id="bar-logo" onclick="closeViewer()">
+      <span class="dog-icon">🐶</span>
+      <span class="bar-brand">BDG</span>
+    </button>
+    <div class="bar-sep"></div>
+    <span id="bar-game-name">—</span>
+    <button class="vbar-btn" data-tip="Reload" onclick="reloadGame()">&#8635;</button>
+    <button class="vbar-btn" id="btn-fs" data-tip="Fullscreen" onclick="toggleFs()">&#9974;</button>
+    <div class="bar-sep"></div>
+    <button class="vbar-btn danger" data-tip="Close" onclick="closeViewer()">&#10005;</button>
   </div>
-  <iframe
-    id="viewer-iframe"
-    sandbox="allow-scripts allow-same-origin allow-forms allow-pointer-lock allow-popups allow-modals"
-    allowfullscreen
-  ></iframe>
+  <iframe id="viewer-iframe" sandbox="allow-scripts allow-same-origin allow-forms allow-pointer-lock allow-popups allow-modals" allowfullscreen></iframe>
 </div>
 
 <script>
