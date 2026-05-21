@@ -1,401 +1,778 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link href="data:image/x-icon;base64,AAABAAEAEBAAAAEACABoBQAAFgAAACgAAAAQAAAAIAAAAAEACAAAAAAAAAEAAAAAAAAAAAAAAAEAAAAAAAAAAAAAYqMdAAC8/wBanhIAAbT0AGSkIQBfoRkAWZ4RAP///wAJt/QAZKQgAF+hGAATuvUAFLr1AFyfFQAVuvUAY6QfAGGiHABbnxQAZqUjAAa29AAHtvQACLb0AGGiGwAQufUAErn1AFufEwBlpSIAYKIaAF2gFwBeoBcA9/f3AAK19AADtfQABLX0AAW19AAMuPUAYqMeAA249QAOuPUAXaAWAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAICCSMjFhUVIyMjIyMgAgICIyMjIyMjIyMjIyMjIwQCAiQGBwgICAgICAgIBwMgAiYCFwcICAgICAgICAcaIQInAhEHBwgfHx8fCAcHEiECAgIBBwcHBwcHBwcHBxIiAgIYJSUBBwcICAcHBygOIwICGRAQBwcICAgIBwcHDiMCAgwKChAlCB8fCAYeHSgUAgINGwUKEAcICAcGCx4oFAICDxMbBwcHBwcHHAseHRQCAiMjIyMjIyMjIyMjIyMUAgIjIyMjIyMjIyMjIyMjIwIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP//AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//8AAP//AAA=" rel="icon" type="image/x-icon">
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-RGJ5NV8W30"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-RGJ5NV8W30');
-</script>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Home</title>
-<link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;600;800;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <link href="data:image/x-icon;base64,AAABAAEAEBAAAAEACABoBQAAFgAAACgAAAAQAAAAIAAAAAEACAAAAAAAAAEAAAAAAAAAAAAAAAEAAAAAAAAAAAAAYqMdAAC8/wBanhIAAbT0AGSkIQBfoRkAWZ4RAP///wAJt/QAZKQgAF+hGAATuvUAFLr1AFyfFQAVuvUAY6QfAGGiHABbnxQAZqUjAAa29AAHtvQACLb0AGGiGwAQufUAErn1AFufEwBlpSIAYKIaAF2gFwBeoBcA9/f3AAK19AADtfQABLX0AAW19AAMuPUAYqMeAA249QAOuPUAXaAWAAAA" rel="icon" type="image/x-icon">
 
-<!-- GAME VIEWER SCRIPT — defined first, before any HTML, so it's always available -->
-<script>
-var _currentUrl = '';
-var _isFs = false;
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-RGJ5NV8W30"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-RGJ5NV8W30');
+  </script>
 
-function openGame(url, name) {
-  _currentUrl = url;
-  document.getElementById('viewer-iframe').src = url;
-  document.getElementById('bar-game-name').textContent = name;
-  document.getElementById('game-viewer').style.display = 'flex';
-  document.body.style.overflow = 'hidden';
-}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home</title>
 
-function closeViewer() {
-  document.getElementById('game-viewer').style.display = 'none';
-  document.getElementById('viewer-iframe').src = '';
-  document.getElementById('bar-game-name').textContent = '—';
-  document.body.style.overflow = '';
-  if (document.fullscreenElement) document.exitFullscreen();
-  _isFs = false;
-  var btn = document.getElementById('btn-fs');
-  if (btn) { btn.innerHTML = '&#9974;'; btn.setAttribute('data-tip','Fullscreen'); }
-}
+  <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;600;800;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
 
-function reloadGame() {
-  var f = document.getElementById('viewer-iframe');
-  var s = f.src; f.src = ''; f.src = s;
-}
+  <script>
+    var _currentUrl = '';
+    var _isFs = false;
+    var _viewerCloseTimer = null;
 
-function toggleFs() {
-  var v = document.getElementById('game-viewer');
-  var btn = document.getElementById('btn-fs');
-  if (!_isFs) {
-    (v.requestFullscreen || v.webkitRequestFullscreen).call(v);
-    btn.innerHTML = '&#9633;'; btn.setAttribute('data-tip','Exit Fullscreen'); _isFs = true;
-  } else {
-    (document.exitFullscreen || document.webkitExitFullscreen).call(document);
-    btn.innerHTML = '&#9974;'; btn.setAttribute('data-tip','Fullscreen'); _isFs = false;
-  }
-}
+    function openGame(url, name) {
+      var viewer = document.getElementById('game-viewer');
 
-document.addEventListener('fullscreenchange', function() {
-  if (!document.fullscreenElement) {
-    _isFs = false;
-    var btn = document.getElementById('btn-fs');
-    if (btn) { btn.innerHTML = '&#9974;'; btn.setAttribute('data-tip','Fullscreen'); }
-  }
-});
+      if (_viewerCloseTimer) {
+        clearTimeout(_viewerCloseTimer);
+        _viewerCloseTimer = null;
+      }
 
-document.addEventListener('keydown', function(e) {
-  if (e.key === 'Escape' && !document.fullscreenElement) closeViewer();
-});
-</script>
+      _currentUrl = url;
+      document.getElementById('viewer-iframe').src = url;
+      document.getElementById('bar-game-name').textContent = name;
 
-<style>
-:root {
-  --bg: #0a0a0a;
-  --blue: #aaaaaa;
-  --blue2: #dddddd;
-  --surface: rgba(255,255,255,0.04);
-  --border: rgba(255,255,255,0.12);
-  --text: #cccccc;
-  --muted: #666666;
-}
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-html,body{width:100%;height:100%;background:var(--bg);color:var(--text);font-family:'Exo 2',sans-serif;overflow-x:hidden;scroll-behavior:smooth;}
-::-webkit-scrollbar{width:5px;}
-::-webkit-scrollbar-thumb{background:var(--border);border-radius:99px;}
+      viewer.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
 
-#particle-canvas{position:fixed;inset:0;z-index:0;pointer-events:none;}
-.grid-bg{
-  position:fixed;inset:0;z-index:1;pointer-events:none;
-  background-image:linear-gradient(rgba(255,255,255,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.03) 1px,transparent 1px);
-  background-size:64px 64px;
-}
+      requestAnimationFrame(function() {
+        viewer.classList.add('show');
+      });
+    }
 
-/* loader — pointer-events:none so it NEVER blocks clicks */
-#loader-frame{position:fixed;inset:0;width:100%;height:100%;border:none;z-index:50;pointer-events:none;transition:opacity 0.9s ease;}
-#loader-frame.fade{opacity:0;}
+    function closeViewer() {
+      var viewer = document.getElementById('game-viewer');
 
-#main-content{position:relative;z-index:10;}
+      viewer.classList.remove('show');
+      document.body.style.overflow = '';
 
-/* NAVBAR */
-#navbar{position:sticky;top:0;z-index:200;display:flex;align-items:center;padding:0 16px;height:52px;background:rgba(10,10,10,0.95);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);gap:8px;}
-.nav-logo{font-weight:900;font-size:.85rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--blue2);text-decoration:none;white-space:nowrap;}
-.nav-links{display:flex;gap:0;margin-left:auto;overflow-x:auto;scrollbar-width:none;}
-.nav-links::-webkit-scrollbar{display:none;}
-.nav-links a{color:var(--muted);text-decoration:none;font-size:0.72rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;padding:5px 10px;border-radius:6px;white-space:nowrap;transition:color 0.2s,background 0.2s;}
-.nav-links a:hover{color:var(--blue2);background:var(--surface);}
+      if (document.fullscreenElement) document.exitFullscreen();
 
-/* SECTIONS */
-.section{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:80px 16px;text-align:center;position:relative;}
+      _isFs = false;
 
-/* HERO */
-.hero-orb{position:absolute;width:min(700px,100vw);height:min(700px,100vw);border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,0.04) 0%,transparent 70%);pointer-events:none;z-index:-1;animation:breathe 7s ease-in-out infinite;}
-@keyframes breathe{0%,100%{transform:scale(1);opacity:.7}50%{transform:scale(1.1);opacity:1}}
-.hero-title{font-weight:900;font-size:clamp(2.4rem,12vw,7.5rem);line-height:.95;letter-spacing:-0.02em;color:#fff;opacity:0;animation:fadeUp .6s .25s forwards;}
-.hero-title .blue{display:block;background:linear-gradient(90deg,var(--blue),var(--blue2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
-.hero-cta{margin-top:30px;display:inline-flex;gap:10px;flex-wrap:wrap;justify-content:center;opacity:0;animation:fadeUp .6s .55s forwards;}
-.btn-primary{padding:12px 26px;border-radius:8px;background:linear-gradient(135deg,#555,#999);color:#fff;font-family:'Exo 2',sans-serif;font-weight:700;font-size:0.8rem;letter-spacing:0.12em;text-transform:uppercase;border:none;cursor:pointer;text-decoration:none;transition:transform .18s,box-shadow .18s;}
-.btn-primary:hover{transform:translateY(-2px);}
-.btn-ghost{padding:12px 26px;border-radius:8px;background:transparent;color:var(--blue2);border:1px solid rgba(255,255,255,.22);font-family:'Exo 2',sans-serif;font-weight:600;font-size:0.8rem;letter-spacing:0.12em;text-transform:uppercase;cursor:pointer;text-decoration:none;transition:background .18s;}
-.btn-ghost:hover{background:rgba(255,255,255,.06);}
-@keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+      var btn = document.getElementById('btn-fs');
+      if (btn) {
+        btn.innerHTML = '&#9974;';
+        btn.setAttribute('data-tip', 'Fullscreen');
+      }
 
-.sec-title{font-weight:900;font-size:clamp(1.6rem,6vw,2.9rem);color:#fff;margin-bottom:36px;letter-spacing:-.01em;}
+      _viewerCloseTimer = setTimeout(function() {
+        viewer.style.display = 'none';
+        document.getElementById('viewer-iframe').src = '';
+        document.getElementById('bar-game-name').textContent = '—';
+        _viewerCloseTimer = null;
+      }, 300);
+    }
 
-/* GAME GRID */
-.game-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;width:100%;max-width:1080px;}
-@media(min-width:480px){.game-grid{grid-template-columns:repeat(auto-fill,minmax(175px,1fr));}}
-@media(min-width:768px){.game-grid{grid-template-columns:repeat(auto-fill,minmax(205px,1fr));gap:15px;}}
-.game-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:22px 14px 18px;display:flex;flex-direction:column;align-items:center;gap:8px;transition:border-color .25s,transform .25s;}
-.game-card:hover{border-color:rgba(255,255,255,.35);transform:translateY(-5px);}
-.game-img{width:100%;max-width:150px;aspect-ratio:1/1;object-fit:cover;border-radius:25px;border:1px solid var(--border);background:#111;}
-.game-name{font-weight:800;font-size:0.8rem;letter-spacing:.07em;text-transform:uppercase;color:#fff;}
-.play-btn{margin-top:6px;padding:8px 18px;border:none;border-radius:7px;background:linear-gradient(135deg,#444,#888);color:#fff;font-family:'Exo 2',sans-serif;font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;min-height:36px;transition:transform .15s;}
-.play-btn:hover{transform:scale(1.06);}
+    function reloadGame() {
+      var f = document.getElementById('viewer-iframe');
+      var s = f.src;
+      f.src = '';
+      f.src = s;
+    }
 
-/* PARTNERS */
-.partner-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;width:100%;max-width:900px;}
-@media(min-width:600px){.partner-grid{grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:15px;}}
-.partner-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:20px 16px;text-align:left;transition:border-color .2s,transform .2s;}
-.partner-card:hover{border-color:rgba(255,255,255,.35);transform:translateY(-3px);}
-.partner-name{font-weight:800;font-size:.82rem;letter-spacing:.06em;text-transform:uppercase;color:#fff;margin-bottom:6px;}
-.partner-role{font-size:.78rem;color:var(--muted);line-height:1.5;}
-.partner-tag{margin-top:12px;display:inline-block;padding:3px 10px;border-radius:99px;background:rgba(255,255,255,.07);color:var(--blue2);font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;font-family:'Share Tech Mono',monospace;}
+    function toggleFs() {
+      var v = document.getElementById('game-viewer');
+      var btn = document.getElementById('btn-fs');
 
-/* ANALYTICS */
-.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;width:100%;max-width:860px;}
-@media(min-width:600px){.stat-grid{grid-template-columns:repeat(auto-fill,minmax(175px,1fr));gap:15px;}}
-.stat-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:22px 18px;text-align:left;}
-.stat-label{font-family:'Share Tech Mono',monospace;font-size:.62rem;letter-spacing:.25em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;}
-.stat-val{font-weight:900;font-size:clamp(1.6rem,5vw,2.2rem);line-height:1;background:linear-gradient(135deg,var(--blue),var(--blue2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
-.stat-sub{margin-top:6px;font-size:.72rem;color:var(--muted);}
-
-footer{position:relative;z-index:10;border-top:1px solid var(--border);padding:24px 16px;text-align:center;color:var(--muted);font-size:.75rem;letter-spacing:.1em;}
-
-/* ── GAME VIEWER ── */
-#game-viewer{
-  display:none;
-  position:fixed;
-  inset:0;
-  z-index:9999;
-  flex-direction:column;
-  background:#000;
-  height:100dvh;
-  width:100vw;
-}
-#viewer-bar{
-  height:52px;
-  flex-shrink:0;
-  display:flex;
-  align-items:center;
-  gap:8px;
-  padding:0 12px;
-  /* Themed: dark with subtle gradient + glowing bottom border */
-  background:linear-gradient(180deg,#111 0%,#0a0a0a 100%);
-  border-bottom:1px solid rgba(255,255,255,0.18);
-  box-shadow:0 1px 0 rgba(255,255,255,0.04), 0 4px 24px rgba(0,0,0,0.6);
-  position:relative;
-}
-/* glowing accent line at very top of bar */
-#viewer-bar::before{
-  content:'';
-  position:absolute;top:0;left:0;right:0;height:1px;
-  background:linear-gradient(90deg,transparent 0%,rgba(255,255,255,0.25) 30%,rgba(255,255,255,0.5) 50%,rgba(255,255,255,0.25) 70%,transparent 100%);
-}
-/* logo */
-#bar-logo{
-  display:flex;align-items:center;gap:7px;
-  font-family:'Exo 2',sans-serif;font-weight:900;font-size:.78rem;
-  letter-spacing:0.12em;text-transform:uppercase;
-  color:#fff;
-  text-shadow:0 0 16px rgba(255,255,255,0.35);
-  white-space:nowrap;flex-shrink:0;
-  border:none;background:transparent;cursor:pointer;padding:0 4px;
-  transition:text-shadow .2s;
-}
-#bar-logo:hover{text-shadow:0 0 28px rgba(255,255,255,0.7);}
-#bar-logo .dog-icon{font-size:1.2rem;filter:drop-shadow(0 0 6px rgba(255,255,255,0.4));}
-#bar-logo .bar-brand{color:var(--blue2);}
-/* game name label */
-#bar-game-name{
-  font-family:'Share Tech Mono',monospace;
-  font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;
-  color:var(--muted);
-  flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
-  padding:0 4px;
-}
-/* bar separator */
-.bar-sep{width:1px;height:22px;background:rgba(255,255,255,0.1);flex-shrink:0;}
-/* icon buttons */
-.vbar-btn{
-  width:36px;height:36px;flex-shrink:0;
-  display:flex;align-items:center;justify-content:center;
-  border:1px solid rgba(255,255,255,0.1);border-radius:8px;
-  background:rgba(255,255,255,0.04);
-  color:var(--muted);cursor:pointer;font-size:1rem;
-  transition:background .15s,color .15s,border-color .15s,box-shadow .15s;
-  position:relative;
-}
-.vbar-btn:hover{
-  background:rgba(255,255,255,0.1);color:#fff;
-  border-color:rgba(255,255,255,0.3);
-  box-shadow:0 0 10px rgba(255,255,255,0.08);
-}
-.vbar-btn.danger:hover{
-  background:rgba(220,50,50,0.15);color:#ff6060;
-  border-color:rgba(220,50,50,0.4);
-  box-shadow:0 0 10px rgba(220,50,50,0.15);
-}
-/* tooltips */
-.vbar-btn[data-tip]:hover::after{
-  content:attr(data-tip);
-  position:absolute;bottom:-30px;left:50%;transform:translateX(-50%);
-  background:#1a1a1a;border:1px solid rgba(255,255,255,0.12);
-  color:var(--text);font-size:.62rem;font-family:'Exo 2',sans-serif;letter-spacing:.05em;
-  padding:3px 8px;border-radius:5px;white-space:nowrap;pointer-events:none;z-index:99999;
-}
-#viewer-iframe{flex:1;border:none;width:100%;display:block;min-height:0;}
-</style>
-</head>
-<body>
-
-<canvas id="particle-canvas"></canvas>
-<div class="grid-bg"></div>
-<iframe src="https://coder5003.github.io/loading" id="loader-frame"></iframe>
-
-<div id="main-content">
-
-  <section id="home" class="section">
-    <div class="hero-orb"></div>
-    <h1 class="hero-title">Butter Dog<br><span class="blue">Games</span></h1>
-    <div class="hero-cta">
-      <a class="btn-primary" href="#games">Browse Games</a>
-      <a class="btn-ghost" href="#analytics">View Stats</a>
-    </div>
-  </section>
-
-  <section id="games" class="section">
-    <h2 class="sec-title">The Games</h2>
-    <div class="game-grid">
-
-      <div class="game-card">
-        <img class="game-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmLObGiAAgCMDxSvt9Zr8IlUYvyI9Kwwdrjg&s" alt="Subway Surfers">
-        <div class="game-name">Subway Surfers</div>
-        <button class="play-btn" onclick="openGame('https://rawcdn.githack.com/bandruf-games/lioxryt-assets/0cf7d107ddb99c99ea20387522aa29b8ee382049/other/subwaysurfers/index.html','Subway Surfers')">▶ Play</button>
-      </div>
-
-      <div class="game-card">
-        <img class="game-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSuxqLfXqm07uXPH0qyPu_6MofiU9nlUoq9w&s" alt="2048">
-        <div class="game-name">2048</div>
-        <button class="play-btn" onclick="openGame('https://play2048.co/','2048')">▶ Play</button>
-      </div>
-
-      <div class="game-card">
-        <img class="game-img" src="https://1games.io/data/image/game/basket-random/banner/basket-random.png" alt="Basket Random">
-        <div class="game-name">Basket Random</div>
-        <button class="play-btn" onclick="openGame('https://rnv3.pages.dev/G/basket-random/','Basket Random')">▶ Play</button>
-      </div>
-
-    </div>
-  </section>
-
-  <section id="partners" class="section">
-    <h2 class="sec-title">Partners</h2>
-    <div class="partner-grid">
-      <div class="partner-card">
-        <div class="partner-name">Pixel Void Studio</div>
-        <div class="partner-role">Retro arcade specialists crafting tight chunky gameplay since 2019.</div>
-        <span class="partner-tag">Game Dev</span>
-      </div>
-      <div class="partner-card">
-        <div class="partner-name">Neon Drift Co.</div>
-        <div class="partner-role">Speed-based games and custom physics engines.</div>
-        <span class="partner-tag">Racing</span>
-      </div>
-      <div class="partner-card">
-        <div class="partner-name">Gridlock Labs</div>
-        <div class="partner-role">Puzzle design and brain teasers that break you nicely.</div>
-        <span class="partner-tag">Puzzle</span>
-      </div>
-      <div class="partner-card">
-        <div class="partner-name">Doggo Media</div>
-        <div class="partner-role">Marketing, branding and community management.</div>
-        <span class="partner-tag">Media</span>
-      </div>
-    </div>
-  </section>
-
-  <section id="analytics" class="section">
-    <h2 class="sec-title">Analytics</h2>
-    <div class="stat-grid">
-      <div class="stat-card">
-        <div class="stat-label">Total Plays</div>
-        <div class="stat-val" data-count="48321">0</div>
-        <div class="stat-sub">all time</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-label">Active Users</div>
-        <div class="stat-val" data-count="1204">0</div>
-        <div class="stat-sub">this week</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-label">Games</div>
-        <div class="stat-val" data-count="3">0</div>
-        <div class="stat-sub">available now</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-label">Uptime</div>
-        <div class="stat-val">99.9<span style="font-size:1rem;-webkit-text-fill-color:var(--blue2)">%</span></div>
-        <div class="stat-sub">30-day average</div>
-      </div>
-    </div>
-  </section>
-
-</div>
-
-<!-- GAME VIEWER -->
-<div id="game-viewer">
-  <div id="viewer-bar">
-    <button id="bar-logo" onclick="closeViewer()">
-      <span class="bar-brand">Butter Dog Games</span>
-    </button>
-    <div class="bar-sep"></div>
-    <span id="bar-game-name">—</span>
-    <button class="vbar-btn" data-tip="Reload" onclick="reloadGame()">&#8635;</button>
-    <button class="vbar-btn" id="btn-fs" data-tip="Fullscreen" onclick="toggleFs()">&#9974;</button>
-    <div class="bar-sep"></div>
-    <button class="vbar-btn danger" data-tip="Close" onclick="closeViewer()">&#10005;</button>
-  </div>
-  <iframe id="viewer-iframe" sandbox="allow-scripts allow-same-origin allow-forms allow-pointer-lock allow-popups allow-modals" allowfullscreen></iframe>
-</div>
-
-<script>
-/* LOADER */
-window.addEventListener('DOMContentLoaded', function() {
-  setTimeout(function() {
-    var lf = document.getElementById('loader-frame');
-    lf.classList.add('fade');
-    startCounters();
-    setTimeout(function(){ if (lf.parentNode) lf.remove(); }, 1000);
-  }, 8000);
-});
-
-/* PARTICLES */
-(function() {
-  var c = document.getElementById('particle-canvas');
-  var ctx = c.getContext('2d');
-  var pts = [];
-  var mx = null, my = null;
-  window.addEventListener('mousemove', function(e){ mx=e.clientX; my=e.clientY; });
-  window.addEventListener('touchmove', function(e){ mx=e.touches[0].clientX; my=e.touches[0].clientY; }, {passive:true});
-  function resize(){ c.width=innerWidth; c.height=innerHeight; }
-  window.addEventListener('resize', resize); resize();
-  function mkPt(){ return {x:Math.random()*c.width, y:Math.random()*c.height, sx:(Math.random()-.5), sy:(Math.random()-.5), r:Math.random()*2+1}; }
-  function init(){ pts=[]; var n=(c.width*c.height)/3000; for(var i=0;i<n;i++) pts.push(mkPt()); }
-  function frame(){
-    ctx.clearRect(0,0,c.width,c.height);
-    for(var i=0;i<pts.length;i++){
-      var p=pts[i];
-      if(mx!=null){ var dx=mx-p.x,dy=my-p.y,d=Math.sqrt(dx*dx+dy*dy); if(d<100){var f=(100-d)/100; p.x-=(dx/d)*f*5; p.y-=(dy/d)*f*5;} else{p.x+=p.sx;p.y+=p.sy;} }
-      else{p.x+=p.sx;p.y+=p.sy;}
-      if(p.x<0||p.x>c.width)p.sx*=-1; if(p.y<0||p.y>c.height)p.sy*=-1;
-      ctx.fillStyle='rgba(255,255,255,.5)'; ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2); ctx.fill();
-      for(var j=i+1;j<pts.length;j++){
-        var q=pts[j],d2=Math.sqrt(Math.pow(p.x-q.x,2)+Math.pow(p.y-q.y,2));
-        if(d2<100){ctx.strokeStyle='rgba(255,255,255,'+(1-d2/100)+')';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(q.x,q.y);ctx.stroke();}
+      if (!_isFs) {
+        (v.requestFullscreen || v.webkitRequestFullscreen).call(v);
+        btn.innerHTML = '&#9633;';
+        btn.setAttribute('data-tip', 'Exit Fullscreen');
+        _isFs = true;
+      } else {
+        (document.exitFullscreen || document.webkitExitFullscreen).call(document);
+        btn.innerHTML = '&#9974;';
+        btn.setAttribute('data-tip', 'Fullscreen');
+        _isFs = false;
       }
     }
-    requestAnimationFrame(frame);
-  }
-  init(); frame();
-})();
 
-/* COUNTERS */
-function startCounters() {
-  document.querySelectorAll('[data-count]').forEach(function(el) {
-    var target = parseInt(el.dataset.count), cur = 0, step = Math.ceil(target/55);
-    var id = setInterval(function(){ cur=Math.min(cur+step,target); el.textContent=cur.toLocaleString(); if(cur>=target)clearInterval(id); }, 22);
-  });
-}
-</script>
+    document.addEventListener('fullscreenchange', function() {
+      if (!document.fullscreenElement) {
+        _isFs = false;
+        var btn = document.getElementById('btn-fs');
+        if (btn) {
+          btn.innerHTML = '&#9974;';
+          btn.setAttribute('data-tip', 'Fullscreen');
+        }
+      }
+    });
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && !document.fullscreenElement) closeViewer();
+    });
+  </script>
+
+  <style>
+    :root {
+      --bg: #0a0a0a;
+      --blue: #aaaaaa;
+      --blue2: #dddddd;
+      --surface: rgba(255,255,255,0.04);
+      --border: rgba(255,255,255,0.12);
+      --text: #cccccc;
+      --muted: #666666;
+    }
+
+    *,*::before,*::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html,body {
+      width: 100%;
+      height: 100%;
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Exo 2', sans-serif;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
+
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-thumb {
+      background: var(--border);
+      border-radius: 99px;
+    }
+
+    #particle-canvas {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .grid-bg {
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 64px 64px;
+    }
+
+    #loader-frame {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+      z-index: 50;
+      pointer-events: none;
+      transition: opacity 0.9s ease;
+    }
+
+    #loader-frame.fade {
+      opacity: 0;
+    }
+
+    #main-content {
+      position: relative;
+      z-index: 10;
+    }
+
+    .section {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 80px 16px;
+      text-align: center;
+      position: relative;
+    }
+
+    .hero-orb {
+      position: absolute;
+      width: min(700px,100vw);
+      height: min(700px,100vw);
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,255,255,0.04) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: -1;
+      animation: breathe 7s ease-in-out infinite;
+    }
+
+    @keyframes breathe {
+      0%,100% { transform: scale(1); opacity: .7; }
+      50% { transform: scale(1.1); opacity: 1; }
+    }
+
+    .hero-title {
+      font-weight: 900;
+      font-size: clamp(2.4rem,12vw,7.5rem);
+      line-height: .95;
+      letter-spacing: -0.02em;
+      color: #fff;
+      opacity: 0;
+      animation: fadeUp .6s .25s forwards;
+    }
+
+    .hero-title .blue {
+      display: block;
+      background: linear-gradient(90deg,var(--blue),var(--blue2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-cta {
+      margin-top: 30px;
+      display: inline-flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+      opacity: 0;
+      animation: fadeUp .6s .55s forwards;
+    }
+
+    .btn-primary,
+    .btn-ghost {
+      padding: 12px 26px;
+      border-radius: 8px;
+      font-family: 'Exo 2', sans-serif;
+      font-weight: 700;
+      font-size: 0.8rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg,#555,#999);
+      color: #fff;
+      border: none;
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--blue2);
+      border: 1px solid rgba(255,255,255,.22);
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(22px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .sec-title {
+      font-weight: 900;
+      font-size: clamp(1.6rem,6vw,2.9rem);
+      color: #fff;
+      margin-bottom: 36px;
+    }
+
+    .game-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill,minmax(150px,1fr));
+      gap: 12px;
+      width: 100%;
+      max-width: 1080px;
+    }
+
+    @media(min-width:480px) {
+      .game-grid {
+        grid-template-columns: repeat(auto-fill,minmax(175px,1fr));
+      }
+    }
+
+    @media(min-width:768px) {
+      .game-grid {
+        grid-template-columns: repeat(auto-fill,minmax(205px,1fr));
+        gap: 15px;
+      }
+    }
+
+    .game-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 22px 14px 18px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      transition: border-color .25s, transform .25s;
+    }
+
+    .game-card:hover {
+      border-color: rgba(255,255,255,.35);
+      transform: translateY(-5px);
+    }
+
+    .game-img {
+      width: 100%;
+      max-width: 150px;
+      aspect-ratio: 1/1;
+      object-fit: cover;
+      border-radius: 25px;
+      border: 1px solid var(--border);
+      background: #111;
+    }
+
+    .game-name {
+      font-weight: 800;
+      font-size: 0.8rem;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+      color: #fff;
+    }
+
+    .play-btn {
+      margin-top: 6px;
+      padding: 8px 18px;
+      border: none;
+      border-radius: 7px;
+      background: linear-gradient(135deg,#444,#888);
+      color: #fff;
+      font-family: 'Exo 2',sans-serif;
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      min-height: 36px;
+    }
+
+    .partner-grid,
+    .stat-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      width: 100%;
+      max-width: 900px;
+    }
+
+    @media(min-width:600px) {
+      .partner-grid {
+        grid-template-columns: repeat(auto-fill,minmax(220px,1fr));
+      }
+
+      .stat-grid {
+        grid-template-columns: repeat(auto-fill,minmax(175px,1fr));
+      }
+    }
+
+    .partner-card,
+    .stat-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px 16px;
+      text-align: left;
+    }
+
+    .partner-name {
+      font-weight: 800;
+      font-size: .82rem;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: #fff;
+      margin-bottom: 6px;
+    }
+
+    .partner-role,
+    .stat-sub {
+      font-size: .78rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .partner-tag {
+      margin-top: 12px;
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 99px;
+      background: rgba(255,255,255,.07);
+      color: var(--blue2);
+      font-size: .62rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      font-family: 'Share Tech Mono',monospace;
+    }
+
+    .stat-label {
+      font-family: 'Share Tech Mono',monospace;
+      font-size: .62rem;
+      letter-spacing: .25em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    .stat-val {
+      font-weight: 900;
+      font-size: clamp(1.6rem,5vw,2.2rem);
+      line-height: 1;
+      background: linear-gradient(135deg,var(--blue),var(--blue2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    #game-viewer {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      flex-direction: column;
+      background: #000;
+      height: 100dvh;
+      width: 100vw;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    #game-viewer.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    #viewer-bar {
+      height: 52px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0 12px;
+      background: linear-gradient(180deg,#111 0%,#0a0a0a 100%);
+      border-bottom: 1px solid rgba(255,255,255,0.18);
+      box-shadow: 0 1px 0 rgba(255,255,255,0.04), 0 4px 24px rgba(0,0,0,0.6);
+      position: relative;
+    }
+
+    #bar-logo {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-family: 'Exo 2',sans-serif;
+      font-weight: 900;
+      font-size: .78rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #fff;
+      white-space: nowrap;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+    }
+
+    #bar-logo img {
+      width: 24px;
+      height: 24px;
+      border-radius: 6px;
+      object-fit: cover;
+    }
+
+    #bar-game-name {
+      font-family: 'Share Tech Mono',monospace;
+      font-size: .68rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      flex: 1;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .bar-sep {
+      width: 1px;
+      height: 22px;
+      background: rgba(255,255,255,0.1);
+      flex-shrink: 0;
+    }
+
+    .vbar-btn {
+      width: 36px;
+      height: 36px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px;
+      background: rgba(255,255,255,0.04);
+      color: var(--muted);
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    .vbar-btn:hover {
+      background: rgba(255,255,255,0.1);
+      color: #fff;
+    }
+
+    .vbar-btn.danger:hover {
+      background: rgba(220,50,50,0.15);
+      color: #ff6060;
+    }
+
+    #viewer-iframe {
+      flex: 1;
+      border: none;
+      width: 100%;
+      display: block;
+      min-height: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="particle-canvas"></canvas>
+  <div class="grid-bg"></div>
+  <iframe src="https://coder5003.github.io/loading" id="loader-frame"></iframe>
+
+  <div id="main-content">
+    <section id="home" class="section">
+      <div class="hero-orb"></div>
+      <h1 class="hero-title">Butter Dog<br><span class="blue">Games</span></h1>
+      <div class="hero-cta">
+        <a class="btn-primary" href="#games">Browse Games</a>
+        <a class="btn-ghost" href="#analytics">View Stats</a>
+      </div>
+    </section>
+
+    <section id="games" class="section">
+      <h2 class="sec-title">The Games</h2>
+
+      <div class="game-grid">
+        <div class="game-card">
+          <img class="game-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmLObGiAAgCMDxSvt9Zr8IlUYvyI9Kwwdrjg&s" alt="Subway Surfers">
+          <div class="game-name">Subway Surfers</div>
+          <button class="play-btn" onclick="openGame('https://rawcdn.githack.com/bandruf-games/lioxryt-assets/0cf7d107ddb99c99ea20387522aa29b8ee382049/other/subwaysurfers/index.html','Subway Surfers')">▶ Play</button>
+        </div>
+
+        <div class="game-card">
+          <img class="game-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSuxqLfXqm07uXPH0qyPu_6MofiU9nlUoq9w&s" alt="2048">
+          <div class="game-name">2048</div>
+          <button class="play-btn" onclick="openGame('https://play2048.co/','2048')">▶ Play</button>
+        </div>
+
+        <div class="game-card">
+          <img class="game-img" src="https://1games.io/data/image/game/basket-random/banner/basket-random.png" alt="Basket Random">
+          <div class="game-name">Basket Random</div>
+          <button class="play-btn" onclick="openGame('https://rnv3.pages.dev/G/basket-random/','Basket Random')">▶ Play</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="partners" class="section">
+      <h2 class="sec-title">Partners</h2>
+
+      <div class="partner-grid">
+        <div class="partner-card">
+          <div class="partner-name">Pixel Void Studio</div>
+          <div class="partner-role">Retro arcade specialists crafting tight chunky gameplay since 2019.</div>
+          <span class="partner-tag">Game Dev</span>
+        </div>
+
+        <div class="partner-card">
+          <div class="partner-name">Neon Drift Co.</div>
+          <div class="partner-role">Speed-based games and custom physics engines.</div>
+          <span class="partner-tag">Racing</span>
+        </div>
+
+        <div class="partner-card">
+          <div class="partner-name">Gridlock Labs</div>
+          <div class="partner-role">Puzzle design and brain teasers that break you nicely.</div>
+          <span class="partner-tag">Puzzle</span>
+        </div>
+
+        <div class="partner-card">
+          <div class="partner-name">Doggo Media</div>
+          <div class="partner-role">Marketing, branding and community management.</div>
+          <span class="partner-tag">Media</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="analytics" class="section">
+      <h2 class="sec-title">Analytics</h2>
+
+      <div class="stat-grid">
+        <div class="stat-card">
+          <div class="stat-label">Total Plays</div>
+          <div class="stat-val" data-count="48321">0</div>
+          <div class="stat-sub">all time</div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-label">Active Users</div>
+          <div class="stat-val" data-count="1204">0</div>
+          <div class="stat-sub">this week</div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-label">Games</div>
+          <div class="stat-val" data-count="3">0</div>
+          <div class="stat-sub">available now</div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-label">Uptime</div>
+          <div class="stat-val">99.9<span style="font-size:1rem;-webkit-text-fill-color:var(--blue2)">%</span></div>
+          <div class="stat-sub">30-day average</div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div id="game-viewer">
+    <div id="viewer-bar">
+      <button id="bar-logo" onclick="closeViewer()">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmLObGiAAgCMDxSvt9Zr8IlUYvyI9Kwwdrjg&s" alt="">
+        <span class="bar-brand">Butter Dog Games</span>
+      </button>
+
+      <div class="bar-sep"></div>
+      <span id="bar-game-name">—</span>
+
+      <button class="vbar-btn" data-tip="Reload" onclick="reloadGame()">&#8635;</button>
+      <button class="vbar-btn" id="btn-fs" data-tip="Fullscreen" onclick="toggleFs()">&#9974;</button>
+
+      <div class="bar-sep"></div>
+
+      <button class="vbar-btn danger" data-tip="Close" onclick="closeViewer()">&#10005;</button>
+    </div>
+
+    <iframe id="viewer-iframe" sandbox="allow-scripts allow-same-origin allow-forms allow-pointer-lock allow-popups allow-modals" allowfullscreen></iframe>
+  </div>
+
+  <script>
+    window.addEventListener('DOMContentLoaded', function() {
+      var loaderDelay = 4000 + Math.random() * 6000;
+
+      setTimeout(function() {
+        var lf = document.getElementById('loader-frame');
+
+        lf.classList.add('fade');
+        startCounters();
+
+        setTimeout(function() {
+          if (lf.parentNode) lf.remove();
+        }, 1000);
+      }, loaderDelay);
+    });
+
+    (function() {
+      var c = document.getElementById('particle-canvas');
+      var ctx = c.getContext('2d');
+      var pts = [];
+      var mx = null;
+      var my = null;
+
+      window.addEventListener('mousemove', function(e) {
+        mx = e.clientX;
+        my = e.clientY;
+      });
+
+      window.addEventListener('touchmove', function(e) {
+        mx = e.touches[0].clientX;
+        my = e.touches[0].clientY;
+      }, { passive: true });
+
+      function resize() {
+        c.width = innerWidth;
+        c.height = innerHeight;
+      }
+
+      window.addEventListener('resize', resize);
+      resize();
+
+      function mkPt() {
+        return {
+          x: Math.random() * c.width,
+          y: Math.random() * c.height,
+          sx: Math.random() - .5,
+          sy: Math.random() - .5,
+          r: Math.random() * 2 + 1
+        };
+      }
+
+      function init() {
+        pts = [];
+        var n = (c.width * c.height) / 3000;
+
+        for (var i = 0; i < n; i++) {
+          pts.push(mkPt());
+        }
+      }
+
+      function frame() {
+        ctx.clearRect(0,0,c.width,c.height);
+
+        for (var i = 0; i < pts.length; i++) {
+          var p = pts[i];
+
+          if (mx != null) {
+            var dx = mx - p.x;
+            var dy = my - p.y;
+            var d = Math.sqrt(dx * dx + dy * dy);
+
+            if (d < 100 && d > 0) {
+              var f = (100 - d) / 100;
+              p.x -= (dx / d) * f * 5;
+              p.y -= (dy / d) * f * 5;
+            } else {
+              p.x += p.sx;
+              p.y += p.sy;
+            }
+          } else {
+            p.x += p.sx;
+            p.y += p.sy;
+          }
+
+          if (p.x < 0 || p.x > c.width) p.sx *= -1;
+          if (p.y < 0 || p.y > c.height) p.sy *= -1;
+
+          ctx.fillStyle = 'rgba(255,255,255,.5)';
+          ctx.beginPath();
+          ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+          ctx.fill();
+
+          for (var j = i + 1; j < pts.length; j++) {
+            var q = pts[j];
+            var d2 = Math.sqrt(Math.pow(p.x - q.x,2) + Math.pow(p.y - q.y,2));
+
+            if (d2 < 100) {
+              ctx.strokeStyle = 'rgba(255,255,255,' + (1 - d2 / 100) + ')';
+              ctx.lineWidth = 1;
+              ctx.beginPath();
+              ctx.moveTo(p.x,p.y);
+              ctx.lineTo(q.x,q.y);
+              ctx.stroke();
+            }
+          }
+        }
+
+        requestAnimationFrame(frame);
+      }
+
+      init();
+      frame();
+    })();
+
+    function startCounters() {
+      document.querySelectorAll('[data-count]').forEach(function(el) {
+        var target = parseInt(el.dataset.count);
+        var cur = 0;
+        var step = Math.ceil(target / 55);
+
+        var id = setInterval(function() {
+          cur = Math.min(cur + step, target);
+          el.textContent = cur.toLocaleString();
+
+          if (cur >= target) clearInterval(id);
+        }, 22);
+      });
+    }
+  </script>
 </body>
 </html>
