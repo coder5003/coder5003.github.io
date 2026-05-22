@@ -1,0 +1,14 @@
+<html>
+<body>
+    <script src="https://js.puter.com/v2/"></script>
+    <script>
+        // Claude Sonnet 4
+        puter.ai.chat(
+            "Write a creative short story about a time traveler",
+            { model: "anthropic/claude-sonnet-4-6" }
+        ).then(response => {
+            puter.print(response.message.content[0].text);
+        });
+    </script>
+</body>
+</html>
