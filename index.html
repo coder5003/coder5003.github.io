@@ -16,6 +16,7 @@
   <title>Home</title>
 
   <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;600;800;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <script src="https://js.puter.com/v2/"></script>
 
   <script>
     var _currentUrl = '';
@@ -215,15 +216,8 @@
     }
 
     @keyframes breathe {
-      0%,100% {
-        transform: scale(1);
-        opacity: .7;
-      }
-
-      50% {
-        transform: scale(1.1);
-        opacity: 1;
-      }
+      0%,100% { transform: scale(1); opacity: .7; }
+      50% { transform: scale(1.1); opacity: 1; }
     }
 
     .hero-title {
@@ -269,9 +263,7 @@
       transition: transform .18s;
     }
 
-    .btn-primary:hover {
-      transform: translateY(-2px);
-    }
+    .btn-primary:hover { transform: translateY(-2px); }
 
     .btn-ghost {
       padding: 12px 26px;
@@ -289,20 +281,11 @@
       transition: background .18s;
     }
 
-    .btn-ghost:hover {
-      background: rgba(255,255,255,.06);
-    }
+    .btn-ghost:hover { background: rgba(255,255,255,.06); }
 
     @keyframes fadeUp {
-      from {
-        opacity: 0;
-        transform: translateY(22px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      from { opacity: 0; transform: translateY(22px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .sec-title {
@@ -321,18 +304,8 @@
       max-width: 1080px;
     }
 
-    @media(min-width:480px) {
-      .game-grid {
-        grid-template-columns: repeat(auto-fill,minmax(175px,1fr));
-      }
-    }
-
-    @media(min-width:768px) {
-      .game-grid {
-        grid-template-columns: repeat(auto-fill,minmax(205px,1fr));
-        gap: 15px;
-      }
-    }
+    @media(min-width:480px) { .game-grid { grid-template-columns: repeat(auto-fill,minmax(175px,1fr)); } }
+    @media(min-width:768px) { .game-grid { grid-template-columns: repeat(auto-fill,minmax(205px,1fr)); gap: 15px; } }
 
     .game-card {
       background: var(--surface);
@@ -346,10 +319,7 @@
       transition: border-color .25s, transform .25s;
     }
 
-    .game-card:hover {
-      border-color: rgba(255,255,255,.35);
-      transform: translateY(-5px);
-    }
+    .game-card:hover { border-color: rgba(255,255,255,.35); transform: translateY(-5px); }
 
     .game-img {
       width: 100%;
@@ -386,9 +356,7 @@
       transition: transform .15s;
     }
 
-    .play-btn:hover {
-      transform: scale(1.06);
-    }
+    .play-btn:hover { transform: scale(1.06); }
 
     .partner-grid {
       display: grid;
@@ -398,12 +366,7 @@
       max-width: 900px;
     }
 
-    @media(min-width:600px) {
-      .partner-grid {
-        grid-template-columns: repeat(auto-fill,minmax(220px,1fr));
-        gap: 15px;
-      }
-    }
+    @media(min-width:600px) { .partner-grid { grid-template-columns: repeat(auto-fill,minmax(220px,1fr)); gap: 15px; } }
 
     .partner-card {
       background: var(--surface);
@@ -414,10 +377,7 @@
       transition: border-color .2s, transform .2s;
     }
 
-    .partner-card:hover {
-      border-color: rgba(255,255,255,.35);
-      transform: translateY(-3px);
-    }
+    .partner-card:hover { border-color: rgba(255,255,255,.35); transform: translateY(-3px); }
 
     .partner-name {
       font-weight: 800;
@@ -428,11 +388,7 @@
       margin-bottom: 6px;
     }
 
-    .partner-role {
-      font-size: .78rem;
-      color: var(--muted);
-      line-height: 1.5;
-    }
+    .partner-role { font-size: .78rem; color: var(--muted); line-height: 1.5; }
 
     .partner-tag {
       margin-top: 12px;
@@ -455,12 +411,7 @@
       max-width: 860px;
     }
 
-    @media(min-width:600px) {
-      .stat-grid {
-        grid-template-columns: repeat(auto-fill,minmax(175px,1fr));
-        gap: 15px;
-      }
-    }
+    @media(min-width:600px) { .stat-grid { grid-template-columns: repeat(auto-fill,minmax(175px,1fr)); gap: 15px; } }
 
     .stat-card {
       background: var(--surface);
@@ -488,11 +439,7 @@
       -webkit-text-fill-color: transparent;
     }
 
-    .stat-sub {
-      margin-top: 6px;
-      font-size: .72rem;
-      color: var(--muted);
-    }
+    .stat-sub { margin-top: 6px; font-size: .72rem; color: var(--muted); }
 
     footer {
       position: relative;
@@ -519,10 +466,7 @@
       transition: opacity 0.35s ease;
     }
 
-    #game-viewer.show {
-      opacity: 1;
-      pointer-events: auto;
-    }
+    #game-viewer.show { opacity: 1; pointer-events: auto; }
 
     #viewer-bar {
       height: 52px;
@@ -540,9 +484,7 @@
     #viewer-bar::before {
       content: '';
       position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
+      top: 0; left: 0; right: 0;
       height: 1px;
       background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.25) 30%, rgba(255,255,255,0.5) 50%, rgba(255,255,255,0.25) 70%, transparent 100%);
     }
@@ -567,21 +509,9 @@
       transition: text-shadow .2s;
     }
 
-    #bar-logo:hover {
-      text-shadow: 0 0 28px rgba(255,255,255,0.7);
-    }
-
-    #bar-logo img {
-      width: 24px;
-      height: 24px;
-      border-radius: 6px;
-      object-fit: cover;
-      filter: drop-shadow(0 0 6px rgba(255,255,255,0.4));
-    }
-
-    #bar-logo .bar-brand {
-      color: var(--blue2);
-    }
+    #bar-logo:hover { text-shadow: 0 0 28px rgba(255,255,255,0.7); }
+    #bar-logo img { width: 24px; height: 24px; border-radius: 6px; object-fit: cover; filter: drop-shadow(0 0 6px rgba(255,255,255,0.4)); }
+    #bar-logo .bar-brand { color: var(--blue2); }
 
     #bar-game-name {
       font-family: 'Share Tech Mono',monospace;
@@ -596,16 +526,10 @@
       padding: 0 4px;
     }
 
-    .bar-sep {
-      width: 1px;
-      height: 22px;
-      background: rgba(255,255,255,0.1);
-      flex-shrink: 0;
-    }
+    .bar-sep { width: 1px; height: 22px; background: rgba(255,255,255,0.1); flex-shrink: 0; }
 
     .vbar-btn {
-      width: 36px;
-      height: 36px;
+      width: 36px; height: 36px;
       flex-shrink: 0;
       display: flex;
       align-items: center;
@@ -620,19 +544,8 @@
       position: relative;
     }
 
-    .vbar-btn:hover {
-      background: rgba(255,255,255,0.1);
-      color: #fff;
-      border-color: rgba(255,255,255,0.3);
-      box-shadow: 0 0 10px rgba(255,255,255,0.08);
-    }
-
-    .vbar-btn.danger:hover {
-      background: rgba(220,50,50,0.15);
-      color: #ff6060;
-      border-color: rgba(220,50,50,0.4);
-      box-shadow: 0 0 10px rgba(220,50,50,0.15);
-    }
+    .vbar-btn:hover { background: rgba(255,255,255,0.1); color: #fff; border-color: rgba(255,255,255,0.3); box-shadow: 0 0 10px rgba(255,255,255,0.08); }
+    .vbar-btn.danger:hover { background: rgba(220,50,50,0.15); color: #ff6060; border-color: rgba(220,50,50,0.4); box-shadow: 0 0 10px rgba(220,50,50,0.15); }
 
     .vbar-btn[data-tip]:hover::after {
       content: attr(data-tip);
@@ -653,12 +566,239 @@
       z-index: 99999;
     }
 
-    #viewer-iframe {
-      flex: 1;
-      border: none;
+    #viewer-iframe { flex: 1; border: none; width: 100%; display: block; min-height: 0; }
+
+    /* ── AI CHAT SECTION ── */
+    #chat .sec-title { margin-bottom: 8px; }
+
+    .chat-subtitle {
+      font-size: .8rem;
+      color: var(--muted);
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      font-family: 'Share Tech Mono', monospace;
+      margin-bottom: 32px;
+    }
+
+    .chat-phone {
       width: 100%;
-      display: block;
+      max-width: 420px;
+      background: #111;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 40px;
+      overflow: hidden;
+      box-shadow: 0 0 80px rgba(0,0,0,0.8), 0 0 0 1px rgba(255,255,255,0.05) inset;
+      display: flex;
+      flex-direction: column;
+      height: 620px;
+    }
+
+    .chat-status-bar {
+      background: #111;
+      padding: 14px 22px 8px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+    }
+
+    .chat-status-time {
+      font-size: .7rem;
+      font-weight: 700;
+      color: #fff;
+      font-family: 'Exo 2', sans-serif;
+    }
+
+    .chat-status-icons {
+      display: flex;
+      gap: 5px;
+      align-items: center;
+      font-size: .6rem;
+      color: #fff;
+    }
+
+    .chat-header {
+      background: #1a1a1a;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      padding: 10px 16px 14px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+
+    .chat-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #555, #999);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      box-shadow: 0 0 20px rgba(170,170,170,0.3);
+    }
+
+    .chat-contact-name {
+      font-weight: 800;
+      font-size: .85rem;
+      color: #fff;
+      letter-spacing: .04em;
+    }
+
+    .chat-contact-sub {
+      font-size: .62rem;
+      color: #4cd964;
+      font-family: 'Share Tech Mono', monospace;
+      letter-spacing: .1em;
+    }
+
+    .chat-messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
       min-height: 0;
+    }
+
+    .chat-messages::-webkit-scrollbar { width: 3px; }
+    .chat-messages::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 99px; }
+
+    .msg-row {
+      display: flex;
+      flex-direction: column;
+      animation: msgPop .25s cubic-bezier(.34,1.56,.64,1) forwards;
+    }
+
+    @keyframes msgPop {
+      from { opacity: 0; transform: scale(0.85) translateY(8px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    .msg-row.user { align-items: flex-end; }
+    .msg-row.ai { align-items: flex-start; }
+
+    .msg-bubble {
+      max-width: 78%;
+      padding: 10px 14px;
+      border-radius: 20px;
+      font-size: .82rem;
+      line-height: 1.5;
+      word-break: break-word;
+      white-space: pre-wrap;
+    }
+
+    .msg-row.user .msg-bubble {
+      background: #3478f6;
+      color: #fff;
+      border-bottom-right-radius: 5px;
+    }
+
+    .msg-row.ai .msg-bubble {
+      background: #2a2a2a;
+      color: #e5e5e5;
+      border-bottom-left-radius: 5px;
+      border: 1px solid rgba(255,255,255,0.07);
+    }
+
+    .msg-time {
+      font-size: .55rem;
+      color: var(--muted);
+      margin-top: 3px;
+      padding: 0 4px;
+      font-family: 'Share Tech Mono', monospace;
+    }
+
+    /* Typing indicator */
+    .typing-bubble {
+      background: #2a2a2a;
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 20px;
+      border-bottom-left-radius: 5px;
+      padding: 12px 18px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .typing-dot {
+      width: 7px;
+      height: 7px;
+      background: #888;
+      border-radius: 50%;
+      animation: typingBounce 1.2s ease-in-out infinite;
+    }
+
+    .typing-dot:nth-child(2) { animation-delay: .2s; }
+    .typing-dot:nth-child(3) { animation-delay: .4s; }
+
+    @keyframes typingBounce {
+      0%, 60%, 100% { transform: translateY(0); opacity: .4; }
+      30% { transform: translateY(-6px); opacity: 1; }
+    }
+
+    .chat-input-area {
+      background: #1a1a1a;
+      border-top: 1px solid rgba(255,255,255,0.07);
+      padding: 10px 12px 16px;
+      display: flex;
+      align-items: flex-end;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    .chat-input {
+      flex: 1;
+      background: #2a2a2a;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 22px;
+      padding: 10px 16px;
+      color: #fff;
+      font-family: 'Exo 2', sans-serif;
+      font-size: .82rem;
+      outline: none;
+      resize: none;
+      max-height: 100px;
+      line-height: 1.4;
+      transition: border-color .2s;
+    }
+
+    .chat-input::placeholder { color: #555; }
+    .chat-input:focus { border-color: rgba(255,255,255,0.25); }
+
+    .chat-send-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #3478f6;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: transform .15s, background .15s;
+    }
+
+    .chat-send-btn:hover { transform: scale(1.08); background: #4a8aff; }
+    .chat-send-btn:disabled { background: #2a2a2a; cursor: not-allowed; transform: none; }
+
+    .chat-send-btn svg { width: 16px; height: 16px; fill: #fff; }
+
+    .chat-date-chip {
+      align-self: center;
+      background: rgba(255,255,255,0.06);
+      color: var(--muted);
+      font-size: .58rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      font-family: 'Share Tech Mono', monospace;
+      padding: 3px 10px;
+      border-radius: 99px;
+      margin: 4px 0;
     }
   </style>
 </head>
@@ -682,7 +822,6 @@
 
     <section id="games" class="section">
       <h2 class="sec-title">The Games</h2>
-
       <div class="game-grid">
 
         <div class="game-card">
@@ -708,26 +847,22 @@
 
     <section id="partners" class="section">
       <h2 class="sec-title">Partners</h2>
-
       <div class="partner-grid">
         <div class="partner-card">
           <div class="partner-name">Pixel Void Studio</div>
           <div class="partner-role">Retro arcade specialists crafting tight chunky gameplay since 2019.</div>
           <span class="partner-tag">Game Dev</span>
         </div>
-
         <div class="partner-card">
           <div class="partner-name">Neon Drift Co.</div>
           <div class="partner-role">Speed-based games and custom physics engines.</div>
           <span class="partner-tag">Racing</span>
         </div>
-
         <div class="partner-card">
           <div class="partner-name">Gridlock Labs</div>
           <div class="partner-role">Puzzle design and brain teasers that break you nicely.</div>
           <span class="partner-tag">Puzzle</span>
         </div>
-
         <div class="partner-card">
           <div class="partner-name">Doggo Media</div>
           <div class="partner-role">Marketing, branding and community management.</div>
@@ -738,31 +873,76 @@
 
     <section id="analytics" class="section">
       <h2 class="sec-title">Analytics</h2>
-
       <div class="stat-grid">
         <div class="stat-card">
           <div class="stat-label">Total Plays</div>
           <div class="stat-val" data-count="48321">0</div>
           <div class="stat-sub">all time</div>
         </div>
-
         <div class="stat-card">
           <div class="stat-label">Active Users</div>
           <div class="stat-val" data-count="1204">0</div>
           <div class="stat-sub">this week</div>
         </div>
-
         <div class="stat-card">
           <div class="stat-label">Games</div>
           <div class="stat-val" data-count="3">0</div>
           <div class="stat-sub">available now</div>
         </div>
-
         <div class="stat-card">
           <div class="stat-label">Uptime</div>
           <div class="stat-val">99.9<span style="font-size:1rem;-webkit-text-fill-color:var(--blue2)">%</span></div>
           <div class="stat-sub">30-day average</div>
         </div>
+      </div>
+    </section>
+
+    <!-- ── AI CHAT SECTION ── -->
+    <section id="chat" class="section">
+      <h2 class="sec-title">Ask the Dog 🐶</h2>
+      <p class="chat-subtitle">Powered by Claude AI</p>
+
+      <div class="chat-phone">
+
+        <!-- Status bar -->
+        <div class="chat-status-bar">
+          <span class="chat-status-time" id="chat-clock">9:41</span>
+          <div class="chat-status-icons">
+            <span>●●●</span>
+            <span>WiFi</span>
+            <span>🔋</span>
+          </div>
+        </div>
+
+        <!-- Contact header -->
+        <div class="chat-header">
+          <div class="chat-avatar">🐶</div>
+          <div class="chat-contact-name">Butter Dog AI</div>
+          <div class="chat-contact-sub">● online</div>
+        </div>
+
+        <!-- Messages -->
+        <div class="chat-messages" id="chat-messages">
+          <div class="chat-date-chip">Today</div>
+          <div class="msg-row ai">
+            <div class="msg-bubble">Hey! I'm Butter Dog's AI assistant 🐾 Ask me anything about games, tips, or just chat!</div>
+            <div class="msg-time">now</div>
+          </div>
+        </div>
+
+        <!-- Input bar -->
+        <div class="chat-input-area">
+          <textarea
+            class="chat-input"
+            id="chat-input"
+            placeholder="iMessage"
+            rows="1"
+          ></textarea>
+          <button class="chat-send-btn" id="chat-send" onclick="sendMessage()">
+            <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+          </button>
+        </div>
+
       </div>
     </section>
 
@@ -774,132 +954,206 @@
         <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmLObGiAAgCMDxSvt9Zr8IlUYvyI9Kwwdrjg&s" alt="">
         <span class="bar-brand">Butter Dog Games</span>
       </button>
-
       <div class="bar-sep"></div>
       <span id="bar-game-name">—</span>
-
       <button class="vbar-btn" data-tip="Reload" onclick="reloadGame()">&#8635;</button>
       <button class="vbar-btn" id="btn-fs" data-tip="Fullscreen" onclick="toggleFs()">&#9974;</button>
-
       <div class="bar-sep"></div>
-
       <button class="vbar-btn danger" data-tip="Close" onclick="closeViewer()">&#10005;</button>
     </div>
-
     <iframe id="viewer-iframe" sandbox="allow-scripts allow-same-origin allow-forms allow-pointer-lock allow-popups allow-modals" allowfullscreen></iframe>
   </div>
 
   <script>
+    // ── Clock ──
+    function updateClock() {
+      var now = new Date();
+      var h = now.getHours() % 12 || 12;
+      var m = String(now.getMinutes()).padStart(2, '0');
+      var el = document.getElementById('chat-clock');
+      if (el) el.textContent = h + ':' + m;
+    }
+    updateClock();
+    setInterval(updateClock, 10000);
+
+    // ── Auto-resize textarea ──
+    var chatInput = document.getElementById('chat-input');
+    chatInput.addEventListener('input', function() {
+      this.style.height = 'auto';
+      this.style.height = Math.min(this.scrollHeight, 100) + 'px';
+    });
+
+    chatInput.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        sendMessage();
+      }
+    });
+
+    // ── Chat logic ──
+    var chatHistory = [
+      { role: 'system', content: 'You are Butter Dog, a fun, friendly AI assistant for Butter Dog Games — a gaming website with Subway Surfers, 2048, and Basket Random. You love games, use the occasional dog pun, keep answers concise (1-3 sentences), and are always enthusiastic. Use emojis sparingly.' }
+    ];
+
+    function getTime() {
+      var now = new Date();
+      var h = now.getHours() % 12 || 12;
+      var m = String(now.getMinutes()).padStart(2, '0');
+      var ampm = now.getHours() >= 12 ? 'pm' : 'am';
+      return h + ':' + m + ' ' + ampm;
+    }
+
+    function appendMessage(role, text) {
+      var messages = document.getElementById('chat-messages');
+      var row = document.createElement('div');
+      row.className = 'msg-row ' + role;
+
+      var bubble = document.createElement('div');
+      bubble.className = 'msg-bubble';
+      bubble.textContent = text;
+
+      var time = document.createElement('div');
+      time.className = 'msg-time';
+      time.textContent = getTime();
+
+      row.appendChild(bubble);
+      row.appendChild(time);
+      messages.appendChild(row);
+      messages.scrollTop = messages.scrollHeight;
+      return row;
+    }
+
+    function showTyping() {
+      var messages = document.getElementById('chat-messages');
+      var row = document.createElement('div');
+      row.className = 'msg-row ai';
+      row.id = 'typing-indicator';
+
+      var bubble = document.createElement('div');
+      bubble.className = 'typing-bubble';
+      bubble.innerHTML = '<div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>';
+
+      row.appendChild(bubble);
+      messages.appendChild(row);
+      messages.scrollTop = messages.scrollHeight;
+    }
+
+    function hideTyping() {
+      var indicator = document.getElementById('typing-indicator');
+      if (indicator) indicator.remove();
+    }
+
+    async function sendMessage() {
+      var input = document.getElementById('chat-input');
+      var sendBtn = document.getElementById('chat-send');
+      var text = input.value.trim();
+      if (!text) return;
+
+      // Add user message
+      appendMessage('user', text);
+      chatHistory.push({ role: 'user', content: text });
+
+      // Clear input
+      input.value = '';
+      input.style.height = 'auto';
+      sendBtn.disabled = true;
+
+      // Show typing
+      showTyping();
+
+      try {
+        var messages = chatHistory.filter(m => m.role !== 'system');
+        var response = await puter.ai.chat(
+          text,
+          { model: 'anthropic/claude-sonnet-4-6' }
+        );
+
+        hideTyping();
+
+        var aiText = response.message.content[0].text;
+        chatHistory.push({ role: 'assistant', content: aiText });
+        appendMessage('ai', aiText);
+
+      } catch (err) {
+        hideTyping();
+        appendMessage('ai', 'Woof — something went wrong on my end! 🐾 Try again in a sec.');
+        console.error(err);
+      }
+
+      sendBtn.disabled = false;
+      input.focus();
+    }
+
+    // ── Loader + counters ──
     window.addEventListener('DOMContentLoaded', function() {
       var loaderDelay = 4000 + Math.random() * 6000;
-
       setTimeout(function() {
         var lf = document.getElementById('loader-frame');
-
         if (!lf) return;
-
         lf.classList.add('fade');
         startCounters();
-
         setTimeout(function() {
-          if (lf.parentNode) {
-            lf.remove();
-          }
+          if (lf.parentNode) lf.remove();
         }, 1000);
       }, loaderDelay);
     });
 
+    // ── Particles ──
     (function() {
       var c = document.getElementById('particle-canvas');
       var ctx = c.getContext('2d');
       var pts = [];
-      var mx = null;
-      var my = null;
+      var mx = null, my = null;
 
-      window.addEventListener('mousemove', function(e) {
-        mx = e.clientX;
-        my = e.clientY;
-      });
+      window.addEventListener('mousemove', function(e) { mx = e.clientX; my = e.clientY; });
+      window.addEventListener('touchmove', function(e) { mx = e.touches[0].clientX; my = e.touches[0].clientY; }, { passive: true });
 
-      window.addEventListener('touchmove', function(e) {
-        mx = e.touches[0].clientX;
-        my = e.touches[0].clientY;
-      }, { passive: true });
-
-      function resize() {
-        c.width = innerWidth;
-        c.height = innerHeight;
-      }
-
+      function resize() { c.width = innerWidth; c.height = innerHeight; }
       window.addEventListener('resize', resize);
       resize();
 
       function mkPt() {
-        return {
-          x: Math.random() * c.width,
-          y: Math.random() * c.height,
-          sx: Math.random() - .5,
-          sy: Math.random() - .5,
-          r: Math.random() * 2 + 1
-        };
+        return { x: Math.random() * c.width, y: Math.random() * c.height, sx: Math.random() - .5, sy: Math.random() - .5, r: Math.random() * 2 + 1 };
       }
 
       function init() {
         pts = [];
         var n = (c.width * c.height) / 3000;
-
-        for (var i = 0; i < n; i++) {
-          pts.push(mkPt());
-        }
+        for (var i = 0; i < n; i++) pts.push(mkPt());
       }
 
       function frame() {
-        ctx.clearRect(0,0,c.width,c.height);
-
+        ctx.clearRect(0, 0, c.width, c.height);
         for (var i = 0; i < pts.length; i++) {
           var p = pts[i];
-
           if (mx != null) {
-            var dx = mx - p.x;
-            var dy = my - p.y;
+            var dx = mx - p.x, dy = my - p.y;
             var d = Math.sqrt(dx * dx + dy * dy);
-
-            if (d < 100 && d > 0) {
-              var f = (100 - d) / 100;
-              p.x -= (dx / d) * f * 5;
-              p.y -= (dy / d) * f * 5;
-            } else {
-              p.x += p.sx;
-              p.y += p.sy;
-            }
-          } else {
-            p.x += p.sx;
-            p.y += p.sy;
-          }
+            if (d < 100 && d > 0) { p.x -= (dx / d) * ((100 - d) / 100) * 5; p.y -= (dy / d) * ((100 - d) / 100) * 5; }
+            else { p.x += p.sx; p.y += p.sy; }
+          } else { p.x += p.sx; p.y += p.sy; }
 
           if (p.x < 0 || p.x > c.width) p.sx *= -1;
           if (p.y < 0 || p.y > c.height) p.sy *= -1;
 
           ctx.fillStyle = 'rgba(255,255,255,.5)';
           ctx.beginPath();
-          ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
           ctx.fill();
 
           for (var j = i + 1; j < pts.length; j++) {
             var q = pts[j];
-            var d2 = Math.sqrt(Math.pow(p.x - q.x,2) + Math.pow(p.y - q.y,2));
-
+            var d2 = Math.sqrt(Math.pow(p.x - q.x, 2) + Math.pow(p.y - q.y, 2));
             if (d2 < 100) {
               ctx.strokeStyle = 'rgba(255,255,255,' + (1 - d2 / 100) + ')';
               ctx.lineWidth = 1;
               ctx.beginPath();
-              ctx.moveTo(p.x,p.y);
-              ctx.lineTo(q.x,q.y);
+              ctx.moveTo(p.x, p.y);
+              ctx.lineTo(q.x, q.y);
               ctx.stroke();
             }
           }
         }
-
         requestAnimationFrame(frame);
       }
 
@@ -912,14 +1166,10 @@
         var target = parseInt(el.dataset.count);
         var cur = 0;
         var step = Math.ceil(target / 55);
-
         var id = setInterval(function() {
           cur = Math.min(cur + step, target);
           el.textContent = cur.toLocaleString();
-
-          if (cur >= target) {
-            clearInterval(id);
-          }
+          if (cur >= target) clearInterval(id);
         }, 22);
       });
     }
