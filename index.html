@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link href="data:image/x-icon;base64,AAABAAEAEBAAAAEACABoBQAAFgAAACgAAAAQAAAAIAAAAAEACAAAAAAAAAEAAAAAAAAAAAAAAAEAAAAAAAAAAAAAYqMdAAC8/wBanhIAAbT0AGSkIQBfoRkAWZ4RAP///wAJt/QAZKQgAF+hGAATuvUAFLr1AFyfFQAVuvUAY6QfAGGiHABbnxQAZqUjAAa29AAHtvQACLb0AGGiGwAQufUAErn1AFufEwBlpSIAYKIaAF2gFwBeoBcA9/f3AAK19AADtfQABLX0AAW19AAMuPUAYqMeAA249QAOuPUAXaAWAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAICCSMjFhUVIyMjIyMgAgICIyMjIyMjIyMjIyMjIwQCAiQGBwgICAgICAgIBwMgAiYCFwcICAgICAgICAcaIQInAhEHBwgfHx8fCAcHEiECAgIBBwcHBwcHBwcHBxIiAgIYJSUBBwcICAcHBygOIwICGRAQBwcICAgIBwcHDiMCAgwKChAlCB8fCAYeHSgUAgINGwUKEAcICAcGCx4oFAICDxMbBwcHBwcHHAseHRQCAiMjIyMjIyMjIyMjIyMUAgIjIyMjIyMjIyMjIyMjIwIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP//AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//8AAP//AAA=" rel="icon" type="image/x-icon">
-
+  <link href="data:image/x-icon;base64,AAABAAEAEBAAAAEACABoBQAAFgAAACgAAAAQAAAAIAAAAAEACAAAAAAAAAEAAAAAAAAAAAAAAAEAAAAAAAAAAAAAYqMdAAC8/wBanhIAAbT0AGSkIQBfoRkAWZ4RAP///wAJt/QAZKQgAF+hGAATuvUAFLr1AFyfFQAVuvUAY6QfAGGiHABbnxQAZqUjAAa29AAHtvQACLb0AGGiGwAQufUAErn1AFufEwBlpSIAYKIaAF2gFwBeoBcA9/f3AAK19AADtfQABLX0AAW19AAMuPUAYqMeAA249QAOuPUAXaAWAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAICCSMjFhUVIyMjIyMgAgICIyMjIyMjIyMjIyMjIwQCAiQGBwgICAgICAgIBwMgAiYCFwcICAgICAgICAcaIQInAhEHBwgfHx8fCAcHEiECAgIBBwcHBwcHBwcHBxIiAgIYJSUBBwcICAcHBygOIwICGRAQBwcICAgIBwcHDiMCAgwKChAlCB8fCAYeHSgUAgINGwUKEAcICAcGCx4oFAICDxMbBwcHBwcHHAseHRQCAiMjIyMjIyMjIyMjIyMUAgIjIyMjIyMjIyMjIyMjIwIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP//AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//8AAP//AAA=" rel="icon" type="image/x-icon">
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-RGJ5NV8W30"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -13,7 +12,7 @@
 
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Butter Dog Games</title>
+  <title>Home</title>
 
   <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;600;800;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
   <script src="https://js.puter.com/v2/"></script>
@@ -27,25 +26,44 @@
       var viewer = document.getElementById('game-viewer');
       var iframe = document.getElementById('viewer-iframe');
       var gameName = document.getElementById('bar-game-name');
-      if (_viewerCloseTimer) { clearTimeout(_viewerCloseTimer); _viewerCloseTimer = null; }
+
+      if (_viewerCloseTimer) {
+        clearTimeout(_viewerCloseTimer);
+        _viewerCloseTimer = null;
+      }
+
       _currentUrl = url;
       iframe.src = url;
       gameName.textContent = name;
+
       viewer.style.display = 'flex';
       document.body.style.overflow = 'hidden';
-      requestAnimationFrame(function() { viewer.classList.add('show'); });
+
+      requestAnimationFrame(function() {
+        viewer.classList.add('show');
+      });
     }
 
     function closeViewer() {
       var viewer = document.getElementById('game-viewer');
       var iframe = document.getElementById('viewer-iframe');
       var gameName = document.getElementById('bar-game-name');
+
       viewer.classList.remove('show');
       document.body.style.overflow = '';
-      if (document.fullscreenElement) document.exitFullscreen();
+
+      if (document.fullscreenElement) {
+        document.exitFullscreen();
+      }
+
       _isFs = false;
+
       var btn = document.getElementById('btn-fs');
-      if (btn) { btn.innerHTML = '&#9974;'; btn.setAttribute('data-tip', 'Fullscreen'); }
+      if (btn) {
+        btn.innerHTML = '&#9974;';
+        btn.setAttribute('data-tip', 'Fullscreen');
+      }
+
       _viewerCloseTimer = setTimeout(function() {
         viewer.style.display = 'none';
         iframe.src = '';
@@ -54,17 +72,27 @@
       }, 350);
     }
 
-    function reloadGame() { var f = document.getElementById('viewer-iframe'); var s = f.src; f.src = ''; f.src = s; }
+    function reloadGame() {
+      var f = document.getElementById('viewer-iframe');
+      var s = f.src;
+      f.src = '';
+      f.src = s;
+    }
 
     function toggleFs() {
       var v = document.getElementById('game-viewer');
       var btn = document.getElementById('btn-fs');
+
       if (!_isFs) {
         (v.requestFullscreen || v.webkitRequestFullscreen).call(v);
-        btn.innerHTML = '&#9633;'; btn.setAttribute('data-tip', 'Exit Fullscreen'); _isFs = true;
+        btn.innerHTML = '&#9633;';
+        btn.setAttribute('data-tip', 'Exit Fullscreen');
+        _isFs = true;
       } else {
         (document.exitFullscreen || document.webkitExitFullscreen).call(document);
-        btn.innerHTML = '&#9974;'; btn.setAttribute('data-tip', 'Fullscreen'); _isFs = false;
+        btn.innerHTML = '&#9974;';
+        btn.setAttribute('data-tip', 'Fullscreen');
+        _isFs = false;
       }
     }
 
@@ -72,14 +100,19 @@
       if (!document.fullscreenElement) {
         _isFs = false;
         var btn = document.getElementById('btn-fs');
-        if (btn) { btn.innerHTML = '&#9974;'; btn.setAttribute('data-tip', 'Fullscreen'); }
+        if (btn) {
+          btn.innerHTML = '&#9974;';
+          btn.setAttribute('data-tip', 'Fullscreen');
+        }
       }
     });
 
     document.addEventListener('keydown', function(e) {
       if (e.key === 'Escape' && !document.fullscreenElement) {
         var viewer = document.getElementById('game-viewer');
-        if (viewer && viewer.classList.contains('show')) closeViewer();
+        if (viewer && viewer.classList.contains('show')) {
+          closeViewer();
+        }
       }
     });
   </script>
@@ -87,377 +120,685 @@
   <style>
     :root {
       --bg: #0a0a0a;
-      --surface: rgba(255,255,255,0.04);
-      --surface2: #1a1a1a;
-      --border: rgba(255,255,255,0.1);
-      --text: #cccccc;
-      --muted: #555;
       --blue: #aaaaaa;
       --blue2: #dddddd;
-      --accent: #3478f6;
+      --surface: rgba(255,255,255,0.04);
+      --border: rgba(255,255,255,0.12);
+      --text: #cccccc;
+      --muted: #666666;
     }
 
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    *,*::before,*::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-    html, body { width: 100%; height: 100%; background: var(--bg); color: var(--text); font-family: 'Exo 2', sans-serif; overflow-x: hidden; scroll-behavior: smooth; }
+    html,body {
+      width: 100%;
+      height: 100%;
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Exo 2', sans-serif;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
 
-    ::-webkit-scrollbar { width: 4px; }
-    ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.08); border-radius: 99px; }
+    ::-webkit-scrollbar {
+      width: 5px;
+    }
 
-    #particle-canvas { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+    ::-webkit-scrollbar-thumb {
+      background: var(--border);
+      border-radius: 99px;
+    }
+
+    #particle-canvas {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
 
     .grid-bg {
-      position: fixed; inset: 0; z-index: 1; pointer-events: none;
-      background-image: linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
       background-size: 64px 64px;
     }
 
-    #loader-frame { position: fixed; inset: 0; width: 100%; height: 100%; border: none; z-index: 50; pointer-events: none; opacity: 1; transition: opacity 0.9s ease; }
-    #loader-frame.fade { opacity: 0; }
+    #loader-frame {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+      z-index: 50;
+      pointer-events: none;
+      opacity: 1;
+      transition: opacity 0.9s ease;
+    }
 
-    #main-content { position: relative; z-index: 10; }
+    #loader-frame.fade {
+      opacity: 0;
+    }
+
+    #main-content {
+      position: relative;
+      z-index: 10;
+    }
 
     .section {
-      min-height: 100vh; display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      padding: 80px 24px; text-align: center; position: relative;
-    }
-
-    /* HERO */
-    .hero-orb {
-      position: absolute; width: min(600px,100vw); height: min(600px,100vw);
-      border-radius: 50%; background: radial-gradient(circle, rgba(255,255,255,0.03) 0%, transparent 70%);
-      pointer-events: none; z-index: -1; animation: breathe 7s ease-in-out infinite;
-    }
-    @keyframes breathe { 0%,100% { transform: scale(1); opacity:.7; } 50% { transform: scale(1.1); opacity:1; } }
-
-    .hero-title {
-      font-weight: 900; font-size: clamp(2.4rem,12vw,7rem);
-      line-height: .95; letter-spacing: -0.02em; color: #fff;
-      opacity: 0; animation: fadeUp .6s .25s forwards;
-    }
-    .hero-title .blue { display: block; background: linear-gradient(90deg,var(--blue),var(--blue2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-
-    .hero-cta { margin-top: 28px; display: inline-flex; gap: 10px; flex-wrap: wrap; justify-content: center; opacity: 0; animation: fadeUp .6s .5s forwards; }
-
-    @keyframes fadeUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
-
-    .btn-primary { padding: 11px 24px; border-radius: 8px; background: linear-gradient(135deg,#555,#999); color: #fff; font-family: 'Exo 2',sans-serif; font-weight: 700; font-size: .78rem; letter-spacing: .1em; text-transform: uppercase; border: none; cursor: pointer; text-decoration: none; transition: transform .15s; }
-    .btn-primary:hover { transform: translateY(-2px); }
-    .btn-ghost { padding: 11px 24px; border-radius: 8px; background: transparent; color: var(--blue2); border: 1px solid rgba(255,255,255,.2); font-family: 'Exo 2',sans-serif; font-weight: 600; font-size: .78rem; letter-spacing: .1em; text-transform: uppercase; cursor: pointer; text-decoration: none; transition: background .15s; }
-    .btn-ghost:hover { background: rgba(255,255,255,.05); }
-
-    /* SECTION TITLES */
-    .sec-title { font-weight: 900; font-size: clamp(1.6rem,5vw,2.6rem); color: #fff; margin-bottom: 32px; letter-spacing: -.01em; }
-
-    /* GAMES */
-    .game-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(150px,1fr)); gap: 12px; width: 100%; max-width: 960px; }
-    @media(min-width:480px) { .game-grid { grid-template-columns: repeat(auto-fill,minmax(175px,1fr)); } }
-    @media(min-width:768px) { .game-grid { grid-template-columns: repeat(auto-fill,minmax(200px,1fr)); gap: 14px; } }
-
-    .game-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 20px 14px 16px; display: flex; flex-direction: column; align-items: center; gap: 8px; transition: border-color .2s, transform .2s; }
-    .game-card:hover { border-color: rgba(255,255,255,.3); transform: translateY(-4px); }
-    .game-img { width: 100%; max-width: 140px; aspect-ratio: 1/1; object-fit: cover; border-radius: 22px; border: 1px solid var(--border); background: #111; }
-    .game-name { font-weight: 800; font-size: .75rem; letter-spacing: .07em; text-transform: uppercase; color: #fff; }
-    .play-btn { margin-top: 4px; padding: 7px 16px; border: none; border-radius: 7px; background: linear-gradient(135deg,#444,#888); color: #fff; font-family: 'Exo 2',sans-serif; font-size: .7rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; cursor: pointer; transition: transform .15s; }
-    .play-btn:hover { transform: scale(1.05); }
-
-    /* PARTNERS */
-    .partner-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; width: 100%; max-width: 860px; }
-    @media(min-width:600px) { .partner-grid { grid-template-columns: repeat(auto-fill,minmax(200px,1fr)); gap: 14px; } }
-    .partner-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 18px 16px; text-align: left; transition: border-color .2s, transform .2s; }
-    .partner-card:hover { border-color: rgba(255,255,255,.3); transform: translateY(-3px); }
-    .partner-name { font-weight: 800; font-size: .78rem; letter-spacing: .05em; text-transform: uppercase; color: #fff; margin-bottom: 6px; }
-    .partner-role { font-size: .75rem; color: var(--muted); line-height: 1.5; }
-    .partner-tag { margin-top: 10px; display: inline-block; padding: 2px 9px; border-radius: 99px; background: rgba(255,255,255,.06); color: var(--blue2); font-size: .58rem; letter-spacing: .12em; text-transform: uppercase; font-family: 'Share Tech Mono',monospace; }
-
-    /* STATS */
-    .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; width: 100%; max-width: 800px; }
-    @media(min-width:600px) { .stat-grid { grid-template-columns: repeat(auto-fill,minmax(170px,1fr)); gap: 14px; } }
-    .stat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 20px 16px; text-align: left; }
-    .stat-label { font-family: 'Share Tech Mono',monospace; font-size: .58rem; letter-spacing: .22em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
-    .stat-val { font-weight: 900; font-size: clamp(1.5rem,4vw,2rem); line-height: 1; background: linear-gradient(135deg,var(--blue),var(--blue2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    .stat-sub { margin-top: 5px; font-size: .68rem; color: var(--muted); }
-
-    /* GAME VIEWER */
-    #game-viewer { display: none; position: fixed; inset: 0; z-index: 9999; flex-direction: column; background: #000; height: 100dvh; width: 100vw; opacity: 0; pointer-events: none; transition: opacity 0.35s ease; }
-    #game-viewer.show { opacity: 1; pointer-events: auto; }
-    #viewer-bar { height: 50px; flex-shrink: 0; display: flex; align-items: center; gap: 8px; padding: 0 12px; background: #0f0f0f; border-bottom: 1px solid var(--border); position: relative; }
-    #viewer-bar::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2) 50%, transparent); }
-    #bar-logo { display: flex; align-items: center; gap: 7px; font-family: 'Exo 2',sans-serif; font-weight: 900; font-size: .75rem; letter-spacing: .1em; text-transform: uppercase; color: #fff; white-space: nowrap; flex-shrink: 0; border: none; background: transparent; cursor: pointer; padding: 0 4px; transition: opacity .2s; }
-    #bar-logo:hover { opacity: .75; }
-    #bar-logo img { width: 22px; height: 22px; border-radius: 6px; object-fit: cover; }
-    #bar-logo .bar-brand { color: var(--blue2); }
-    #bar-game-name { font-family: 'Share Tech Mono',monospace; font-size: .65rem; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding: 0 4px; }
-    .bar-sep { width: 1px; height: 20px; background: rgba(255,255,255,0.08); flex-shrink: 0; }
-    .vbar-btn { width: 34px; height: 34px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255,255,255,0.08); border-radius: 7px; background: rgba(255,255,255,0.03); color: var(--muted); cursor: pointer; font-size: .95rem; transition: background .15s,color .15s,border-color .15s; position: relative; }
-    .vbar-btn:hover { background: rgba(255,255,255,0.08); color: #fff; border-color: rgba(255,255,255,0.2); }
-    .vbar-btn.danger:hover { background: rgba(220,50,50,0.12); color: #ff6060; border-color: rgba(220,50,50,0.35); }
-    .vbar-btn[data-tip]:hover::after { content: attr(data-tip); position: absolute; bottom: -28px; left: 50%; transform: translateX(-50%); background: #1a1a1a; border: 1px solid var(--border); color: var(--text); font-size: .58rem; font-family: 'Exo 2',sans-serif; padding: 3px 7px; border-radius: 5px; white-space: nowrap; pointer-events: none; z-index: 99999; }
-    #viewer-iframe { flex: 1; border: none; width: 100%; display: block; min-height: 0; }
-
-    /* ── AI CHAT — ChatGPT layout ── */
-    #chat {
       min-height: 100vh;
-      padding: 0;
-      justify-content: stretch;
-      align-items: stretch;
-      flex-direction: row;
-    }
-
-    .chat-layout {
       display: flex;
       flex-direction: column;
-      width: 100%;
-      height: 100vh;
-      max-width: 800px;
-      margin: 0 auto;
+      align-items: center;
+      justify-content: center;
+      padding: 80px 16px;
+      text-align: center;
       position: relative;
     }
 
-    /* Top bar */
-    .chat-topbar {
+    .hero-orb {
+      position: absolute;
+      width: min(700px,100vw);
+      height: min(700px,100vw);
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,255,255,0.04) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: -1;
+      animation: breathe 7s ease-in-out infinite;
+    }
+
+    @keyframes breathe {
+      0%,100% { transform: scale(1); opacity: .7; }
+      50% { transform: scale(1.1); opacity: 1; }
+    }
+
+    .hero-title {
+      font-weight: 900;
+      font-size: clamp(2.4rem,12vw,7.5rem);
+      line-height: .95;
+      letter-spacing: -0.02em;
+      color: #fff;
+      opacity: 0;
+      animation: fadeUp .6s .25s forwards;
+    }
+
+    .hero-title .blue {
+      display: block;
+      background: linear-gradient(90deg,var(--blue),var(--blue2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-cta {
+      margin-top: 30px;
+      display: inline-flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+      opacity: 0;
+      animation: fadeUp .6s .55s forwards;
+    }
+
+    .btn-primary {
+      padding: 12px 26px;
+      border-radius: 8px;
+      background: linear-gradient(135deg,#555,#999);
+      color: #fff;
+      font-family: 'Exo 2',sans-serif;
+      font-weight: 700;
+      font-size: 0.8rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform .18s;
+    }
+
+    .btn-primary:hover { transform: translateY(-2px); }
+
+    .btn-ghost {
+      padding: 12px 26px;
+      border-radius: 8px;
+      background: transparent;
+      color: var(--blue2);
+      border: 1px solid rgba(255,255,255,.22);
+      font-family: 'Exo 2',sans-serif;
+      font-weight: 600;
+      font-size: 0.8rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background .18s;
+    }
+
+    .btn-ghost:hover { background: rgba(255,255,255,.06); }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(22px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .sec-title {
+      font-weight: 900;
+      font-size: clamp(1.6rem,6vw,2.9rem);
+      color: #fff;
+      margin-bottom: 36px;
+      letter-spacing: -.01em;
+    }
+
+    .game-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill,minmax(150px,1fr));
+      gap: 12px;
+      width: 100%;
+      max-width: 1080px;
+    }
+
+    @media(min-width:480px) { .game-grid { grid-template-columns: repeat(auto-fill,minmax(175px,1fr)); } }
+    @media(min-width:768px) { .game-grid { grid-template-columns: repeat(auto-fill,minmax(205px,1fr)); gap: 15px; } }
+
+    .game-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 22px 14px 18px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      transition: border-color .25s, transform .25s;
+    }
+
+    .game-card:hover { border-color: rgba(255,255,255,.35); transform: translateY(-5px); }
+
+    .game-img {
+      width: 100%;
+      max-width: 150px;
+      aspect-ratio: 1/1;
+      object-fit: cover;
+      border-radius: 25px;
+      border: 1px solid var(--border);
+      background: #111;
+    }
+
+    .game-name {
+      font-weight: 800;
+      font-size: 0.8rem;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+      color: #fff;
+    }
+
+    .play-btn {
+      margin-top: 6px;
+      padding: 8px 18px;
+      border: none;
+      border-radius: 7px;
+      background: linear-gradient(135deg,#444,#888);
+      color: #fff;
+      font-family: 'Exo 2',sans-serif;
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      min-height: 36px;
+      transition: transform .15s;
+    }
+
+    .play-btn:hover { transform: scale(1.06); }
+
+    .partner-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      width: 100%;
+      max-width: 900px;
+    }
+
+    @media(min-width:600px) { .partner-grid { grid-template-columns: repeat(auto-fill,minmax(220px,1fr)); gap: 15px; } }
+
+    .partner-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px 16px;
+      text-align: left;
+      transition: border-color .2s, transform .2s;
+    }
+
+    .partner-card:hover { border-color: rgba(255,255,255,.35); transform: translateY(-3px); }
+
+    .partner-name {
+      font-weight: 800;
+      font-size: .82rem;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: #fff;
+      margin-bottom: 6px;
+    }
+
+    .partner-role { font-size: .78rem; color: var(--muted); line-height: 1.5; }
+
+    .partner-tag {
+      margin-top: 12px;
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 99px;
+      background: rgba(255,255,255,.07);
+      color: var(--blue2);
+      font-size: .62rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      font-family: 'Share Tech Mono',monospace;
+    }
+
+    .stat-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      width: 100%;
+      max-width: 860px;
+    }
+
+    @media(min-width:600px) { .stat-grid { grid-template-columns: repeat(auto-fill,minmax(175px,1fr)); gap: 15px; } }
+
+    .stat-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 22px 18px;
+      text-align: left;
+    }
+
+    .stat-label {
+      font-family: 'Share Tech Mono',monospace;
+      font-size: .62rem;
+      letter-spacing: .25em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    .stat-val {
+      font-weight: 900;
+      font-size: clamp(1.6rem,5vw,2.2rem);
+      line-height: 1;
+      background: linear-gradient(135deg,var(--blue),var(--blue2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .stat-sub { margin-top: 6px; font-size: .72rem; color: var(--muted); }
+
+    footer {
+      position: relative;
+      z-index: 10;
+      border-top: 1px solid var(--border);
+      padding: 24px 16px;
+      text-align: center;
+      color: var(--muted);
+      font-size: .75rem;
+      letter-spacing: .1em;
+    }
+
+    #game-viewer {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      flex-direction: column;
+      background: #000;
+      height: 100dvh;
+      width: 100vw;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s ease;
+    }
+
+    #game-viewer.show { opacity: 1; pointer-events: auto; }
+
+    #viewer-bar {
+      height: 52px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0 12px;
+      background: linear-gradient(180deg,#111 0%,#0a0a0a 100%);
+      border-bottom: 1px solid rgba(255,255,255,0.18);
+      box-shadow: 0 1px 0 rgba(255,255,255,0.04), 0 4px 24px rgba(0,0,0,0.6);
+      position: relative;
+    }
+
+    #viewer-bar::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.25) 30%, rgba(255,255,255,0.5) 50%, rgba(255,255,255,0.25) 70%, transparent 100%);
+    }
+
+    #bar-logo {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-family: 'Exo 2',sans-serif;
+      font-weight: 900;
+      font-size: .78rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #fff;
+      text-shadow: 0 0 16px rgba(255,255,255,0.35);
+      white-space: nowrap;
+      flex-shrink: 0;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      padding: 0 4px;
+      transition: text-shadow .2s;
+    }
+
+    #bar-logo:hover { text-shadow: 0 0 28px rgba(255,255,255,0.7); }
+    #bar-logo img { width: 24px; height: 24px; border-radius: 6px; object-fit: cover; filter: drop-shadow(0 0 6px rgba(255,255,255,0.4)); }
+    #bar-logo .bar-brand { color: var(--blue2); }
+
+    #bar-game-name {
+      font-family: 'Share Tech Mono',monospace;
+      font-size: .68rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      flex: 1;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      padding: 0 4px;
+    }
+
+    .bar-sep { width: 1px; height: 22px; background: rgba(255,255,255,0.1); flex-shrink: 0; }
+
+    .vbar-btn {
+      width: 36px; height: 36px;
+      flex-shrink: 0;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 18px 24px 14px;
-      border-bottom: 1px solid var(--border);
-      flex-shrink: 0;
-      gap: 10px;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px;
+      background: rgba(255,255,255,0.04);
+      color: var(--muted);
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background .15s,color .15s,border-color .15s,box-shadow .15s;
       position: relative;
     }
 
-    .chat-topbar-avatar {
-      width: 30px; height: 30px;
-      border-radius: 50%;
-      background: linear-gradient(135deg,#555,#999);
-      display: flex; align-items: center; justify-content: center;
-      font-size: .9rem;
+    .vbar-btn:hover { background: rgba(255,255,255,0.1); color: #fff; border-color: rgba(255,255,255,0.3); box-shadow: 0 0 10px rgba(255,255,255,0.08); }
+    .vbar-btn.danger:hover { background: rgba(220,50,50,0.15); color: #ff6060; border-color: rgba(220,50,50,0.4); box-shadow: 0 0 10px rgba(220,50,50,0.15); }
+
+    .vbar-btn[data-tip]:hover::after {
+      content: attr(data-tip);
+      position: absolute;
+      bottom: -30px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #1a1a1a;
+      border: 1px solid rgba(255,255,255,0.12);
+      color: var(--text);
+      font-size: .62rem;
+      font-family: 'Exo 2',sans-serif;
+      letter-spacing: .05em;
+      padding: 3px 8px;
+      border-radius: 5px;
+      white-space: nowrap;
+      pointer-events: none;
+      z-index: 99999;
     }
 
-    .chat-topbar-name {
+    #viewer-iframe { flex: 1; border: none; width: 100%; display: block; min-height: 0; }
+
+    /* ── AI CHAT SECTION ── */
+    #chat .sec-title { margin-bottom: 8px; }
+
+    .chat-subtitle {
+      font-size: .8rem;
+      color: var(--muted);
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      font-family: 'Share Tech Mono', monospace;
+      margin-bottom: 32px;
+    }
+
+    .chat-phone {
+      width: 100%;
+      max-width: 420px;
+      background: #111;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 40px;
+      overflow: hidden;
+      box-shadow: 0 0 80px rgba(0,0,0,0.8), 0 0 0 1px rgba(255,255,255,0.05) inset;
+      display: flex;
+      flex-direction: column;
+      height: 620px;
+    }
+
+    .chat-status-bar {
+      background: #111;
+      padding: 14px 22px 8px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+    }
+
+    .chat-status-time {
+      font-size: .7rem;
+      font-weight: 700;
+      color: #fff;
+      font-family: 'Exo 2', sans-serif;
+    }
+
+    .chat-status-icons {
+      display: flex;
+      gap: 5px;
+      align-items: center;
+      font-size: .6rem;
+      color: #fff;
+    }
+
+    .chat-header {
+      background: #1a1a1a;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      padding: 10px 16px 14px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+
+    .chat-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #555, #999);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      box-shadow: 0 0 20px rgba(170,170,170,0.3);
+    }
+
+    .chat-contact-name {
       font-weight: 800;
-      font-size: .88rem;
+      font-size: .85rem;
       color: #fff;
       letter-spacing: .04em;
     }
 
-    .chat-topbar-dot {
-      font-size: .6rem;
+    .chat-contact-sub {
+      font-size: .62rem;
       color: #4cd964;
       font-family: 'Share Tech Mono', monospace;
-      letter-spacing: .05em;
+      letter-spacing: .1em;
     }
 
-    /* Messages area */
     .chat-messages {
       flex: 1;
       overflow-y: auto;
-      padding: 24px 24px 12px;
+      padding: 16px 14px;
       display: flex;
       flex-direction: column;
-      gap: 20px;
+      gap: 8px;
       min-height: 0;
     }
 
     .chat-messages::-webkit-scrollbar { width: 3px; }
-    .chat-messages::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.07); border-radius: 99px; }
+    .chat-messages::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 99px; }
 
-    /* Each message row */
     .msg-row {
       display: flex;
-      gap: 12px;
-      align-items: flex-start;
-      animation: msgFade .2s ease forwards;
+      flex-direction: column;
+      animation: msgPop .25s cubic-bezier(.34,1.56,.64,1) forwards;
     }
 
-    @keyframes msgFade {
-      from { opacity:0; transform:translateY(6px); }
-      to { opacity:1; transform:translateY(0); }
+    @keyframes msgPop {
+      from { opacity: 0; transform: scale(0.85) translateY(8px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
     }
 
-    .msg-row.user { flex-direction: row-reverse; }
-
-    /* Avatars */
-    .msg-avatar {
-      width: 32px; height: 32px;
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      font-size: .9rem;
-      flex-shrink: 0;
-      margin-top: 2px;
-    }
-
-    .msg-row.ai .msg-avatar { background: linear-gradient(135deg,#3a3a3a,#555); }
-    .msg-row.user .msg-avatar { background: linear-gradient(135deg,#1d4ed8,#3478f6); }
-
-    /* Bubble + meta */
-    .msg-content { display: flex; flex-direction: column; gap: 4px; max-width: calc(100% - 52px); }
-    .msg-row.user .msg-content { align-items: flex-end; }
-
-    .msg-name {
-      font-size: .62rem;
-      font-family: 'Share Tech Mono', monospace;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
+    .msg-row.user { align-items: flex-end; }
+    .msg-row.ai { align-items: flex-start; }
 
     .msg-bubble {
-      padding: 12px 16px;
-      border-radius: 16px;
-      font-size: .86rem;
-      line-height: 1.6;
+      max-width: 78%;
+      padding: 10px 14px;
+      border-radius: 20px;
+      font-size: .82rem;
+      line-height: 1.5;
       word-break: break-word;
       white-space: pre-wrap;
     }
 
-    .msg-row.ai .msg-bubble {
-      background: #1e1e1e;
-      color: #e5e5e5;
-      border: 1px solid rgba(255,255,255,0.07);
-      border-top-left-radius: 4px;
+    .msg-row.user .msg-bubble {
+      background: #3478f6;
+      color: #fff;
+      border-bottom-right-radius: 5px;
     }
 
-    .msg-row.user .msg-bubble {
-      background: var(--accent);
-      color: #fff;
-      border-top-right-radius: 4px;
+    .msg-row.ai .msg-bubble {
+      background: #2a2a2a;
+      color: #e5e5e5;
+      border-bottom-left-radius: 5px;
+      border: 1px solid rgba(255,255,255,0.07);
     }
 
     .msg-time {
-      font-size: .56rem;
+      font-size: .55rem;
       color: var(--muted);
+      margin-top: 3px;
+      padding: 0 4px;
       font-family: 'Share Tech Mono', monospace;
-      padding: 0 2px;
     }
 
     /* Typing indicator */
     .typing-bubble {
-      background: #1e1e1e;
+      background: #2a2a2a;
       border: 1px solid rgba(255,255,255,0.07);
-      border-radius: 16px;
-      border-top-left-radius: 4px;
-      padding: 14px 18px;
+      border-radius: 20px;
+      border-bottom-left-radius: 5px;
+      padding: 12px 18px;
       display: flex;
       align-items: center;
       gap: 5px;
     }
 
     .typing-dot {
-      width: 6px; height: 6px;
-      background: #666;
+      width: 7px;
+      height: 7px;
+      background: #888;
       border-radius: 50%;
       animation: typingBounce 1.2s ease-in-out infinite;
     }
-    .typing-dot:nth-child(2) { animation-delay: .18s; }
-    .typing-dot:nth-child(3) { animation-delay: .36s; }
+
+    .typing-dot:nth-child(2) { animation-delay: .2s; }
+    .typing-dot:nth-child(3) { animation-delay: .4s; }
 
     @keyframes typingBounce {
-      0%,60%,100% { transform: translateY(0); opacity:.35; }
-      30% { transform: translateY(-5px); opacity:1; }
+      0%, 60%, 100% { transform: translateY(0); opacity: .4; }
+      30% { transform: translateY(-6px); opacity: 1; }
     }
 
-    /* Input area */
-    .chat-input-wrap {
-      padding: 16px 24px 24px;
-      flex-shrink: 0;
-      border-top: 1px solid var(--border);
-    }
-
-    .chat-input-box {
+    .chat-input-area {
+      background: #1a1a1a;
+      border-top: 1px solid rgba(255,255,255,0.07);
+      padding: 10px 12px 16px;
       display: flex;
       align-items: flex-end;
-      gap: 10px;
-      background: #1a1a1a;
-      border: 1px solid rgba(255,255,255,0.12);
-      border-radius: 14px;
-      padding: 10px 14px;
-      transition: border-color .2s;
+      gap: 8px;
+      flex-shrink: 0;
     }
-
-    .chat-input-box:focus-within { border-color: rgba(255,255,255,0.25); }
 
     .chat-input {
       flex: 1;
-      background: transparent;
-      border: none;
+      background: #2a2a2a;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 22px;
+      padding: 10px 16px;
       color: #fff;
       font-family: 'Exo 2', sans-serif;
-      font-size: .86rem;
+      font-size: .82rem;
       outline: none;
       resize: none;
-      max-height: 140px;
-      line-height: 1.5;
-      padding: 2px 0;
+      max-height: 100px;
+      line-height: 1.4;
+      transition: border-color .2s;
     }
 
-    .chat-input::placeholder { color: #444; }
+    .chat-input::placeholder { color: #555; }
+    .chat-input:focus { border-color: rgba(255,255,255,0.25); }
 
     .chat-send-btn {
-      width: 34px; height: 34px;
-      border-radius: 9px;
-      background: var(--accent);
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #3478f6;
       border: none;
       cursor: pointer;
-      display: flex; align-items: center; justify-content: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       flex-shrink: 0;
-      transition: background .15s, transform .15s, opacity .15s;
+      transition: transform .15s, background .15s;
     }
-    .chat-send-btn:hover { background: #4a8aff; transform: scale(1.05); }
-    .chat-send-btn:disabled { background: #2a2a2a; opacity:.5; cursor: not-allowed; transform: none; }
-    .chat-send-btn svg { width: 15px; height: 15px; fill: #fff; }
 
-    .chat-hint { text-align: center; font-size: .62rem; color: var(--muted); margin-top: 10px; font-family: 'Share Tech Mono', monospace; letter-spacing: .08em; }
+    .chat-send-btn:hover { transform: scale(1.08); background: #4a8aff; }
+    .chat-send-btn:disabled { background: #2a2a2a; cursor: not-allowed; transform: none; }
 
-    /* Date chip */
+    .chat-send-btn svg { width: 16px; height: 16px; fill: #fff; }
+
     .chat-date-chip {
       align-self: center;
-      background: rgba(255,255,255,0.05);
+      background: rgba(255,255,255,0.06);
       color: var(--muted);
-      font-size: .56rem;
-      letter-spacing: .14em;
+      font-size: .58rem;
+      letter-spacing: .12em;
       text-transform: uppercase;
       font-family: 'Share Tech Mono', monospace;
       padding: 3px 10px;
       border-radius: 99px;
+      margin: 4px 0;
     }
-
-    /* Intro splash when no messages */
-    .chat-intro {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-      padding: 40px 24px;
-    }
-
-    .chat-intro-icon { font-size: 3rem; }
-    .chat-intro-title { font-weight: 900; font-size: 1.4rem; color: #fff; }
-    .chat-intro-sub { font-size: .78rem; color: var(--muted); max-width: 320px; line-height: 1.6; }
-
-    .chat-suggestions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      justify-content: center;
-      margin-top: 8px;
-    }
-
-    .chat-suggestion {
-      padding: 8px 14px;
-      border: 1px solid var(--border);
-      border-radius: 99px;
-      background: var(--surface);
-      color: var(--text);
-      font-size: .74rem;
-      cursor: pointer;
-      font-family: 'Exo 2', sans-serif;
-      transition: background .15s, border-color .15s;
-    }
-    .chat-suggestion:hover { background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.25); color: #fff; }
   </style>
 </head>
 
@@ -474,28 +815,32 @@
       <h1 class="hero-title">Butter Dog<br><span class="blue">Games</span></h1>
       <div class="hero-cta">
         <a class="btn-primary" href="#games">Browse Games</a>
-        <a class="btn-ghost" href="#chat">Ask the Dog</a>
+        <a class="btn-ghost" href="#analytics">View Stats</a>
       </div>
     </section>
 
     <section id="games" class="section">
       <h2 class="sec-title">The Games</h2>
       <div class="game-grid">
+
         <div class="game-card">
           <img class="game-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmLObGiAAgCMDxSvt9Zr8IlUYvyI9Kwwdrjg&s" alt="Subway Surfers">
           <div class="game-name">Subway Surfers</div>
           <button class="play-btn" onclick="openGame('https://rawcdn.githack.com/bandruf-games/lioxryt-assets/0cf7d107ddb99c99ea20387522aa29b8ee382049/other/subwaysurfers/index.html','Subway Surfers')">▶ Play</button>
         </div>
+
         <div class="game-card">
           <img class="game-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSuxqLfXqm07uXPH0qyPu_6MofiU9nlUoq9w&s" alt="2048">
           <div class="game-name">2048</div>
           <button class="play-btn" onclick="openGame('https://play2048.co/','2048')">▶ Play</button>
         </div>
+
         <div class="game-card">
           <img class="game-img" src="https://1games.io/data/image/game/basket-random/banner/basket-random.png" alt="Basket Random">
           <div class="game-name">Basket Random</div>
           <button class="play-btn" onclick="openGame('https://rnv3.pages.dev/G/basket-random/','Basket Random')">▶ Play</button>
         </div>
+
       </div>
     </section>
 
@@ -545,47 +890,56 @@
         </div>
         <div class="stat-card">
           <div class="stat-label">Uptime</div>
-          <div class="stat-val">99.9<span style="font-size:.9rem;-webkit-text-fill-color:var(--blue2)">%</span></div>
+          <div class="stat-val">99.9<span style="font-size:1rem;-webkit-text-fill-color:var(--blue2)">%</span></div>
           <div class="stat-sub">30-day average</div>
         </div>
       </div>
     </section>
 
-    <!-- ── AI CHAT ── -->
-    <section id="chat">
-      <div class="chat-layout">
+    <!-- ── AI CHAT SECTION ── -->
+    <section id="chat" class="section">
+      <h2 class="sec-title">Ask the Dog 🐶</h2>
+      <p class="chat-subtitle">Powered by Claude AI</p>
 
-        <!-- Top bar -->
-        <div class="chat-topbar">
-          <div class="chat-topbar-avatar">🐶</div>
-          <span class="chat-topbar-name">Butter Dog AI</span>
-          <span class="chat-topbar-dot">● online</span>
+      <div class="chat-phone">
+
+        <!-- Status bar -->
+        <div class="chat-status-bar">
+          <span class="chat-status-time" id="chat-clock">9:41</span>
+          <div class="chat-status-icons">
+            <span>●●●</span>
+            <span>WiFi</span>
+            <span>🔋</span>
+          </div>
         </div>
 
-        <!-- Messages / Intro -->
+        <!-- Contact header -->
+        <div class="chat-header">
+          <div class="chat-avatar">🐶</div>
+          <div class="chat-contact-name">Butter Dog AI</div>
+          <div class="chat-contact-sub">● online</div>
+        </div>
+
+        <!-- Messages -->
         <div class="chat-messages" id="chat-messages">
-          <div class="chat-intro" id="chat-intro">
-            <div class="chat-intro-icon">🐾</div>
-            <div class="chat-intro-title">Ask Butter Dog</div>
-            <div class="chat-intro-sub">Your AI gaming assistant — ask for tips, game recommendations, or just hang out.</div>
-            <div class="chat-suggestions">
-              <button class="chat-suggestion" onclick="sendSuggestion(this)">How do I get a high score in 2048?</button>
-              <button class="chat-suggestion" onclick="sendSuggestion(this)">Which game should I play first?</button>
-              <button class="chat-suggestion" onclick="sendSuggestion(this)">Any Subway Surfers tips?</button>
-              <button class="chat-suggestion" onclick="sendSuggestion(this)">Tell me a dog joke 🐶</button>
-            </div>
+          <div class="chat-date-chip">Today</div>
+          <div class="msg-row ai">
+            <div class="msg-bubble">Hey! I'm Butter Dog's AI assistant 🐾 Ask me anything about games, tips, or just chat!</div>
+            <div class="msg-time">now</div>
           </div>
         </div>
 
-        <!-- Input -->
-        <div class="chat-input-wrap">
-          <div class="chat-input-box">
-            <textarea class="chat-input" id="chat-input" placeholder="Message Butter Dog AI…" rows="1"></textarea>
-            <button class="chat-send-btn" id="chat-send" onclick="sendMessage()">
-              <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
-            </button>
-          </div>
-          <div class="chat-hint">Powered by Claude AI · Enter to send · Shift+Enter for new line</div>
+        <!-- Input bar -->
+        <div class="chat-input-area">
+          <textarea
+            class="chat-input"
+            id="chat-input"
+            placeholder="iMessage"
+            rows="1"
+          ></textarea>
+          <button class="chat-send-btn" id="chat-send" onclick="sendMessage()">
+            <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+          </button>
         </div>
 
       </div>
@@ -593,7 +947,6 @@
 
   </div>
 
-  <!-- Game viewer -->
   <div id="game-viewer">
     <div id="viewer-bar">
       <button id="bar-logo" onclick="closeViewer()">
@@ -611,64 +964,48 @@
   </div>
 
   <script>
+    // ── Clock ──
+    function updateClock() {
+      var now = new Date();
+      var h = now.getHours() % 12 || 12;
+      var m = String(now.getMinutes()).padStart(2, '0');
+      var el = document.getElementById('chat-clock');
+      if (el) el.textContent = h + ':' + m;
+    }
+    updateClock();
+    setInterval(updateClock, 10000);
+
     // ── Auto-resize textarea ──
     var chatInput = document.getElementById('chat-input');
     chatInput.addEventListener('input', function() {
       this.style.height = 'auto';
-      this.style.height = Math.min(this.scrollHeight, 140) + 'px';
-    });
-    chatInput.addEventListener('keydown', function(e) {
-      if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
+      this.style.height = Math.min(this.scrollHeight, 100) + 'px';
     });
 
-    // ── Chat state ──
-    var hasMessages = false;
-    var chatHistory = [];
-    var SYSTEM_PROMPT = 'You are Butter Dog, a friendly and enthusiastic AI assistant for Butter Dog Games — a gaming website featuring Subway Surfers, 2048, and Basket Random. You love games, keep answers helpful and concise (2-4 sentences max), use the occasional dog pun, and are always warm and fun. Use emojis very sparingly.';
+    chatInput.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        sendMessage();
+      }
+    });
+
+    // ── Chat logic ──
+    var chatHistory = [
+      { role: 'system', content: 'You are Butter Dog, a fun, friendly AI assistant for Butter Dog Games — a gaming website with Subway Surfers, 2048, and Basket Random. You love games, use the occasional dog pun, keep answers concise (1-3 sentences), and are always enthusiastic. Use emojis sparingly.' }
+    ];
 
     function getTime() {
       var now = new Date();
       var h = now.getHours() % 12 || 12;
-      var m = String(now.getMinutes()).padStart(2,'0');
-      return h + ':' + m + ' ' + (now.getHours() >= 12 ? 'pm' : 'am');
-    }
-
-    function removeIntro() {
-      if (!hasMessages) {
-        var intro = document.getElementById('chat-intro');
-        if (intro) intro.remove();
-        hasMessages = true;
-      }
-    }
-
-    function addDateChip() {
-      var messages = document.getElementById('chat-messages');
-      if (!document.querySelector('.chat-date-chip')) {
-        var chip = document.createElement('div');
-        chip.className = 'chat-date-chip';
-        chip.textContent = 'Today';
-        messages.appendChild(chip);
-      }
+      var m = String(now.getMinutes()).padStart(2, '0');
+      var ampm = now.getHours() >= 12 ? 'pm' : 'am';
+      return h + ':' + m + ' ' + ampm;
     }
 
     function appendMessage(role, text) {
       var messages = document.getElementById('chat-messages');
-      removeIntro();
-      addDateChip();
-
       var row = document.createElement('div');
       row.className = 'msg-row ' + role;
-
-      var avatar = document.createElement('div');
-      avatar.className = 'msg-avatar';
-      avatar.textContent = role === 'ai' ? '🐶' : '👤';
-
-      var content = document.createElement('div');
-      content.className = 'msg-content';
-
-      var name = document.createElement('div');
-      name.className = 'msg-name';
-      name.textContent = role === 'ai' ? 'Butter Dog' : 'You';
 
       var bubble = document.createElement('div');
       bubble.className = 'msg-bubble';
@@ -678,46 +1015,31 @@
       time.className = 'msg-time';
       time.textContent = getTime();
 
-      content.appendChild(name);
-      content.appendChild(bubble);
-      content.appendChild(time);
-
-      row.appendChild(avatar);
-      row.appendChild(content);
+      row.appendChild(bubble);
+      row.appendChild(time);
       messages.appendChild(row);
       messages.scrollTop = messages.scrollHeight;
+      return row;
     }
 
     function showTyping() {
       var messages = document.getElementById('chat-messages');
-      removeIntro();
-      addDateChip();
-
       var row = document.createElement('div');
       row.className = 'msg-row ai';
       row.id = 'typing-indicator';
-
-      var avatar = document.createElement('div');
-      avatar.className = 'msg-avatar';
-      avatar.textContent = '🐶';
-
-      var content = document.createElement('div');
-      content.className = 'msg-content';
 
       var bubble = document.createElement('div');
       bubble.className = 'typing-bubble';
       bubble.innerHTML = '<div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>';
 
-      content.appendChild(bubble);
-      row.appendChild(avatar);
-      row.appendChild(content);
+      row.appendChild(bubble);
       messages.appendChild(row);
       messages.scrollTop = messages.scrollHeight;
     }
 
     function hideTyping() {
-      var el = document.getElementById('typing-indicator');
-      if (el) el.remove();
+      var indicator = document.getElementById('typing-indicator');
+      if (indicator) indicator.remove();
     }
 
     async function sendMessage() {
@@ -726,23 +1048,34 @@
       var text = input.value.trim();
       if (!text) return;
 
+      // Add user message
       appendMessage('user', text);
       chatHistory.push({ role: 'user', content: text });
 
+      // Clear input
       input.value = '';
       input.style.height = 'auto';
       sendBtn.disabled = true;
+
+      // Show typing
       showTyping();
 
       try {
-        var response = await puter.ai.chat(text, { model: 'anthropic/claude-sonnet-4-6' });
+        var messages = chatHistory.filter(m => m.role !== 'system');
+        var response = await puter.ai.chat(
+          text,
+          { model: 'anthropic/claude-sonnet-4-6' }
+        );
+
         hideTyping();
+
         var aiText = response.message.content[0].text;
         chatHistory.push({ role: 'assistant', content: aiText });
         appendMessage('ai', aiText);
+
       } catch (err) {
         hideTyping();
-        appendMessage('ai', 'Woof — hit a snag on my end! Try again in a moment. 🐾');
+        appendMessage('ai', 'Woof — something went wrong on my end! 🐾 Try again in a sec.');
         console.error(err);
       }
 
@@ -750,62 +1083,90 @@
       input.focus();
     }
 
-    function sendSuggestion(btn) {
-      var text = btn.textContent;
-      var input = document.getElementById('chat-input');
-      input.value = text;
-      sendMessage();
-    }
-
-    // ── Loader ──
+    // ── Loader + counters ──
     window.addEventListener('DOMContentLoaded', function() {
-      var delay = 4000 + Math.random() * 6000;
+      var loaderDelay = 4000 + Math.random() * 6000;
       setTimeout(function() {
         var lf = document.getElementById('loader-frame');
         if (!lf) return;
         lf.classList.add('fade');
         startCounters();
-        setTimeout(function() { if (lf.parentNode) lf.remove(); }, 1000);
-      }, delay);
+        setTimeout(function() {
+          if (lf.parentNode) lf.remove();
+        }, 1000);
+      }, loaderDelay);
     });
 
     // ── Particles ──
     (function() {
       var c = document.getElementById('particle-canvas');
       var ctx = c.getContext('2d');
-      var pts = [], mx = null, my = null;
+      var pts = [];
+      var mx = null, my = null;
+
       window.addEventListener('mousemove', function(e) { mx = e.clientX; my = e.clientY; });
       window.addEventListener('touchmove', function(e) { mx = e.touches[0].clientX; my = e.touches[0].clientY; }, { passive: true });
+
       function resize() { c.width = innerWidth; c.height = innerHeight; }
-      window.addEventListener('resize', resize); resize();
-      function mkPt() { return { x: Math.random()*c.width, y: Math.random()*c.height, sx: Math.random()-.5, sy: Math.random()-.5, r: Math.random()*2+1 }; }
-      function init() { pts = []; for (var i = 0; i < (c.width*c.height)/3000; i++) pts.push(mkPt()); }
+      window.addEventListener('resize', resize);
+      resize();
+
+      function mkPt() {
+        return { x: Math.random() * c.width, y: Math.random() * c.height, sx: Math.random() - .5, sy: Math.random() - .5, r: Math.random() * 2 + 1 };
+      }
+
+      function init() {
+        pts = [];
+        var n = (c.width * c.height) / 3000;
+        for (var i = 0; i < n; i++) pts.push(mkPt());
+      }
+
       function frame() {
-        ctx.clearRect(0,0,c.width,c.height);
+        ctx.clearRect(0, 0, c.width, c.height);
         for (var i = 0; i < pts.length; i++) {
           var p = pts[i];
           if (mx != null) {
-            var dx = mx-p.x, dy = my-p.y, d = Math.sqrt(dx*dx+dy*dy);
-            if (d < 100 && d > 0) { p.x -= (dx/d)*((100-d)/100)*5; p.y -= (dy/d)*((100-d)/100)*5; }
+            var dx = mx - p.x, dy = my - p.y;
+            var d = Math.sqrt(dx * dx + dy * dy);
+            if (d < 100 && d > 0) { p.x -= (dx / d) * ((100 - d) / 100) * 5; p.y -= (dy / d) * ((100 - d) / 100) * 5; }
             else { p.x += p.sx; p.y += p.sy; }
           } else { p.x += p.sx; p.y += p.sy; }
-          if (p.x<0||p.x>c.width) p.sx*=-1; if (p.y<0||p.y>c.height) p.sy*=-1;
-          ctx.fillStyle='rgba(255,255,255,.4)'; ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2); ctx.fill();
-          for (var j = i+1; j < pts.length; j++) {
-            var q = pts[j], d2 = Math.sqrt(Math.pow(p.x-q.x,2)+Math.pow(p.y-q.y,2));
-            if (d2 < 100) { ctx.strokeStyle='rgba(255,255,255,'+(1-d2/100)*0.3+')'; ctx.lineWidth=1; ctx.beginPath(); ctx.moveTo(p.x,p.y); ctx.lineTo(q.x,q.y); ctx.stroke(); }
+
+          if (p.x < 0 || p.x > c.width) p.sx *= -1;
+          if (p.y < 0 || p.y > c.height) p.sy *= -1;
+
+          ctx.fillStyle = 'rgba(255,255,255,.5)';
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          ctx.fill();
+
+          for (var j = i + 1; j < pts.length; j++) {
+            var q = pts[j];
+            var d2 = Math.sqrt(Math.pow(p.x - q.x, 2) + Math.pow(p.y - q.y, 2));
+            if (d2 < 100) {
+              ctx.strokeStyle = 'rgba(255,255,255,' + (1 - d2 / 100) + ')';
+              ctx.lineWidth = 1;
+              ctx.beginPath();
+              ctx.moveTo(p.x, p.y);
+              ctx.lineTo(q.x, q.y);
+              ctx.stroke();
+            }
           }
         }
         requestAnimationFrame(frame);
       }
-      init(); frame();
+
+      init();
+      frame();
     })();
 
     function startCounters() {
       document.querySelectorAll('[data-count]').forEach(function(el) {
-        var target = parseInt(el.dataset.count), cur = 0, step = Math.ceil(target/55);
+        var target = parseInt(el.dataset.count);
+        var cur = 0;
+        var step = Math.ceil(target / 55);
         var id = setInterval(function() {
-          cur = Math.min(cur+step, target);
+          cur = Math.min(cur + step, target);
           el.textContent = cur.toLocaleString();
           if (cur >= target) clearInterval(id);
         }, 22);
