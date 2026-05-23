@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link href="data:image/x-icon;base64,AAABAAEAEBAAAAEACABoBQAAFgAAACgAAAAQAAAAIAAAAAEACAAAAAAAAAEAAAAAAAAAAAAAAAEAAAAAAAAAAAAAYqMdAAC8/wBanhIAAbT0AGSkIQBfoRkAWZ4RAP///wAJt/QAZKQgAF+hGAATuvUAFLr1AFyfFQAVuvUAY6QfAGGiHABbnxQAZqUjAAa29AAHtvQACLb0AGGiGwAQufUAErn1AFufEwBlpSIAYKIaAF2gFwBeoBcA9/f3AAK19AADtfQABLX0AAW19AAMuPUAYqMeAA249QAOuPUAXaAWAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAICCSMjFhUVIyMjIyMgAgICIyMjIyMjIyMjIyMjIwQCAiQGBwgICAgICAgIBwMgAiYCFwcICAgICAgICAcaIQInAhEHBwgfHx8fCAcHEiECAgIBBwcHBwcHBwcHBxIiAgIYJSUBBwcICAcHBygOIwICGRAQBwcICAgIBwcHDiMCAgwKChAlCB8fCAYeHSgUAgINGwUKEAcICAcGCx4oFAICDxMbBwcHBwcHHAseHRQCAiMjIyMjIyMjIyMjIyMUAgIjIyMjIyMjIyMjIyMjIwIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP//AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//8AAP//AAA=" rel="icon" type="image/x-icon">
+  <link href="data:image/x-icon;base64,AAABAAEAEBAAAAEACABoBQAAFgAAACgAAAAQAAAAIAAAAAEACAAAAAAAAAEAAAAAAAAAAAAAAAEAAAAAAAAAAAAAYqMdAAC8/wBanhIAAbT0AGSkIQBfoRkAWZ4RAP///wAJt/QAZKQgAF+hGAATuvUAFLr1AFyfFQAVuvUAY6QfAGGiHABbnxQAZqUjAAa29AAHtvQACLb0AGGiGwAQufUAErn1AFufEwBlpSIAYKIaAF2gFwBeoBcA9/f3AAK19AADtfQABLX0AAW19AAMuPUAYqMeAA249QAOuPUAXaAWAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAICCSMjFhUVIyMjIyMgAgICIyMjIyMjIyMjIyMjIwQCAiQGBwgICAgICAgIBwMgAiYCFwcICAgICAgICAcaIQInAhEHBwgfHx8fCAcHEiECAgIBBwcHBwcHBwcHBxIiAgIYJSUBBwcICAcHBygOIwICGRAQBwcICAgIBwcHDiMCAgwKChAlCB8fCAYeHSgUAgINGwUKEAcICAcGCx4oFAICDxMbBwcHBwcHHAseHRQCAiMjIyMjIyMjIyMjIyMUAgIjIyMjIyMjIyMjIyMjIwIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP//AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//8AAP//AAA=" rel="icon" type="image/x-icon">
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-RGJ5NV8W30"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -22,10 +22,11 @@
     var _isFs = false;
     var _viewerCloseTimer = null;
 
-    function openGame(url, name) {
+    function openGame(url, name, imgSrc) {
       var viewer = document.getElementById('game-viewer');
       var iframe = document.getElementById('viewer-iframe');
       var gameName = document.getElementById('bar-game-name');
+      var barImg = document.getElementById('bar-logo-img');
 
       if (_viewerCloseTimer) {
         clearTimeout(_viewerCloseTimer);
@@ -35,6 +36,12 @@
       _currentUrl = url;
       iframe.src = url;
       gameName.textContent = name;
+
+      // Update the icon to match the game
+      if (imgSrc) {
+        barImg.src = imgSrc;
+        barImg.alt = name;
+      }
 
       viewer.style.display = 'flex';
       document.body.style.overflow = 'hidden';
@@ -144,27 +151,13 @@
       scroll-behavior: smooth;
     }
 
-    ::-webkit-scrollbar {
-      width: 5px;
-    }
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 99px; }
 
-    ::-webkit-scrollbar-thumb {
-      background: var(--border);
-      border-radius: 99px;
-    }
-
-    #particle-canvas {
-      position: fixed;
-      inset: 0;
-      z-index: 0;
-      pointer-events: none;
-    }
+    #particle-canvas { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
 
     .grid-bg {
-      position: fixed;
-      inset: 0;
-      z-index: 1;
-      pointer-events: none;
+      position: fixed; inset: 0; z-index: 1; pointer-events: none;
       background-image:
         linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
         linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
@@ -172,45 +165,26 @@
     }
 
     #loader-frame {
-      position: fixed;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      border: none;
-      z-index: 50;
-      pointer-events: none;
-      opacity: 1;
-      transition: opacity 0.9s ease;
+      position: fixed; inset: 0; width: 100%; height: 100%;
+      border: none; z-index: 50; pointer-events: none;
+      opacity: 1; transition: opacity 0.9s ease;
     }
+    #loader-frame.fade { opacity: 0; }
 
-    #loader-frame.fade {
-      opacity: 0;
-    }
-
-    #main-content {
-      position: relative;
-      z-index: 10;
-    }
+    #main-content { position: relative; z-index: 10; }
 
     .section {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 80px 16px;
-      text-align: center;
-      position: relative;
+      min-height: 100vh; display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 80px 16px; text-align: center; position: relative;
     }
 
     .hero-orb {
       position: absolute;
-      width: min(700px,100vw);
-      height: min(700px,100vw);
+      width: min(700px,100vw); height: min(700px,100vw);
       border-radius: 50%;
       background: radial-gradient(circle, rgba(255,255,255,0.04) 0%, transparent 70%);
-      pointer-events: none;
-      z-index: -1;
+      pointer-events: none; z-index: -1;
       animation: breathe 7s ease-in-out infinite;
     }
 
@@ -220,66 +194,39 @@
     }
 
     .hero-title {
-      font-weight: 900;
-      font-size: clamp(2.4rem,12vw,7.5rem);
-      line-height: .95;
-      letter-spacing: -0.02em;
-      color: #fff;
-      opacity: 0;
-      animation: fadeUp .6s .25s forwards;
+      font-weight: 900; font-size: clamp(2.4rem,12vw,7.5rem);
+      line-height: .95; letter-spacing: -0.02em; color: #fff;
+      opacity: 0; animation: fadeUp .6s .25s forwards;
     }
-
     .hero-title .blue {
       display: block;
       background: linear-gradient(90deg,var(--blue),var(--blue2));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
     }
 
     .hero-cta {
-      margin-top: 30px;
-      display: inline-flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      justify-content: center;
-      opacity: 0;
-      animation: fadeUp .6s .55s forwards;
+      margin-top: 30px; display: inline-flex; gap: 10px;
+      flex-wrap: wrap; justify-content: center;
+      opacity: 0; animation: fadeUp .6s .55s forwards;
     }
 
     .btn-primary {
-      padding: 12px 26px;
-      border-radius: 8px;
+      padding: 12px 26px; border-radius: 8px;
       background: linear-gradient(135deg,#555,#999);
-      color: #fff;
-      font-family: 'Exo 2',sans-serif;
-      font-weight: 700;
-      font-size: 0.8rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      border: none;
-      cursor: pointer;
-      text-decoration: none;
-      transition: transform .18s;
+      color: #fff; font-family: 'Exo 2',sans-serif;
+      font-weight: 700; font-size: 0.8rem; letter-spacing: 0.12em;
+      text-transform: uppercase; border: none; cursor: pointer;
+      text-decoration: none; transition: transform .18s;
     }
-
     .btn-primary:hover { transform: translateY(-2px); }
 
     .btn-ghost {
-      padding: 12px 26px;
-      border-radius: 8px;
-      background: transparent;
-      color: var(--blue2);
-      border: 1px solid rgba(255,255,255,.22);
-      font-family: 'Exo 2',sans-serif;
-      font-weight: 600;
-      font-size: 0.8rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      cursor: pointer;
-      text-decoration: none;
-      transition: background .18s;
+      padding: 12px 26px; border-radius: 8px; background: transparent;
+      color: var(--blue2); border: 1px solid rgba(255,255,255,.22);
+      font-family: 'Exo 2',sans-serif; font-weight: 600; font-size: 0.8rem;
+      letter-spacing: 0.12em; text-transform: uppercase; cursor: pointer;
+      text-decoration: none; transition: background .18s;
     }
-
     .btn-ghost:hover { background: rgba(255,255,255,.06); }
 
     @keyframes fadeUp {
@@ -288,281 +235,164 @@
     }
 
     .sec-title {
-      font-weight: 900;
-      font-size: clamp(1.6rem,6vw,2.9rem);
-      color: #fff;
-      margin-bottom: 36px;
-      letter-spacing: -.01em;
+      font-weight: 900; font-size: clamp(1.6rem,6vw,2.9rem);
+      color: #fff; margin-bottom: 36px; letter-spacing: -.01em;
     }
 
     .game-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill,minmax(150px,1fr));
-      gap: 12px;
-      width: 100%;
-      max-width: 1080px;
+      display: grid; grid-template-columns: repeat(auto-fill,minmax(150px,1fr));
+      gap: 12px; width: 100%; max-width: 1080px;
     }
-
     @media(min-width:480px) { .game-grid { grid-template-columns: repeat(auto-fill,minmax(175px,1fr)); } }
     @media(min-width:768px) { .game-grid { grid-template-columns: repeat(auto-fill,minmax(205px,1fr)); gap: 15px; } }
 
     .game-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 22px 14px 18px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 8px;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 14px; padding: 22px 14px 18px;
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
       transition: border-color .25s, transform .25s;
     }
-
     .game-card:hover { border-color: rgba(255,255,255,.35); transform: translateY(-5px); }
 
     .game-img {
-      width: 100%;
-      max-width: 150px;
-      aspect-ratio: 1/1;
-      object-fit: cover;
-      border-radius: 25px;
-      border: 1px solid var(--border);
-      background: #111;
+      width: 100%; max-width: 150px; aspect-ratio: 1/1;
+      object-fit: cover; border-radius: 25px;
+      border: 1px solid var(--border); background: #111;
     }
 
     .game-name {
-      font-weight: 800;
-      font-size: 0.8rem;
-      letter-spacing: .07em;
-      text-transform: uppercase;
-      color: #fff;
+      font-weight: 800; font-size: 0.8rem; letter-spacing: .07em;
+      text-transform: uppercase; color: #fff;
     }
 
     .play-btn {
-      margin-top: 6px;
-      padding: 8px 18px;
-      border: none;
-      border-radius: 7px;
-      background: linear-gradient(135deg,#444,#888);
-      color: #fff;
-      font-family: 'Exo 2',sans-serif;
-      font-size: .72rem;
-      font-weight: 700;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      cursor: pointer;
-      min-height: 36px;
-      transition: transform .15s;
+      margin-top: 6px; padding: 8px 18px; border: none; border-radius: 7px;
+      background: linear-gradient(135deg,#444,#888); color: #fff;
+      font-family: 'Exo 2',sans-serif; font-size: .72rem; font-weight: 700;
+      letter-spacing: .1em; text-transform: uppercase; cursor: pointer;
+      min-height: 36px; transition: transform .15s;
     }
-
     .play-btn:hover { transform: scale(1.06); }
 
     .partner-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      width: 100%;
-      max-width: 900px;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 12px; width: 100%; max-width: 900px;
     }
-
     @media(min-width:600px) { .partner-grid { grid-template-columns: repeat(auto-fill,minmax(220px,1fr)); gap: 15px; } }
 
     .partner-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 20px 16px;
-      text-align: left;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 14px; padding: 20px 16px; text-align: left;
       transition: border-color .2s, transform .2s;
     }
-
     .partner-card:hover { border-color: rgba(255,255,255,.35); transform: translateY(-3px); }
 
-    .partner-name {
-      font-weight: 800;
-      font-size: .82rem;
-      letter-spacing: .06em;
-      text-transform: uppercase;
-      color: #fff;
-      margin-bottom: 6px;
-    }
-
+    .partner-name { font-weight: 800; font-size: .82rem; letter-spacing: .06em; text-transform: uppercase; color: #fff; margin-bottom: 6px; }
     .partner-role { font-size: .78rem; color: var(--muted); line-height: 1.5; }
-
     .partner-tag {
-      margin-top: 12px;
-      display: inline-block;
-      padding: 3px 10px;
-      border-radius: 99px;
-      background: rgba(255,255,255,.07);
-      color: var(--blue2);
-      font-size: .62rem;
-      letter-spacing: .12em;
-      text-transform: uppercase;
+      margin-top: 12px; display: inline-block; padding: 3px 10px;
+      border-radius: 99px; background: rgba(255,255,255,.07); color: var(--blue2);
+      font-size: .62rem; letter-spacing: .12em; text-transform: uppercase;
       font-family: 'Share Tech Mono',monospace;
     }
 
     .stat-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      width: 100%;
-      max-width: 860px;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 12px; width: 100%; max-width: 860px;
     }
-
     @media(min-width:600px) { .stat-grid { grid-template-columns: repeat(auto-fill,minmax(175px,1fr)); gap: 15px; } }
 
     .stat-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 22px 18px;
-      text-align: left;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 14px; padding: 22px 18px; text-align: left;
     }
-
-    .stat-label {
-      font-family: 'Share Tech Mono',monospace;
-      font-size: .62rem;
-      letter-spacing: .25em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 8px;
-    }
-
+    .stat-label { font-family: 'Share Tech Mono',monospace; font-size: .62rem; letter-spacing: .25em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
     .stat-val {
-      font-weight: 900;
-      font-size: clamp(1.6rem,5vw,2.2rem);
-      line-height: 1;
+      font-weight: 900; font-size: clamp(1.6rem,5vw,2.2rem); line-height: 1;
       background: linear-gradient(135deg,var(--blue),var(--blue2));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
     }
-
     .stat-sub { margin-top: 6px; font-size: .72rem; color: var(--muted); }
 
     footer {
-      position: relative;
-      z-index: 10;
-      border-top: 1px solid var(--border);
-      padding: 24px 16px;
-      text-align: center;
-      color: var(--muted);
-      font-size: .75rem;
-      letter-spacing: .1em;
+      position: relative; z-index: 10; border-top: 1px solid var(--border);
+      padding: 24px 16px; text-align: center; color: var(--muted);
+      font-size: .75rem; letter-spacing: .1em;
     }
 
     #game-viewer {
-      display: none;
-      position: fixed;
-      inset: 0;
-      z-index: 9999;
-      flex-direction: column;
-      background: #000;
-      height: 100dvh;
-      width: 100vw;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.35s ease;
+      display: none; position: fixed; inset: 0; z-index: 9999;
+      flex-direction: column; background: #000;
+      height: 100dvh; width: 100vw;
+      opacity: 0; pointer-events: none; transition: opacity 0.35s ease;
     }
-
     #game-viewer.show { opacity: 1; pointer-events: auto; }
 
     #viewer-bar {
-      height: 52px;
-      flex-shrink: 0;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 0 12px;
+      height: 52px; flex-shrink: 0; display: flex; align-items: center;
+      gap: 8px; padding: 0 12px;
       background: linear-gradient(180deg,#111 0%,#0a0a0a 100%);
       border-bottom: 1px solid rgba(255,255,255,0.18);
       box-shadow: 0 1px 0 rgba(255,255,255,0.04), 0 4px 24px rgba(0,0,0,0.6);
       position: relative;
     }
-
     #viewer-bar::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 1px;
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
       background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.25) 30%, rgba(255,255,255,0.5) 50%, rgba(255,255,255,0.25) 70%, transparent 100%);
     }
 
     #bar-logo {
-      display: flex;
-      align-items: center;
-      gap: 7px;
-      font-family: 'Exo 2',sans-serif;
-      font-weight: 900;
-      font-size: .78rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: #fff;
+      display: flex; align-items: center; gap: 7px;
+      font-family: 'Exo 2',sans-serif; font-weight: 900; font-size: .78rem;
+      letter-spacing: 0.12em; text-transform: uppercase; color: #fff;
       text-shadow: 0 0 16px rgba(255,255,255,0.35);
-      white-space: nowrap;
-      flex-shrink: 0;
-      border: none;
-      background: transparent;
-      cursor: pointer;
-      padding: 0 4px;
+      white-space: nowrap; flex-shrink: 0;
+      border: none; background: transparent; cursor: pointer; padding: 0 4px;
       transition: text-shadow .2s;
     }
-
     #bar-logo:hover { text-shadow: 0 0 28px rgba(255,255,255,0.7); }
-    #bar-logo img { width: 24px; height: 24px; border-radius: 6px; object-fit: cover; filter: drop-shadow(0 0 6px rgba(255,255,255,0.4)); }
+
+    #bar-logo-img {
+      width: 28px; height: 28px; border-radius: 8px; object-fit: cover;
+      filter: drop-shadow(0 0 6px rgba(255,255,255,0.4));
+      transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+
+    /* Swap animation when icon changes */
+    #bar-logo-img.swap {
+      opacity: 0;
+      transform: scale(0.7);
+    }
+
     #bar-logo .bar-brand { color: var(--blue2); }
 
     #bar-game-name {
-      font-family: 'Share Tech Mono',monospace;
-      font-size: .68rem;
-      letter-spacing: .2em;
-      text-transform: uppercase;
-      color: var(--muted);
-      flex: 1;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      padding: 0 4px;
+      font-family: 'Share Tech Mono',monospace; font-size: .68rem;
+      letter-spacing: .2em; text-transform: uppercase; color: var(--muted);
+      flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding: 0 4px;
     }
 
     .bar-sep { width: 1px; height: 22px; background: rgba(255,255,255,0.1); flex-shrink: 0; }
 
     .vbar-btn {
-      width: 36px; height: 36px;
-      flex-shrink: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 8px;
-      background: rgba(255,255,255,0.04);
-      color: var(--muted);
-      cursor: pointer;
-      font-size: 1rem;
+      width: 36px; height: 36px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      border: 1px solid rgba(255,255,255,0.1); border-radius: 8px;
+      background: rgba(255,255,255,0.04); color: var(--muted);
+      cursor: pointer; font-size: 1rem;
       transition: background .15s,color .15s,border-color .15s,box-shadow .15s;
       position: relative;
     }
-
     .vbar-btn:hover { background: rgba(255,255,255,0.1); color: #fff; border-color: rgba(255,255,255,0.3); box-shadow: 0 0 10px rgba(255,255,255,0.08); }
     .vbar-btn.danger:hover { background: rgba(220,50,50,0.15); color: #ff6060; border-color: rgba(220,50,50,0.4); box-shadow: 0 0 10px rgba(220,50,50,0.15); }
 
     .vbar-btn[data-tip]:hover::after {
       content: attr(data-tip);
-      position: absolute;
-      bottom: -30px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: #1a1a1a;
-      border: 1px solid rgba(255,255,255,0.12);
-      color: var(--text);
-      font-size: .62rem;
-      font-family: 'Exo 2',sans-serif;
-      letter-spacing: .05em;
-      padding: 3px 8px;
-      border-radius: 5px;
-      white-space: nowrap;
-      pointer-events: none;
-      z-index: 99999;
+      position: absolute; bottom: -30px; left: 50%; transform: translateX(-50%);
+      background: #1a1a1a; border: 1px solid rgba(255,255,255,0.12); color: var(--text);
+      font-size: .62rem; font-family: 'Exo 2',sans-serif; letter-spacing: .05em;
+      padding: 3px 8px; border-radius: 5px; white-space: nowrap;
+      pointer-events: none; z-index: 99999;
     }
 
     #viewer-iframe { flex: 1; border: none; width: 100%; display: block; min-height: 0; }
@@ -571,107 +401,44 @@
     #chat .sec-title { margin-bottom: 8px; }
 
     .chat-subtitle {
-      font-size: .8rem;
-      color: var(--muted);
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      font-family: 'Share Tech Mono', monospace;
-      margin-bottom: 32px;
+      font-size: .8rem; color: var(--muted); letter-spacing: .12em;
+      text-transform: uppercase; font-family: 'Share Tech Mono', monospace; margin-bottom: 32px;
     }
 
     .chat-phone {
-      width: 100%;
-      max-width: 420px;
-      background: #111;
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 40px;
-      overflow: hidden;
+      width: 100%; max-width: 420px; background: #111;
+      border: 1px solid rgba(255,255,255,0.1); border-radius: 40px; overflow: hidden;
       box-shadow: 0 0 80px rgba(0,0,0,0.8), 0 0 0 1px rgba(255,255,255,0.05) inset;
-      display: flex;
-      flex-direction: column;
-      height: 620px;
-    }
-
-    .chat-status-bar {
-      background: #111;
-      padding: 14px 22px 8px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-shrink: 0;
-    }
-
-    .chat-status-time {
-      font-size: .7rem;
-      font-weight: 700;
-      color: #fff;
-      font-family: 'Exo 2', sans-serif;
-    }
-
-    .chat-status-icons {
-      display: flex;
-      gap: 5px;
-      align-items: center;
-      font-size: .6rem;
-      color: #fff;
+      display: flex; flex-direction: column; height: 620px;
     }
 
     .chat-header {
-      background: #1a1a1a;
-      border-bottom: 1px solid rgba(255,255,255,0.07);
-      padding: 10px 16px 14px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 6px;
-      flex-shrink: 0;
+      background: #1a1a1a; border-bottom: 1px solid rgba(255,255,255,0.07);
+      padding: 10px 16px 14px; display: flex; flex-direction: column;
+      align-items: center; gap: 6px; flex-shrink: 0;
     }
 
     .chat-avatar {
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
+      width: 48px; height: 48px; border-radius: 50%;
       background: linear-gradient(135deg, #555, #999);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.4rem;
-      box-shadow: 0 0 20px rgba(170,170,170,0.3);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem; box-shadow: 0 0 20px rgba(170,170,170,0.3);
     }
 
-    .chat-contact-name {
-      font-weight: 800;
-      font-size: .85rem;
-      color: #fff;
-      letter-spacing: .04em;
-    }
-
-    .chat-contact-sub {
-      font-size: .62rem;
-      color: #4cd964;
-      font-family: 'Share Tech Mono', monospace;
-      letter-spacing: .1em;
-    }
+    .chat-contact-name { font-weight: 800; font-size: .85rem; color: #fff; letter-spacing: .04em; }
+    .chat-contact-sub { font-size: .62rem; color: #4cd964; font-family: 'Share Tech Mono', monospace; letter-spacing: .1em; }
 
     .chat-messages {
-      flex: 1;
-      overflow-y: auto;
-      padding: 16px 14px;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      min-height: 0;
+      flex: 1; overflow-y: auto; padding: 16px 14px;
+      display: flex; flex-direction: column; gap: 8px; min-height: 0;
     }
-
     .chat-messages::-webkit-scrollbar { width: 3px; }
     .chat-messages::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 99px; }
 
     .msg-row {
-      display: flex;
-      flex-direction: column;
+      display: flex; flex-direction: column;
       animation: msgPop .25s cubic-bezier(.34,1.56,.64,1) forwards;
     }
-
     @keyframes msgPop {
       from { opacity: 0; transform: scale(0.85) translateY(8px); }
       to { opacity: 1; transform: scale(1) translateY(0); }
@@ -681,123 +448,54 @@
     .msg-row.ai { align-items: flex-start; }
 
     .msg-bubble {
-      max-width: 78%;
-      padding: 10px 14px;
-      border-radius: 20px;
-      font-size: .82rem;
-      line-height: 1.5;
-      word-break: break-word;
-      white-space: pre-wrap;
+      max-width: 78%; padding: 10px 14px; border-radius: 20px;
+      font-size: .82rem; line-height: 1.5; word-break: break-word; white-space: pre-wrap;
     }
+    .msg-row.user .msg-bubble { background: #3478f6; color: #fff; border-bottom-right-radius: 5px; }
+    .msg-row.ai .msg-bubble { background: #2a2a2a; color: #e5e5e5; border-bottom-left-radius: 5px; border: 1px solid rgba(255,255,255,0.07); }
 
-    .msg-row.user .msg-bubble {
-      background: #3478f6;
-      color: #fff;
-      border-bottom-right-radius: 5px;
-    }
+    .msg-time { font-size: .55rem; color: var(--muted); margin-top: 3px; padding: 0 4px; font-family: 'Share Tech Mono', monospace; }
 
-    .msg-row.ai .msg-bubble {
-      background: #2a2a2a;
-      color: #e5e5e5;
-      border-bottom-left-radius: 5px;
-      border: 1px solid rgba(255,255,255,0.07);
-    }
-
-    .msg-time {
-      font-size: .55rem;
-      color: var(--muted);
-      margin-top: 3px;
-      padding: 0 4px;
-      font-family: 'Share Tech Mono', monospace;
-    }
-
-    /* Typing indicator */
     .typing-bubble {
-      background: #2a2a2a;
-      border: 1px solid rgba(255,255,255,0.07);
-      border-radius: 20px;
-      border-bottom-left-radius: 5px;
-      padding: 12px 18px;
-      display: flex;
-      align-items: center;
-      gap: 5px;
+      background: #2a2a2a; border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 20px; border-bottom-left-radius: 5px;
+      padding: 12px 18px; display: flex; align-items: center; gap: 5px;
     }
-
-    .typing-dot {
-      width: 7px;
-      height: 7px;
-      background: #888;
-      border-radius: 50%;
-      animation: typingBounce 1.2s ease-in-out infinite;
-    }
-
+    .typing-dot { width: 7px; height: 7px; background: #888; border-radius: 50%; animation: typingBounce 1.2s ease-in-out infinite; }
     .typing-dot:nth-child(2) { animation-delay: .2s; }
     .typing-dot:nth-child(3) { animation-delay: .4s; }
-
     @keyframes typingBounce {
       0%, 60%, 100% { transform: translateY(0); opacity: .4; }
       30% { transform: translateY(-6px); opacity: 1; }
     }
 
     .chat-input-area {
-      background: #1a1a1a;
-      border-top: 1px solid rgba(255,255,255,0.07);
-      padding: 10px 12px 16px;
-      display: flex;
-      align-items: flex-end;
-      gap: 8px;
-      flex-shrink: 0;
+      background: #1a1a1a; border-top: 1px solid rgba(255,255,255,0.07);
+      padding: 10px 12px 16px; display: flex; align-items: flex-end; gap: 8px; flex-shrink: 0;
     }
 
     .chat-input {
-      flex: 1;
-      background: #2a2a2a;
-      border: 1px solid rgba(255,255,255,0.12);
-      border-radius: 22px;
-      padding: 10px 16px;
-      color: #fff;
-      font-family: 'Exo 2', sans-serif;
-      font-size: .82rem;
-      outline: none;
-      resize: none;
-      max-height: 100px;
-      line-height: 1.4;
-      transition: border-color .2s;
+      flex: 1; background: #2a2a2a; border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 22px; padding: 10px 16px; color: #fff;
+      font-family: 'Exo 2', sans-serif; font-size: .82rem; outline: none;
+      resize: none; max-height: 100px; line-height: 1.4; transition: border-color .2s;
     }
-
     .chat-input::placeholder { color: #555; }
     .chat-input:focus { border-color: rgba(255,255,255,0.25); }
 
     .chat-send-btn {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      background: #3478f6;
-      border: none;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      transition: transform .15s, background .15s;
+      width: 36px; height: 36px; border-radius: 50%; background: #3478f6;
+      border: none; cursor: pointer; display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; transition: transform .15s, background .15s;
     }
-
     .chat-send-btn:hover { transform: scale(1.08); background: #4a8aff; }
     .chat-send-btn:disabled { background: #2a2a2a; cursor: not-allowed; transform: none; }
-
     .chat-send-btn svg { width: 16px; height: 16px; fill: #fff; }
 
     .chat-date-chip {
-      align-self: center;
-      background: rgba(255,255,255,0.06);
-      color: var(--muted);
-      font-size: .58rem;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      font-family: 'Share Tech Mono', monospace;
-      padding: 3px 10px;
-      border-radius: 99px;
-      margin: 4px 0;
+      align-self: center; background: rgba(255,255,255,0.06); color: var(--muted);
+      font-size: .58rem; letter-spacing: .12em; text-transform: uppercase;
+      font-family: 'Share Tech Mono', monospace; padding: 3px 10px; border-radius: 99px; margin: 4px 0;
     }
   </style>
 </head>
@@ -826,43 +524,37 @@
         <div class="game-card">
           <img class="game-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmLObGiAAgCMDxSvt9Zr8IlUYvyI9Kwwdrjg&s" alt="Subway Surfers">
           <div class="game-name">Subway Surfers</div>
-          <button class="play-btn" onclick="openGame('https://rawcdn.githack.com/bandruf-games/lioxryt-assets/0cf7d107ddb99c99ea20387522aa29b8ee382049/other/subwaysurfers/index.html','Subway Surfers')">▶ Play</button>
+          <button class="play-btn" onclick="openGame('https://rawcdn.githack.com/bandruf-games/lioxryt-assets/0cf7d107ddb99c99ea20387522aa29b8ee382049/other/subwaysurfers/index.html','Subway Surfers','https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmLObGiAAgCMDxSvt9Zr8IlUYvyI9Kwwdrjg&s')">▶ Play</button>
         </div>
 
         <div class="game-card">
           <img class="game-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSuxqLfXqm07uXPH0qyPu_6MofiU9nlUoq9w&s" alt="2048">
           <div class="game-name">2048</div>
-          <button class="play-btn" onclick="openGame('https://play2048.co/','2048')">▶ Play</button>
+          <button class="play-btn" onclick="openGame('https://play2048.co/','2048','https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSuxqLfXqm07uXPH0qyPu_6MofiU9nlUoq9w&s')">▶ Play</button>
         </div>
 
         <div class="game-card">
           <img class="game-img" src="https://1games.io/data/image/game/basket-random/banner/basket-random.png" alt="Basket Random">
           <div class="game-name">Basket Random</div>
-          <button class="play-btn" onclick="openGame('https://rnv3.pages.dev/G/basket-random/','Basket Random')">▶ Play</button>
+          <button class="play-btn" onclick="openGame('https://rnv3.pages.dev/G/basket-random/','Basket Random','https://1games.io/data/image/game/basket-random/banner/basket-random.png')">▶ Play</button>
         </div>
 
         <div class="game-card">
           <img class="game-img" src="https://m.media-amazon.com/images/I/71uaF+NaGmL._h1_.png" alt="Burrito Bison">
           <div class="game-name">Burrito Bison</div>
-          <button class="play-btn" onclick="openGame('https://html-classic.itch.zone/html/7437859/index.html','Burrito Bison')">▶ Play</button>
+          <button class="play-btn" onclick="openGame('https://html-classic.itch.zone/html/7437859/index.html','Burrito Bison','https://m.media-amazon.com/images/I/71uaF+NaGmL._h1_.png')">▶ Play</button>
         </div>
 
         <div class="game-card">
           <img class="game-img" src="https://img.poki-cdn.com/cdn-cgi/image/q=78,scq=50,width=314,height=314,fit=cover,f=auto/ee9ca3764ef4289a48a1ebf457ef605441ed1f35a0f2eb12707a70d609e53686/retro-bowl.png" alt="Retro Bowl">
           <div class="game-name">Retro Bowl</div>
-          <button class="play-btn" onclick="openGame('https://game316009.konggames.com/gamez/0031/6009/live/index.html','Retro Bowl')">▶ Play</button>
+          <button class="play-btn" onclick="openGame('https://game316009.konggames.com/gamez/0031/6009/live/index.html','Retro Bowl','https://img.poki-cdn.com/cdn-cgi/image/q=78,scq=50,width=314,height=314,fit=cover,f=auto/ee9ca3764ef4289a48a1ebf457ef605441ed1f35a0f2eb12707a70d609e53686/retro-bowl.png')">▶ Play</button>
         </div>
 
         <div class="game-card">
           <img class="game-img" src="https://imgs.crazygames.com/shellshockersio_1x1/20251216154029/shellshockersio_1x1-cover?format=auto&quality=100&metadata=none&width=1200" alt="Shell Shockers">
           <div class="game-name">Shell Shockers</div>
-          <button class="play-btn" onclick="openGame('https://yolk.best/','Shell Shockers')">▶ Play</button>
-        </div>
-
-        <div class="game-card">
-          <img class="game-img" src="https://img.poki-cdn.com/cdn-cgi/image/q=78,scq=50,width=314,height=314,fit=cover,f=auto/ee9ca3764ef4289a48a1ebf457ef605441ed1f35a0f2eb12707a70d609e53686/retro-bowl.png" alt="Retro Bowl">
-          <div class="game-name">Retro Bowl</div>
-          <button class="play-btn" onclick="openGame('https://game316009.konggames.com/gamez/0031/6009/live/index.html','Retro Bowl')">▶ Play</button>
+          <button class="play-btn" onclick="openGame('https://yolk.best/','Shell Shockers','https://imgs.crazygames.com/shellshockersio_1x1/20251216154029/shellshockersio_1x1-cover?format=auto&quality=100&metadata=none&width=1200')">▶ Play</button>
         </div>
 
       </div>
@@ -909,7 +601,7 @@
         </div>
         <div class="stat-card">
           <div class="stat-label">Games</div>
-          <div class="stat-val" data-count="3">0</div>
+          <div class="stat-val" data-count="6">0</div>
           <div class="stat-sub">available now</div>
         </div>
         <div class="stat-card">
@@ -926,34 +618,22 @@
       <p class="chat-subtitle">Powered by Claude AI</p>
 
       <div class="chat-phone">
-
-        <!-- Status bar -->
-
-        <!-- Contact header -->
         <div class="chat-header">
           <div class="chat-contact-name">Butter Dog AI</div>
         </div>
 
-        <!-- Messages -->
         <div class="chat-messages" id="chat-messages">
           <div class="msg-row ai">
             <div class="msg-bubble">Hey! I'm Butter Dog's AI assistant 🐾 Ask me anything about games, tips, or just chat!</div>
           </div>
         </div>
 
-        <!-- Input bar -->
         <div class="chat-input-area">
-          <textarea
-            class="chat-input"
-            id="chat-input"
-            placeholder="iMessage"
-            rows="1"
-          ></textarea>
+          <textarea class="chat-input" id="chat-input" placeholder="iMessage" rows="1"></textarea>
           <button class="chat-send-btn" id="chat-send" onclick="sendMessage()">
             <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
           </button>
         </div>
-
       </div>
     </section>
 
@@ -962,7 +642,7 @@
   <div id="game-viewer">
     <div id="viewer-bar">
       <button id="bar-logo" onclick="closeViewer()">
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmLObGiAAgCMDxSvt9Zr8IlUYvyI9Kwwdrjg&s" alt="">
+        <img id="bar-logo-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmLObGiAAgCMDxSvt9Zr8IlUYvyI9Kwwdrjg&s" alt="Game">
         <span class="bar-brand">Butter Dog Games</span>
       </button>
       <div class="bar-sep"></div>
@@ -993,7 +673,6 @@
       this.style.height = 'auto';
       this.style.height = Math.min(this.scrollHeight, 100) + 'px';
     });
-
     chatInput.addEventListener('keydown', function(e) {
       if (e.key === 'Enter' && !e.shiftKey) {
         e.preventDefault();
@@ -1003,7 +682,7 @@
 
     // ── Chat logic ──
     var chatHistory = [
-      { role: 'system', content: 'You are Butter Dog, a fun, friendly AI assistant for Butter Dog Games — a gaming website with Subway Surfers, 2048, and Basket Random. You love games, use the occasional dog pun, keep answers concise (1-3 sentences), and are always enthusiastic. Use emojis sparingly.' }
+      { role: 'system', content: 'You are Butter Dog, a fun, friendly AI assistant for Butter Dog Games — a gaming website with Subway Surfers, 2048, Basket Random, Burrito Bison, Retro Bowl, and Shell Shockers. You love games, use the occasional dog pun, keep answers concise (1-3 sentences), and are always enthusiastic. Use emojis sparingly.' }
     ];
 
     function getTime() {
@@ -1018,15 +697,12 @@
       var messages = document.getElementById('chat-messages');
       var row = document.createElement('div');
       row.className = 'msg-row ' + role;
-
       var bubble = document.createElement('div');
       bubble.className = 'msg-bubble';
       bubble.textContent = text;
-
       var time = document.createElement('div');
       time.className = 'msg-time';
       time.textContent = getTime();
-
       row.appendChild(bubble);
       row.appendChild(time);
       messages.appendChild(row);
@@ -1039,11 +715,9 @@
       var row = document.createElement('div');
       row.className = 'msg-row ai';
       row.id = 'typing-indicator';
-
       var bubble = document.createElement('div');
       bubble.className = 'typing-bubble';
       bubble.innerHTML = '<div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>';
-
       row.appendChild(bubble);
       messages.appendChild(row);
       messages.scrollTop = messages.scrollHeight;
@@ -1060,31 +734,23 @@
       var text = input.value.trim();
       if (!text) return;
 
-      // Add user message
       appendMessage('user', text);
       chatHistory.push({ role: 'user', content: text });
 
-      // Clear input
       input.value = '';
       input.style.height = 'auto';
       sendBtn.disabled = true;
-
-      // Show typing
       showTyping();
 
       try {
-        var messages = chatHistory.filter(m => m.role !== 'system');
         var response = await puter.ai.chat(
           text,
           { model: 'anthropic/claude-sonnet-4-6' }
         );
-
         hideTyping();
-
         var aiText = response.message.content[0].text;
         chatHistory.push({ role: 'assistant', content: aiText });
         appendMessage('ai', aiText);
-
       } catch (err) {
         hideTyping();
         appendMessage('ai', 'Woof — something went wrong on my end! 🐾 Try again in a sec.');
